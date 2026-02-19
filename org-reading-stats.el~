@@ -1,0 +1,35 @@
+(require 'simple-httpd)
+(require 'json)
+
+(defvar org-reading-stats-file "~/.emacs.d/org/read_papers.org"
+  "Ruta a tu archivo org de lecturas.")
+
+;;; 1. EL SERVLET (Usa la misma macro que org-roam-timeline)
+;; Esto crea automáticamente la ruta: /servlet/reading-data
+(defservlet reading-data text/json ()
+  (with-temp-buffer
+    (insert-file-contents org-reading-stats-file)
+    (let (results)
+      (goto-char (point-min))
+      ;; REGEX CORREGIDO: Busca el formato
+      (while (re-search-forward "\\*\\* +\\(\\]+\\]\\)[\n[:space:]]+\\([<\[][0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}[^>\]]*[>\]]\\)" nil t)
+        (let* ((cite (match-string 1))
+               (ts-raw (match-string 2))
+               (clean-ts (replace-regexp-in-string "[<\[>]" "" ts-raw))
+               (clean-ts (replace-regexp-in-string " [A-Za-z]\\{3\\}" "" clean-ts)))
+          (push `((cite . ,cite)
+                  (timestamp . ,clean-ts))
+                results)))
+      (insert (json-encode results))))
+
+;;; 2. FUNCIÓN DE ARRANQUE
+(defun org-reading-stats-start ()
+  "Inicia el servidor igual que org-roam-timeline."
+  (interactive)
+  (httpd-stop)
+  (setq httpd-port 8080)
+  ;; Mapeamos la raíz a tu carpeta web
+  (setq httpd-root (expand-file-name "web/" (file-name-directory (or load-file-name buffer-file-name))))
+  (httpd-start)
+  (message "API Lista en: http://localhost:8080/servlet/reading-data")
+  (message "Dashboard en: http://localhost:8080/index.html"))

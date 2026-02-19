@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Org Reading Stats</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f9; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; }
+        .chart-box { margin-bottom: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard de Lectura</h1>
+        
+        <div class="chart-box">
+            <canvas id="historyChart"></canvas>
+        </div>
+        
+        <div class="chart-box">
+            <canvas id="hourChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        async function loadStats() {
+            // 1. Obtener datos del servlet de Emacs
+            const response = await fetch('/servlet/reading-data');
+            const data = await response.json();
+
+            // 2. Procesar datos para Historial (por fecha)
+            const historyMap = {};
+            // 3. Procesar datos para Reloj (por hora 0-23)
+            const hourCounts = new Array(24).fill(0);
+
+            data.forEach(entry => {
+                const dateObj = new Date(entry.timestamp);
+                
+                // Agrupar por fecha (YYYY-MM-DD)
+                const dateStr = dateObj.toISOString().split('T')[0];
+                historyMap[dateStr] = (historyMap[dateStr] || 0) + 1;
+
+                // Agrupar por hora (si existe en el timestamp)
+                if (entry.timestamp.includes(':')) {
+                    const hour = dateObj.getHours();
+                    hourCounts[hour]++;
+                }
+            });
+
+            // --- Gráfico de Líneas (Historial) ---
+            const sortedDates = Object.keys(historyMap).sort();
+            new Chart(document.getElementById('historyChart'), {
+                type: 'line',
+                data: {
+                    labels: sortedDates,
+                    datasets: [{
+                        label: 'Papers leídos por día',
+                        data: sortedDates.map(d => historyMap[d]),
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                }
+            });
+
+            // --- Gráfico de Radar (Frecuencia horaria) ---
+            new Chart(document.getElementById('hourChart'), {
+                type: 'radar',
+                data: {
+                    labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                    datasets: [{
+                        label: 'Densidad horaria de lectura',
+                        data: hourCounts,
+                        backgroundColor: 'rgba(231, 76, 60, 0.2)',
+                        borderColor: '#e74c3c',
+                        pointBackgroundColor: '#e74c3c'
+                    }]
+                },
+                options: {
+                    scales: { r: { beginAtZero: true } }
+                }
+            });
+        }
+
+        loadStats();
+    </script>
+</body>
+</html>
