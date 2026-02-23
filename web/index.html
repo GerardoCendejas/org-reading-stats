@@ -1,81 +1,91 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>Org Reading Stats</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { font-family: sans-serif; background: #f4f4f9; padding: 20px; color: #333; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #2c3e50; }
-        .chart-box { margin-bottom: 40px; }
+      body { font-family: sans-serif; background: #f4f4f9; padding: 20px; color: #333; }
+      .container { max-width: 900px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+      h1 { text-align: center; color: #2c3e50; margin-bottom: 30px; }
+      .chart-box { margin-bottom: 50px; height: 350px; }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Dashboard de Lectura</h1>
-        <div class="chart-box">
-            <canvas id="historyChart"></canvas>
-        </div>
-        <div class="chart-box">
-            <canvas id="hourChart"></canvas>
-        </div>
+      <h1>Dashboard de Lectura</h1>
+      <div class="chart-box"><canvas id="historyChart"></canvas></div>
+      <div class="chart-box"><canvas id="hourChart"></canvas></div>
     </div>
 
     <script>
       async function loadStats() {
-	  try {
+          try {
               const response = await fetch('data.json');
-              if (!response.ok) throw new Error('No se pudo cargar data.json');
-              
               const data = await response.json();
-              console.log("Datos crudos recibidos:", data);
-
-              // VALIDACIÓN: Si data es null o no es un array, detenemos y avisamos
-              if (!data || !Array.isArray(data)) {
-		  console.error("El archivo data.json contiene 'null' o no es un formato válido.");
-		  return;
-              }
-
-              if (data.length === 0) {
-		  console.warn("El JSON está vacío []. El archivo .org no tiene líneas que empiecen con '* '");
-		  return;
+              
+              if (!data || data.length === 0) {
+                  console.error("JSON vacío detectado.");
+                  return;
               }
 
               const historyMap = {};
               const hourCounts = new Array(24).fill(0);
 
               data.forEach(entry => {
-		  // Usamos un try/catch interno para que una fecha mal formada no rompa todo
-		  try {
-                      const dateObj = new Date(entry.timestamp.replace(/-/g, '/'));
-                      const dateStr = dateObj.toISOString().split('T')[0];
-                      historyMap[dateStr] = (historyMap[dateStr] || 0) + 1;
-                      
-                      const hour = dateObj.getHours();
-                      hourCounts[hour]++;
-		  } catch (e) { console.error("Error con entrada:", entry); }
-              });
+                  // Limpiar nombres de días (Wed, Thu...) y normalizar guiones
+                  let cleanDate = entry.timestamp.replace(/[A-Za-z]{3}/g, '').trim();
+                  cleanDate = cleanDate.replace(/-/g, '/');
+                  const dateObj = new Date(cleanDate);
+                  
+                  if (!isNaN(dateObj.getTime())) {
+                      // 1. Gráfico de líneas (Días)
+                      const dateKey = dateObj.toISOString().split('T')[0];
+      historyMap[dateKey] = (historyMap[dateKey] || 0) + 1;
 
-              // --- Renderizar una sola gráfica simple para probar ---
-              const ctx = document.getElementById('historyChart').getContext('2d');
-              new Chart(ctx, {
-		  type: 'bar',
-		  data: {
-                      labels: Object.keys(historyMap),
-                      datasets: [{
-			  label: 'Títulos detectados (Prueba)',
-			  data: Object.values(historyMap),
-			  backgroundColor: '#3498db'
-                      }]
-		  }
-              });
-
-	  } catch (err) {
-              console.error("Fallo en el dashboard:", err);
-	  }
+      // 2. Gráfico de radar (Horas)
+      if (entry.timestamp.includes(':')) {
+      hourCounts[dateObj.getHours()]++;
       }
-      loadStats();
+      }
+      });
+
+      const sortedDates = Object.keys(historyMap).sort();
+
+      // Configuración de Historial
+      new Chart(document.getElementById('historyChart'), {
+      type: 'line',
+      data: {
+      labels: sortedDates,
+      datasets: [{
+      label: 'Papers leídos',
+      data: sortedDates.map(d => historyMap[d]),
+        borderColor: '#3498db',
+        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+        fill: true,
+        tension: 0.3
+        }]
+        },
+        options: { maintainAspectRatio: false }
+        });
+
+        // Configuración de Radar
+        new Chart(document.getElementById('hourChart'), {
+        type: 'radar',
+        data: {
+        labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+        datasets: [{
+        label: 'Intensidad horaria',
+        data: hourCounts,
+        backgroundColor: 'rgba(231, 76, 60, 0.2)',
+        borderColor: '#e74c3c'
+        }]
+        },
+        options: { maintainAspectRatio: false }
+        });
+        } catch (err) { console.error("Fallo al cargar:", err); }
+	}
+	loadStats();
     </script>
-</body>
+  </body>
 </html>
