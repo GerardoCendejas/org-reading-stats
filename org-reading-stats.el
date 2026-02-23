@@ -5,47 +5,55 @@
   "Path to your org reading file.")
 
 (defun org-reading-stats-generate-json ()
-  "Simplified processing: look for @cite and YYYY-MM-DD independently."
+  "Robust block-based processing to ensure cite and date are paired correctly."
   (interactive)
-  (let* ((base (file-name-directory (or load-file-name (buffer-file-name) default-directory)))
-         (web-dir (expand-file-name "web/" base))
-         (results nil)
-         (current-cite nil))
+  (let* ((script-dir (file-name-directory (or load-file-name (buffer-file-name) default-directory)))
+         (web-dir (expand-file-name "web/" script-dir))
+         (results nil))
     
-    (unless (file-directory-p web-dir)
-      (make-directory web-dir t))
+    (unless (file-directory-p web-dir) (make-directory web-dir t))
 
     (with-temp-buffer
       (insert-file-contents org-reading-stats-file)
       (goto-char (point-min))
-      (while (not (eobp))
-        (let ((line (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+      ;; Search for every instance of a citation key
+      (while (re-search-forward "@\\([^] \n\t]+\\)" nil t)
+        (let* ((cite-key (match-string 0))
+               (cite-id (match-string 1))
+               (timestamp nil)
+               (has-note nil)
+               (search-limit (save-excursion (forward-line 3) (point)))) ; Look up to 3 lines ahead for date
           
-          ;; 1. Find citation key (starts with @, ends with ] or space)
-          (when (string-match "@\\([^] ]+\\)" line)
-            (setq current-cite (match-string 1 line)))
+          ;; Look for the timestamp right after the citation
+          (save-excursion
+            (when (re-search-forward "\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}[^]>]*\\)" search-limit t)
+              (setq timestamp (match-string 1))))
           
-          ;; 2. Find date (any sequence XXXX-XX-XX)
-          (when (and current-cite (string-match "\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}[^]>]*\\)" line))
-            (push `((cite . ,current-cite)
-                    (timestamp . ,(match-string 1 line)))
-                  results)
-            ;; Reset current-cite to wait for the next paper
-            (setq current-cite nil)))
-        (forward-line 1)))
-
-    (with-temp-file (expand-file-name "data.json" web-dir)
-      (insert (json-encode (or results []))))
-    
-    (message "Analysis finished: %d papers found." (length results))))
+          ;; Check Org-roam for the note
+          (setq has-note (if (and (featurep 'org-roam) (org-roam-db-sync))
+                             (or (org-roam-node-from-ref cite-key)
+                                 (seq-find (lambda (node) 
+                                             (string= (org-roam-node-title node) cite-id))
+                                           (org-roam-node-list)))
+                           nil))
+          
+          ;; Only push to results if we found at least a citation
+          (when cite-key
+            (push `((cite . ,cite-key)
+                    (timestamp . ,(or timestamp ""))
+                    (has_note . ,(if has-note t :json-false))) ; Use :json-false for explicit boolean
+                  results))))
+      
+      ;; Write the final JSON
+      (with-temp-file (expand-file-name "data.json" web-dir)
+        (insert (json-encode (reverse results))))
+      (message "Dashboard updated: %d papers processed." (length results)))))
 
 (defun org-reading-stats-start ()
-  "Starts the server and generates data."
+  "Start the local server and refresh data."
   (interactive)
   (org-reading-stats-generate-json)
-  (setq httpd-port 8080)
-  (setq httpd-root (expand-file-name "web" (file-name-directory (or load-file-name (buffer-file-name) default-directory))))
+  (setq httpd-port 8087)
+  (setq httpd-root (expand-file-name "web/" (file-name-directory (or load-file-name (buffer-file-name) default-directory))))
   (httpd-start)
-  (message "Dashboard ready at http://localhost:8080/index.html"))
-
-(provide 'org-reading-stats)
+  (browse-url "http://localhost:8087/index.html"))
