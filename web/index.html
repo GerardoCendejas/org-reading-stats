@@ -1,148 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
-    <title>Org Reading Stats Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Org Reading Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@1.1.1/dist/chartjs-chart-matrix.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #eceff1; padding: 20px; color: #333; }
-        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #2c3e50; }
-        
-        /* Tabs Styling */
-        .tabs { display: flex; justify-content: center; margin-bottom: 25px; border-bottom: 2px solid #ddd; }
-        .tab-btn { padding: 12px 20px; cursor: pointer; border: none; background: none; font-weight: bold; color: #7f8c8d; transition: 0.3s; }
-        .tab-btn.active { color: #3498db; border-bottom: 3px solid #3498db; }
-        .tab-content { display: none; height: 450px; animation: fadeIn 0.5s; }
-        .tab-content.active { display: block; }
+      /* 1. Base styles with fluid width */
+      body { 
+          font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+          background: #f0f2f5; 
+          padding: 2vw; /* Padding proportional to screen width */
+          color: #1a1a1b; 
+          margin: 0;
+      }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      .container { 
+          width: 95%; /* Use most of the screen width */
+          max-width: 1400px; /* But don't let it get ridiculously wide on huge monitors */
+          margin: auto; 
+          background: white; 
+          padding: 2rem; 
+          border-radius: 16px; 
+          box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+          min-height: 85vh; /* Ensure it fills most of the vertical space */
+          display: flex;
+          flex-direction: column;
+	  }
+
+	   h1 { text-align: center; color: #2c3e50; font-weight: 700; margin-bottom: 1.5rem; }
+	   
+	   .tabs { 
+               display: flex; 
+               justify-content: center; 
+               margin-bottom: 20px; 
+               border-bottom: 2px solid #edf2f7; 
+               gap: 5px;
+               flex-wrap: wrap; /* Allow tabs to wrap on very small screens */
+	   }
+
+	   .tab-btn { 
+               padding: 10px 20px; 
+               cursor: pointer; 
+               border: none; 
+               background: none; 
+               font-size: 1rem; 
+               font-weight: 600; 
+               color: #718096; 
+               transition: 0.2s; 
+               border-radius: 8px 8px 0 0; 
+	   }
+
+	   .tab-btn.active { color: #3182ce; border-bottom: 3px solid #3182ce; background: rgba(49, 130, 206, 0.05); }
+	   
+	   /* 2. Responsive Chart Height */
+	   .tab-content { 
+               display: none; 
+               flex-grow: 1; /* Make the chart area take up available vertical space */
+               height: 65vh; /* Default height based on viewport height */
+               width: 100%; 
+               animation: fadeIn 0.4s ease; 
+	   }
+
+	   .tab-content.active { display: block; }
+
+	   /* Fix for Chart.js container resize */
+	   canvas { width: 100% !important; height: 100% !important; }
+
+	   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Research Reading Analytics</h1>
-        
-        <div class="tabs">
-            <button class="tab-btn active" onclick="openTab(event, 'dayTab')">By Day</button>
-            <button class="tab-btn" onclick="openTab(event, 'monthTab')">By Month</button>
-            <button class="tab-btn" onclick="openTab(event, 'weekdayTab')">By Weekday</button>
-            <button class="tab-btn" onclick="openTab(event, 'hourTab')">By Hour</button>
-        </div>
+      <h1>Research Reading Dashboard</h1>
+      
+      <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'dayTab')">By Day</button>
+        <button class="tab-btn" onclick="openTab(event, 'monthTab')">By Month</button>
+        <button class="tab-btn" onclick="openTab(event, 'weekdayTab')">By Weekday</button>
+        <button class="tab-btn" onclick="openTab(event, 'heatmapTab')">Heatmap</button>
+        <button class="tab-btn" onclick="openTab(event, 'hourTab')">By Hour</button>
+      </div>
 
-        <div id="dayTab" class="tab-content active"><canvas id="historyChart"></canvas></div>
-        <div id="monthTab" class="tab-content"><canvas id="monthChart"></canvas></div>
-        <div id="weekdayTab" class="tab-content"><canvas id="weekdayChart"></canvas></div>
-        <div id="hourTab" class="tab-content"><canvas id="hourChart"></canvas></div>
+      <div id="dayTab" class="tab-content active"><canvas id="historyChart"></canvas></div>
+      <div id="monthTab" class="tab-content"><canvas id="monthChart"></canvas></div>
+      <div id="weekdayTab" class="tab-content"><canvas id="weekdayChart"></canvas></div>
+      <div id="heatmapTab" class="tab-content"><canvas id="heatmapChart"></canvas></div>
+      <div id="hourTab" class="tab-content"><canvas id="hourChart"></canvas></div>
     </div>
 
     <script>
-        function openTab(evt, tabName) {
-            let i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("active");
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
+      function openTab(evt, tabName) {
+          const contents = document.getElementsByClassName("tab-content");
+          for (let i = 0; i < contents.length; i++) contents[i].style.display = "none";
+          const buttons = document.getElementsByClassName("tab-btn");
+          for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove("active");
+          document.getElementById(tabName).style.display = "block";
+          evt.currentTarget.classList.add("active");
+      }
 
-        async function loadStats() {
-            try {
-                const response = await fetch('data.json');
-                const data = await response.json();
-                if (!data.length) return;
+      async function loadStats() {
+          try {
+              const response = await fetch('data.json');
+              const data = await response.json();
+              if (!data || data.length === 0) return;
 
-                // Data Buckets
-                const historyMap = {};
-                const monthMap = {};
-                const weekdayCounts = new Array(7).fill(0); // Sun-Sat
-                const hourCounts = new Array(24).fill(0);
-                
-                let minDate = null, maxDate = null;
+              const historyMap = {}, monthMap = {};
+              const weekdayCounts = new Array(7).fill(0);
+              const hourCounts = new Array(24).fill(0);
+              const heatmapData = Array.from({length: 7}, () => new Array(24).fill(0));
+              
+              let minDate = null, maxDate = null;
+              const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-                data.forEach(entry => {
-                    const cleanTs = entry.timestamp.replace(/[A-Za-z]{3}/g, '').trim();
-                    const dateObj = new Date(cleanTs);
-                    
-                    if (!isNaN(dateObj.getTime())) {
-                        // 1. Daily History
-                        const dateKey = dateObj.toISOString().split('T')[0];
-                        historyMap[dateKey] = (historyMap[dateKey] || 0) + 1;
+              data.forEach(entry => {
+                  const cleanTs = entry.timestamp.replace(/Mon|Tue|Wed|Thu|Fri|Sat|Sun/g, '').trim();
+                  const dateObj = new Date(cleanTs);
+                  
+                  if (!isNaN(dateObj.getTime())) {
+                      const dateKey = dateObj.toISOString().split('T')[0];
+                      historyMap[dateKey] = (historyMap[dateKey] || 0) + 1;
 
-                        // 2. Monthly Stats
-                        const monthKey = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
-                        monthMap[monthKey] = (monthMap[monthKey] || 0) + 1;
+                      const monthKey = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
+                      monthMap[monthKey] = (monthMap[monthKey] || 0) + 1;
 
-                        // 3. Weekday Stats
-                        weekdayCounts[dateObj.getDay()]++;
+                      const wDay = dateObj.getDay();
+                      weekdayCounts[wDay]++;
 
-                        // 4. Hourly Radar
-                        if (entry.timestamp.includes(':')) {
-                            hourCounts[dateObj.getHours()]++;
-                        }
+                      // Only count hour/heatmap data if the entry has a specific time
+                      if (entry.timestamp.includes(':')) {
+                          const hr = dateObj.getHours();
+                          hourCounts[hr]++;
+                          heatmapData[wDay][hr]++;
+                      }
 
-                        // Date range for filling gaps
-                        const dayTs = new Date(dateKey).getTime();
-                        if (!minDate || dayTs < minDate) minDate = dayTs;
-                        if (!maxDate || dayTs > maxDate) maxDate = dayTs;
-                    }
-                });
+                      const dayTs = new Date(dateKey).getTime();
+                      if (!minDate || dayTs < minDate) minDate = dayTs;
+                      if (!maxDate || dayTs > maxDate) maxDate = dayTs;
+                  }
+              });
 
-                // --- 1. Line Chart (Day) with Gap Filling ---
-                const sortedLabels = [];
-                const sortedValues = [];
-                let current = new Date(minDate);
-                while (current <= new Date(maxDate)) {
-                    const key = current.toISOString().split('T')[0];
-                    sortedLabels.push(key);
-                    sortedValues.push(historyMap[key] || 0);
-                    current.setDate(current.getDate() + 1);
-                }
-                renderChart('historyChart', 'line', sortedLabels, sortedValues, '#3498db');
+              // 1. History (Blue)
+              const sortedLabels = [];
+              const sortedValues = [];
+              let curr = new Date(minDate);
+              while (curr <= new Date(maxDate)) {
+                  const k = curr.toISOString().split('T')[0];
+                  sortedLabels.push(k);
+                  sortedValues.push(historyMap[k] || 0);
+                  curr.setDate(curr.getDate() + 1);
+              }
+              renderChart('historyChart', 'line', sortedLabels, sortedValues, '#3182ce');
 
-                // --- 2. Bar Chart (Month) ---
-                renderChart('monthChart', 'bar', Object.keys(monthMap), Object.values(monthMap), '#9b59b6');
+              // 2. Month (Deep Purple)
+              renderChart('monthChart', 'bar', Object.keys(monthMap), Object.values(monthMap), '#71368a');
 
-                // --- 3. Bar Chart (Weekday) ---
-                const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                renderChart('weekdayChart', 'bar', weekdays, weekdayCounts, '#2ecc71');
+              // 3. Weekday (Deep Green)
+              renderChart('weekdayChart', 'bar', weekdays, weekdayCounts, '#1e8449');
 
-                // --- 4. Radar Chart (Hour) ---
-                new Chart(document.getElementById('hourChart'), {
-                    type: 'radar',
-                    data: {
-                        labels: Array.from({length: 24}, (_, i) => `${i}:00`),
-                        datasets: [{ label: 'Intensity', data: hourCounts, backgroundColor: 'rgba(231, 76, 60, 0.2)', borderColor: '#e74c3c' }]
-                    },
-                    options: { maintainAspectRatio: false, scales: { r: { beginAtZero: true } } }
-                });
+              // 4. Heatmap Fix (Day Names on Y-axis)
+              const matrixValues = [];
+              for(let d=0; d<7; d++) {
+                  for(let h=0; h<24; h++) {
+                      matrixValues.push({ x: h, y: weekdays[d], v: heatmapData[d][h] });
+                  }
+              }
 
-            } catch (err) { console.error("Error:", err); }
-        }
+              new Chart(document.getElementById('heatmapChart'), {
+                  type: 'matrix',
+                  data: {
+                      datasets: [{
+                          data: matrixValues,
+                          backgroundColor: (c) => {
+                              const v = c.dataset.data[c.dataIndex].v;
+                              return v === 0 ? '#f7fafc' : `rgba(49, 130, 206, ${Math.min(0.3 + (v * 0.4), 1)})`;
+                          },
+                          borderWidth: 1,
+                          borderColor: '#ffffff',
+                          width: ({chart}) => chart.chartArea ? (chart.chartArea.width / 24) - 2 : 20,
+                          height: ({chart}) => chart.chartArea ? (chart.chartArea.height / 7) - 2 : 40
+                      }]
+                  },
+                  options: {
+                      maintainAspectRatio: false,
+                      scales: {
+                          x: { 
+                              type: 'linear', min: -0.5, max: 23.5, 
+                              ticks: { stepSize: 1, callback: v => v >= 0 && v < 24 ? `${v}:00` : '' },
+                              title: { display: true, text: 'Hour of Day' }
+                          },
+                          y: { 
+                              type: 'category', 
+                              labels: weekdays,
+                              offset: true,
+                              grid: { display: false }
+                          }
+                      },
+                      plugins: { legend: { display: false } }
+                  }
+              });
 
-        function renderChart(id, type, labels, data, color) {
-            new Chart(document.getElementById(id), {
-                type: type,
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Papers Read',
-                        data: data,
-                        borderColor: color,
-                        backgroundColor: color + '33', // Add transparency
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: { 
-                    maintainAspectRatio: false, 
-                    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } 
-                }
-            });
-        }
+              // 5. Radar Chart (Filtering out no-time entries)
+              new Chart(document.getElementById('hourChart'), {
+                  type: 'radar',
+                  data: {
+                      labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                      datasets: [{ 
+                          label: 'Reading Intensity (Timed Papers Only)', 
+                          data: hourCounts, 
+                          backgroundColor: 'rgba(229, 62, 62, 0.7)', 
+                          borderColor: '#c53030',
+                          fill: true
+                      }]
+                  },
+                  options: { 
+                      maintainAspectRatio: false,
+                      scales: { r: { beginAtZero: true, ticks: { display: false } } }
+                  }
+              });
 
-        loadStats();
+          } catch (err) { console.error("Error:", err); }
+      }
+
+      function renderChart(id, type, labels, data, color) {
+          new Chart(document.getElementById(id), {
+              type: type,
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: 'Papers Read',
+                      data: data,
+                      borderColor: color,
+                      backgroundColor: color + 'CC', // High opacity
+                      fill: true,
+                      tension: 0.3
+                  }]
+              },
+              options: { 
+                  maintainAspectRatio: false, 
+                  scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } 
+              }
+          });
+      }
+      loadStats();
     </script>
-</body>
+  </body>
 </html>
