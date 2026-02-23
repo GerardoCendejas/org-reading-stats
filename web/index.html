@@ -1,113 +1,148 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>Org Reading Stats</title>
+    <title>Org Reading Stats Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-      body { font-family: sans-serif; background: #f4f4f9; padding: 20px; color: #333; }
-      .container { max-width: 900px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-      h1 { text-align: center; color: #2c3e50; margin-bottom: 30px; }
-      .chart-box { margin-bottom: 50px; height: 350px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #eceff1; padding: 20px; color: #333; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; }
+        
+        /* Tabs Styling */
+        .tabs { display: flex; justify-content: center; margin-bottom: 25px; border-bottom: 2px solid #ddd; }
+        .tab-btn { padding: 12px 20px; cursor: pointer; border: none; background: none; font-weight: bold; color: #7f8c8d; transition: 0.3s; }
+        .tab-btn.active { color: #3498db; border-bottom: 3px solid #3498db; }
+        .tab-content { display: none; height: 450px; animation: fadeIn 0.5s; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <h1>Dashboard de Lectura</h1>
-      <div class="chart-box"><canvas id="historyChart"></canvas></div>
-      <div class="chart-box"><canvas id="hourChart"></canvas></div>
+        <h1>Research Reading Analytics</h1>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'dayTab')">By Day</button>
+            <button class="tab-btn" onclick="openTab(event, 'monthTab')">By Month</button>
+            <button class="tab-btn" onclick="openTab(event, 'weekdayTab')">By Weekday</button>
+            <button class="tab-btn" onclick="openTab(event, 'hourTab')">By Hour</button>
+        </div>
+
+        <div id="dayTab" class="tab-content active"><canvas id="historyChart"></canvas></div>
+        <div id="monthTab" class="tab-content"><canvas id="monthChart"></canvas></div>
+        <div id="weekdayTab" class="tab-content"><canvas id="weekdayChart"></canvas></div>
+        <div id="hourTab" class="tab-content"><canvas id="hourChart"></canvas></div>
     </div>
 
     <script>
-      async function loadStats() {
-	  try {
-              const response = await fetch('data.json');
-              const data = await response.json();
-              if (!data || data.length === 0) return;
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
 
-              const historyMap = {};
-              const hourCounts = new Array(24).fill(0);
-              let minDate = null;
-              let maxDate = null;
+        async function loadStats() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                if (!data.length) return;
 
-              data.forEach(entry => {
-		  // Limpiar: "2026-02-18 Wed 11:52" -> "2026-02-18 11:52"
-		  const cleanTs = entry.timestamp.replace(/[A-Za-z]{3}/g, '').trim();
-		  const dateObj = new Date(cleanTs);
-		  
-		  if (!isNaN(dateObj.getTime())) {
-                      // 1. Mapa de días
-                      const dateKey = dateObj.toISOString().split('T')[0];
-                      historyMap[dateKey] = (historyMap[dateKey] || 0) + 1;
+                // Data Buckets
+                const historyMap = {};
+                const monthMap = {};
+                const weekdayCounts = new Array(7).fill(0); // Sun-Sat
+                const hourCounts = new Array(24).fill(0);
+                
+                let minDate = null, maxDate = null;
 
-                      // 2. Conteo de horas (Radar)
-                      // Solo sumamos si el string original contenía ":" (tiene hora)
-                      if (entry.timestamp.includes(':')) {
-			  hourCounts[dateObj.getHours()]++;
-                      }
+                data.forEach(entry => {
+                    const cleanTs = entry.timestamp.replace(/[A-Za-z]{3}/g, '').trim();
+                    const dateObj = new Date(cleanTs);
+                    
+                    if (!isNaN(dateObj.getTime())) {
+                        // 1. Daily History
+                        const dateKey = dateObj.toISOString().split('T')[0];
+                        historyMap[dateKey] = (historyMap[dateKey] || 0) + 1;
 
-                      // Seguimiento de rango de fechas
-                      const dayTs = new Date(dateKey).getTime();
-                      if (!minDate || dayTs < minDate) minDate = dayTs;
-                      if (!maxDate || dayTs > maxDate) maxDate = dayTs;
-		  }
-              });
+                        // 2. Monthly Stats
+                        const monthKey = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
+                        monthMap[monthKey] = (monthMap[monthKey] || 0) + 1;
 
-              // --- Lógica para rellenar días naturales faltantes ---
-              const sortedLabels = [];
-              const sortedValues = [];
-              if (minDate && maxDate) {
-		  let current = new Date(minDate);
-		  const end = new Date(maxDate);
-		  while (current <= end) {
-                      const key = current.toISOString().split('T')[0];
-                      sortedLabels.push(key);
-                      sortedValues.push(historyMap[key] || 0);
-                      current.setDate(current.getDate() + 1);
-		  }
-              }
+                        // 3. Weekday Stats
+                        weekdayCounts[dateObj.getDay()]++;
 
-              // Gráfico de Historial (Líneas)
-              new Chart(document.getElementById('historyChart'), {
-		  type: 'line',
-		  data: {
-                      labels: sortedLabels,
-                      datasets: [{
-			  label: 'Papers leídos',
-			  data: sortedValues,
-			  borderColor: '#3498db',
-			  backgroundColor: 'rgba(52, 152, 219, 0.1)',
-			  fill: true,
-			  tension: 0.3
-                      }]
-		  },
-		  options: { 
-                      maintainAspectRatio: false,
-                      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
-		  }
-              });
+                        // 4. Hourly Radar
+                        if (entry.timestamp.includes(':')) {
+                            hourCounts[dateObj.getHours()]++;
+                        }
 
-              // Gráfico de Intensidad (Radar)
-              new Chart(document.getElementById('hourChart'), {
-		  type: 'radar',
-		  data: {
-                      labels: Array.from({length: 24}, (_, i) => `${i}:00`),
-                      datasets: [{
-			  label: 'Intensidad por hora',
-			  data: hourCounts,
-			  backgroundColor: 'rgba(231, 76, 60, 0.2)',
-			  borderColor: '#e74c3c',
-			  pointBackgroundColor: '#e74c3c'
-                      }]
-		  },
-		  options: { 
-                      maintainAspectRatio: false,
-                      scales: { r: { beginAtZero: true, ticks: { display: false } } }
-		  }
-              });
-	  } catch (err) { console.error("Error:", err); }
-      }
-      loadStats();
+                        // Date range for filling gaps
+                        const dayTs = new Date(dateKey).getTime();
+                        if (!minDate || dayTs < minDate) minDate = dayTs;
+                        if (!maxDate || dayTs > maxDate) maxDate = dayTs;
+                    }
+                });
+
+                // --- 1. Line Chart (Day) with Gap Filling ---
+                const sortedLabels = [];
+                const sortedValues = [];
+                let current = new Date(minDate);
+                while (current <= new Date(maxDate)) {
+                    const key = current.toISOString().split('T')[0];
+                    sortedLabels.push(key);
+                    sortedValues.push(historyMap[key] || 0);
+                    current.setDate(current.getDate() + 1);
+                }
+                renderChart('historyChart', 'line', sortedLabels, sortedValues, '#3498db');
+
+                // --- 2. Bar Chart (Month) ---
+                renderChart('monthChart', 'bar', Object.keys(monthMap), Object.values(monthMap), '#9b59b6');
+
+                // --- 3. Bar Chart (Weekday) ---
+                const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                renderChart('weekdayChart', 'bar', weekdays, weekdayCounts, '#2ecc71');
+
+                // --- 4. Radar Chart (Hour) ---
+                new Chart(document.getElementById('hourChart'), {
+                    type: 'radar',
+                    data: {
+                        labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                        datasets: [{ label: 'Intensity', data: hourCounts, backgroundColor: 'rgba(231, 76, 60, 0.2)', borderColor: '#e74c3c' }]
+                    },
+                    options: { maintainAspectRatio: false, scales: { r: { beginAtZero: true } } }
+                });
+
+            } catch (err) { console.error("Error:", err); }
+        }
+
+        function renderChart(id, type, labels, data, color) {
+            new Chart(document.getElementById(id), {
+                type: type,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Papers Read',
+                        data: data,
+                        borderColor: color,
+                        backgroundColor: color + '33', // Add transparency
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: { 
+                    maintainAspectRatio: false, 
+                    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } 
+                }
+            });
+        }
+
+        loadStats();
     </script>
-  </body>
+</body>
 </html>
