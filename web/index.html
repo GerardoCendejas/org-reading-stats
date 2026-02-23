@@ -20,72 +20,94 @@
 
     <script>
       async function loadStats() {
-          try {
+	  try {
               const response = await fetch('data.json');
               const data = await response.json();
-              
-              if (!data || data.length === 0) {
-                  console.error("JSON vacío detectado.");
-                  return;
-              }
+              if (!data || data.length === 0) return;
 
               const historyMap = {};
               const hourCounts = new Array(24).fill(0);
+              let minDate = null;
+              let maxDate = null;
 
               data.forEach(entry => {
-                  // Limpiar nombres de días (Wed, Thu...) y normalizar guiones
-                  let cleanDate = entry.timestamp.replace(/[A-Za-z]{3}/g, '').trim();
-                  cleanDate = cleanDate.replace(/-/g, '/');
-                  const dateObj = new Date(cleanDate);
-                  
-                  if (!isNaN(dateObj.getTime())) {
-                      // 1. Gráfico de líneas (Días)
+		  // Limpiar: "2026-02-18 Wed 11:52" -> "2026-02-18 11:52"
+		  const cleanTs = entry.timestamp.replace(/[A-Za-z]{3}/g, '').trim();
+		  const dateObj = new Date(cleanTs);
+		  
+		  if (!isNaN(dateObj.getTime())) {
+                      // 1. Mapa de días
                       const dateKey = dateObj.toISOString().split('T')[0];
-      historyMap[dateKey] = (historyMap[dateKey] || 0) + 1;
+                      historyMap[dateKey] = (historyMap[dateKey] || 0) + 1;
 
-      // 2. Gráfico de radar (Horas)
-      if (entry.timestamp.includes(':')) {
-      hourCounts[dateObj.getHours()]++;
+                      // 2. Conteo de horas (Radar)
+                      // Solo sumamos si el string original contenía ":" (tiene hora)
+                      if (entry.timestamp.includes(':')) {
+			  hourCounts[dateObj.getHours()]++;
+                      }
+
+                      // Seguimiento de rango de fechas
+                      const dayTs = new Date(dateKey).getTime();
+                      if (!minDate || dayTs < minDate) minDate = dayTs;
+                      if (!maxDate || dayTs > maxDate) maxDate = dayTs;
+		  }
+              });
+
+              // --- Lógica para rellenar días naturales faltantes ---
+              const sortedLabels = [];
+              const sortedValues = [];
+              if (minDate && maxDate) {
+		  let current = new Date(minDate);
+		  const end = new Date(maxDate);
+		  while (current <= end) {
+                      const key = current.toISOString().split('T')[0];
+                      sortedLabels.push(key);
+                      sortedValues.push(historyMap[key] || 0);
+                      current.setDate(current.getDate() + 1);
+		  }
+              }
+
+              // Gráfico de Historial (Líneas)
+              new Chart(document.getElementById('historyChart'), {
+		  type: 'line',
+		  data: {
+                      labels: sortedLabels,
+                      datasets: [{
+			  label: 'Papers leídos',
+			  data: sortedValues,
+			  borderColor: '#3498db',
+			  backgroundColor: 'rgba(52, 152, 219, 0.1)',
+			  fill: true,
+			  tension: 0.3
+                      }]
+		  },
+		  options: { 
+                      maintainAspectRatio: false,
+                      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+		  }
+              });
+
+              // Gráfico de Intensidad (Radar)
+              new Chart(document.getElementById('hourChart'), {
+		  type: 'radar',
+		  data: {
+                      labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                      datasets: [{
+			  label: 'Intensidad por hora',
+			  data: hourCounts,
+			  backgroundColor: 'rgba(231, 76, 60, 0.2)',
+			  borderColor: '#e74c3c',
+			  pointBackgroundColor: '#e74c3c'
+                      }]
+		  },
+		  options: { 
+                      maintainAspectRatio: false,
+                      scales: { r: { beginAtZero: true, ticks: { display: false } } }
+		  }
+              });
+	  } catch (err) { console.error("Error:", err); }
       }
-      }
-      });
-
-      const sortedDates = Object.keys(historyMap).sort();
-
-      // Configuración de Historial
-      new Chart(document.getElementById('historyChart'), {
-      type: 'line',
-      data: {
-      labels: sortedDates,
-      datasets: [{
-      label: 'Papers leídos',
-      data: sortedDates.map(d => historyMap[d]),
-        borderColor: '#3498db',
-        backgroundColor: 'rgba(52, 152, 219, 0.1)',
-        fill: true,
-        tension: 0.3
-        }]
-        },
-        options: { maintainAspectRatio: false }
-        });
-
-        // Configuración de Radar
-        new Chart(document.getElementById('hourChart'), {
-        type: 'radar',
-        data: {
-        labels: Array.from({length: 24}, (_, i) => `${i}:00`),
-        datasets: [{
-        label: 'Intensidad horaria',
-        data: hourCounts,
-        backgroundColor: 'rgba(231, 76, 60, 0.2)',
-        borderColor: '#e74c3c'
-        }]
-        },
-        options: { maintainAspectRatio: false }
-        });
-        } catch (err) { console.error("Fallo al cargar:", err); }
-	}
-	loadStats();
+      loadStats();
     </script>
   </body>
 </html>
