@@ -141,7 +141,7 @@
                       historyMap[dateKey] = (historyMap[dateKey] || 0) + 1;
                       const monthKey = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
                       monthMap[monthKey] = (monthMap[monthKey] || 0) + 1;
-                      if (entry.has_note) papersWithNotes++;
+                      if (entry.has_note === "yes") papersWithNotes++;
                       if (entry.timestamp.includes(':')) {
                           const hr = dateObj.getHours();
                           hourCounts[hr]++;
