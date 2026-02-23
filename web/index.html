@@ -5,112 +5,47 @@
     <title>Org Reading Analytics</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@1.1.1/dist/chartjs-chart-matrix.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <style>
-      body { 
-          font-family: 'Segoe UI', system-ui, sans-serif; 
-          background: #f0f2f5; 
-          margin: 0; 
-          padding: 1vh 2vw; 
-          color: #1a1a1b; 
-          overflow: hidden; 
-      }
-
-      .container { 
-          width: 96%; 
-          max-width: 1400px; 
-          margin: 1vh auto; 
-          background: white; 
-          padding: 1.5rem; 
-          border-radius: 16px; 
-          box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
-          height: 94vh; 
-          display: flex; 
-          flex-direction: column; 
-          box-sizing: border-box; 
-      }
-
-      h1 { text-align: center; color: #2c3e50; font-size: 1.6rem; margin: 0 0 1rem 0; }
-
-      /* Stats Cards */
-      .stats-grid { 
-          display: grid; 
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-          gap: 15px; 
-          margin-bottom: 1rem; 
-      }
-      .stat-card { 
-          background: #f8fafc; 
-          padding: 0.8rem; 
-          border-radius: 12px; 
-          text-align: center; 
-          border: 1px solid #e2e8f0; 
-      }
-      .stat-value { font-size: 1.6rem; font-weight: bold; color: #3182ce; }
-      .stat-label { color: #64748b; font-size: 0.85rem; }
-
-      /* Restored Pretty Tabs */
-      .tabs { 
-          display: flex; 
-          justify-content: center; 
-          margin-bottom: 15px; 
-          border-bottom: 2px solid #edf2f7; 
-          gap: 8px; 
-      }
-      .tab-btn { 
-          padding: 10px 22px; 
-          cursor: pointer; 
-          border: none; 
-          background: none; 
-          font-size: 0.95rem; 
-          font-weight: 600; 
-          color: #718096; 
-          transition: all 0.2s ease; 
-          border-radius: 8px 8px 0 0; 
-      }
-      .tab-btn:hover { background: #f7fafc; color: #2d3748; }
-      .tab-btn.active { 
-          color: #3182ce; 
-          border-bottom: 3px solid #3182ce; 
-          background: rgba(49, 130, 206, 0.05); 
-      }
-
-      .tab-content { 
-          flex-grow: 1; 
-          width: 100%; 
-          display: none; 
-          height: 50vh; 
-          animation: fadeIn 0.4s ease; 
-      }
+      body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; margin: 0; padding: 1vh 2vw; color: #1a1a1b; overflow: hidden; }
+      .container { width: 96%; max-width: 1400px; margin: 1vh auto; background: white; padding: 1.2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); height: 96vh; display: flex; flex-direction: column; box-sizing: border-box; }
+      h1 { text-align: center; color: #2c3e50; font-size: 1.4rem; margin: 0 0 0.8rem 0; }
+      .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 0.8rem; }
+      .stat-card { background: #f8fafc; padding: 0.6rem; border-radius: 10px; text-align: center; border: 1px solid #e2e8f0; }
+      .stat-value { font-size: 1.4rem; font-weight: bold; color: #3182ce; }
+      .stat-label { color: #64748b; font-size: 0.75rem; }
+      .tabs { display: flex; justify-content: center; margin-bottom: 10px; border-bottom: 2px solid #edf2f7; gap: 4px; flex-wrap: wrap; }
+      .tab-btn { padding: 8px 16px; cursor: pointer; border: none; background: none; font-size: 0.9rem; font-weight: 600; color: #718096; border-radius: 8px 8px 0 0; }
+      .tab-btn.active { color: #3182ce; border-bottom: 3px solid #3182ce; background: rgba(49, 130, 206, 0.05); }
+      .tab-content { flex-grow: 1; width: 100%; display: none; height: 55vh; animation: fadeIn 0.3s ease; }
       .tab-content.active { display: block; }
       canvas { width: 100% !important; height: 100% !important; }
-
-      @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>Research Reading Dashboard</h1>
-      
       <div class="stats-grid">
         <div class="stat-card"><div class="stat-value" id="totalPapers">0</div><div class="stat-label">Total Papers</div></div>
-        <div class="stat-card"><div class="stat-value" id="noteCoverage">0%</div><div class="stat-label">Org-roam Coverage</div></div>
+        <div class="stat-card"><div class="stat-value" id="noteCoverage">0%</div><div class="stat-label">Note Coverage</div></div>
+        <div class="stat-card"><div class="stat-value" id="totalWords">0</div><div class="stat-label">Total Words</div></div>
       </div>
-
       <div class="tabs">
         <button class="tab-btn active" onclick="openTab(event, 'overviewTab')">Overview</button>
         <button class="tab-btn" onclick="openTab(event, 'dayTab')">By Day</button>
         <button class="tab-btn" onclick="openTab(event, 'monthTab')">By Month</button>
+        <button class="tab-btn" onclick="openTab(event, 'depthTab')">Depth</button>
         <button class="tab-btn" onclick="openTab(event, 'heatmapTab')">Heatmap</button>
-        <button class="tab-btn" onclick="openTab(event, 'hourTab')">By Hour</button>
+        <button class="tab-btn" onclick="openTab(event, 'hourTab')">Hour</button>
       </div>
-
       <div id="overviewTab" class="tab-content active"><canvas id="cumulativeChart"></canvas></div>
       <div id="dayTab" class="tab-content"><canvas id="historyChart"></canvas></div>
       <div id="monthTab" class="tab-content"><canvas id="monthChart"></canvas></div>
+      <div id="depthTab" class="tab-content"><canvas id="depthChart"></canvas></div>
       <div id="heatmapTab" class="tab-content"><canvas id="heatmapChart"></canvas></div>
       <div id="hourTab" class="tab-content"><canvas id="hourChart"></canvas></div>
     </div>
-
     <script>
       function openTab(evt, tabName) {
           const contents = document.getElementsByClassName("tab-content");
@@ -127,21 +62,28 @@
               const data = await response.json();
               if (!data || data.length === 0) return;
 
+              let papersWithNotes = 0, totalWords = 0;
               const historyMap = {}, monthMap = {}, hourCounts = new Array(24).fill(0);
               const heatmapData = Array.from({length: 7}, () => new Array(24).fill(0));
-              let papersWithNotes = 0, minDate = null, maxDate = null;
+              const depthData = [];
               const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+              let minDate = null, maxDate = null;
 
               data.forEach(entry => {
-                  if (!entry.timestamp) return; // Skip entries without date to avoid crashing
-		  const cleanTs = entry.timestamp.replace(/Mon|Tue|Wed|Thu|Fri|Sat|Sun/g, '').trim();
-		  const dateObj = new Date(cleanTs);
+                  const cleanTs = entry.timestamp.replace(/Mon|Tue|Wed|Thu|Fri|Sat|Sun/g, '').trim();
+                  const dateObj = new Date(cleanTs);
                   if (!isNaN(dateObj.getTime())) {
                       const dateKey = dateObj.toISOString().split('T')[0];
                       historyMap[dateKey] = (historyMap[dateKey] || 0) + 1;
+                      
                       const monthKey = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
                       monthMap[monthKey] = (monthMap[monthKey] || 0) + 1;
-                      if (entry.has_note === "yes") papersWithNotes++;
+
+                      if (entry.has_note === "yes") {
+                          papersWithNotes++;
+                          totalWords += entry.words;
+                          depthData.push({ x: dateObj, y: entry.words, r: Math.min(2 + entry.links * 3, 25) });
+                      }
                       if (entry.timestamp.includes(':')) {
                           const hr = dateObj.getHours();
                           hourCounts[hr]++;
@@ -155,53 +97,52 @@
 
               document.getElementById('totalPapers').innerText = data.length;
               document.getElementById('noteCoverage').innerText = Math.round((papersWithNotes/data.length)*100) + '%';
+              document.getElementById('totalWords').innerText = totalWords.toLocaleString();
 
               const sortedLabels = [], dailyValues = [], cumulativeValues = [];
-              let total = 0, curr = new Date(minDate);
+              let runningTotal = 0, curr = new Date(minDate);
               while (curr <= new Date(maxDate)) {
                   const k = curr.toISOString().split('T')[0];
                   const count = historyMap[k] || 0;
-                  total += count;
+                  runningTotal += count;
                   sortedLabels.push(k);
                   dailyValues.push(count);
-                  cumulativeValues.push(total);
+                  cumulativeValues.push(runningTotal);
                   curr.setDate(curr.getDate() + 1);
               }
 
               renderChart('cumulativeChart', 'line', sortedLabels, cumulativeValues, '#f39c12', 'Cumulative Total');
-              renderChart('historyChart', 'line', sortedLabels, dailyValues, '#3182ce', 'Daily Papers');
-              renderChart('monthChart', 'bar', Object.keys(monthMap), Object.values(monthMap), '#71368a', 'Monthly Papers');
+              renderChart('historyChart', 'line', sortedLabels, dailyValues, '#3182ce', 'Papers per Day');
+              renderChart('monthChart', 'bar', Object.keys(monthMap), Object.values(monthMap), '#71368a', 'By Month');
 
+              // Depth Bubble Chart
+              new Chart(document.getElementById('depthChart'), {
+                  type: 'bubble',
+                  data: { datasets: [{ label: 'Word Count (Radius = Links)', data: depthData, backgroundColor: 'rgba(52, 152, 219, 0.7)' }] },
+                  options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'day' } }, y: { title: { display: true, text: 'Words' } } } }
+              });
+
+              // Heatmap
               const matrixValues = [];
               for(let d=0; d<7; d++) for(let h=0; h<24; h++) matrixValues.push({ x: h, y: weekdays[d], v: heatmapData[d][h] });
               new Chart(document.getElementById('heatmapChart'), {
                   type: 'matrix',
-                  data: { datasets: [{
-                      data: matrixValues,
-                      backgroundColor: (c) => `rgba(49, 130, 206, ${c.dataset.data[c.dataIndex].v * 0.5 || 0.05})`,
-                      width: ({chart}) => chart.chartArea ? (chart.chartArea.width / 24) - 2 : 20,
-                      height: ({chart}) => chart.chartArea ? (chart.chartArea.height / 7) - 2 : 40
-                  }]},
-                  options: { maintainAspectRatio: false, scales: { 
-                      x: { type: 'linear', min: -0.5, max: 23.5, ticks: { stepSize: 1, callback: v => v+":00" } },
-                      y: { type: 'category', labels: weekdays, offset: true }
-                  }, plugins: { legend: { display: false } } }
+                  data: { datasets: [{ data: matrixValues, backgroundColor: (c) => `rgba(49, 130, 206, ${c.dataset.data[c.dataIndex].v * 0.5 || 0.05})`, width: ({chart}) => chart.chartArea ? (chart.chartArea.width / 24) - 2 : 20, height: ({chart}) => chart.chartArea ? (chart.chartArea.height / 7) - 2 : 40 }]},
+                  options: { maintainAspectRatio: false, scales: { x: { type: 'linear', min: -0.5, max: 23.5, ticks: { stepSize: 1 } }, y: { type: 'category', labels: weekdays, offset: true } }, plugins: { legend: { display: false } } }
               });
 
+              // Radar
               new Chart(document.getElementById('hourChart'), {
                   type: 'radar',
                   data: { labels: Array.from({length: 24}, (_, i) => i+":00"), datasets: [{ label: 'Intensity', data: hourCounts, backgroundColor: 'rgba(229, 62, 62, 0.7)', borderColor: '#c53030', fill: true }] },
                   options: { maintainAspectRatio: false }
               });
+
           } catch (err) { console.error(err); }
       }
 
       function renderChart(id, type, labels, data, color, label) {
-          new Chart(document.getElementById(id), {
-              type: type,
-              data: { labels: labels, datasets: [{ label: label, data: data, borderColor: color, backgroundColor: color + 'CC', fill: true, tension: 0.3 }] },
-              options: { maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
-          });
+          new Chart(document.getElementById(id), { type: type, data: { labels: labels, datasets: [{ label: label, data: data, borderColor: color, backgroundColor: color + 'CC', fill: true, tension: 0.3 }] }, options: { maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } } });
       }
       loadStats();
     </script>
