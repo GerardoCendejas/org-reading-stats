@@ -2,7 +2,7 @@
 (require 'json)
 
 ;; ADJUST THIS: Path to your org-roam notes
-(defvar org-roam-directory-path "~/org-roam/" 
+(defvar org-roam-directory-path "~/.emacs.d/org/roam/"
   "Path to your org-roam notes directory.")
 
 (defvar org-reading-stats-file "~/.emacs.d/org/read_papers.org"
