@@ -60,9 +60,12 @@
 
       async function loadStats() {
       try {
-      const response = await fetch('data.json');
+      const response = await fetch('data.json?t=' + Date.now());
       const data = await response.json();
       if (!data || data.length === 0) return;
+
+      // Actualización inmediata del contador
+      document.getElementById('totalPapers').innerText = data.length;
 
       let papersWithNotes = 0, totalWords = 0;
       const historyMap = {}, monthMap = {}, weekdayCounts = new Array(7).fill(0);
@@ -70,11 +73,15 @@
       const heatmapData = Array.from({length: 7}, () => new Array(24).fill(0));
         const depthData = [];
         const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        let minDate = null, maxDate = null;
+        
+        let minDate = null;
+        let maxDate = null;
 
         data.forEach(entry => {
-        const cleanTs = entry.timestamp.replace(/Mon|Tue|Wed|Thu|Fri|Sat|Sun/g, '').trim();
+        const rawTs = entry.timestamp || "";
+        const cleanTs = rawTs.replace(/Mon|Tue|Wed|Thu|Fri|Sat|Sun/g, '').trim();
         const dateObj = new Date(cleanTs);
+
         if (!isNaN(dateObj.getTime())) {
         const dateKey = dateObj.toISOString().split('T')[0];
         historyMap[dateKey] = (historyMap[dateKey] || 0) + 1;
@@ -87,27 +94,35 @@
 
         if (entry.has_note === "yes") {
         papersWithNotes++;
-        totalWords += entry.words;
-        depthData.push({ x: dateObj, y: entry.words, r: Math.min(2 + entry.links * 3, 25) });
+        totalWords += (entry.words || 0);
+        depthData.push({ x: dateObj, y: entry.words, r: Math.min(2 + (entry.links || 0) * 3, 25) });
         }
-        if (entry.timestamp.includes(':')) {
+        if (rawTs.includes(':')) {
         const hr = dateObj.getHours();
         hourCounts[hr]++;
         heatmapData[wDay][hr]++;
         }
-        const dayTs = new Date(dateKey).getTime();
+        
+        const dayTs = dateObj.getTime();
         if (!minDate || dayTs < minDate) minDate = dayTs;
 				if (!maxDate || dayTs > maxDate) maxDate = dayTs;
           }
           });
 
-          document.getElementById('totalPapers').innerText = data.length;
           document.getElementById('noteCoverage').innerText = Math.round((papersWithNotes/data.length)*100) + '%';
           document.getElementById('totalWords').innerText = totalWords.toLocaleString();
 
+          // GENERACIÓN DEL EJE X ROBUSTA
           const sortedLabels = [], dailyValues = [], cumulativeValues = [];
-          let runningTotal = 0, curr = new Date(minDate);
-          while (curr <= new Date(maxDate)) {
+          let runningTotal = 0;
+          
+          // Normalizamos min/max a solo fecha (sin hora) para el bucle de días
+          let curr = new Date(minDate);
+          curr.setHours(0, 0, 0, 0);
+          let end = new Date(maxDate);
+          end.setHours(23, 59, 59, 999);
+
+          while (curr <= end) {
 			 const k = curr.toISOString().split('T')[0];
 			 const count = historyMap[k] || 0;
 			 runningTotal += count;
