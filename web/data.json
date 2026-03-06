@@ -1,1 +1,250 @@
-[{"cite":"[cite:@caiDisentanglingVariationalBias2025]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@kolbowMethodMassivelyScalable2025]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@kolbowSNaQjlImprovedScalability2025]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@solis-lemusPhyloNetworksPackagePhylogenetic2017]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@schluterTaxonomicStatusSmall1991]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@grantExtraordinaryNinoEvent1987]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@grantSELECTIONBILLCHARACTERS1985]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@grantSimulatingSecondaryContact2002]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@ratcliffeSpeciesRecognitionDarwins1985]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@grantConvergenceDarwinsFinches2025]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@grantDarwinsFinchesPopulation1979]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@grantAllopatricPhaseSpeciation2000]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@ratcliffeSpeciesRecognitionDarwins1983]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@millingtonSongInheritanceMating1985]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@grantNicheShiftsCompetition1982]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@grantExploitationOpuntiaCactus1981]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@marquesCombinatorialViewSpeciation2019]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@mallarinoPathsLessTraveled2012]","timestamp":"2026-02-19 12:00"},{"cite":"[cite:@solis-lemusInferringPhylogeneticNetworks2016]","timestamp":"2026-02-19 12:00"},{"cite":"Read Papers","timestamp":"2026-02-19 12:00"}]
+[
+  {
+    "cite": "@solis-lemusInferringPhylogeneticNetworks2016",
+    "timestamp": "2026-02-18 Wed 11:52",
+    "has_note": "yes",
+    "words": 105,
+    "links": 3,
+    "pages": 21
+  },
+  {
+    "cite": "@mallarinoPathsLessTraveled2012",
+    "timestamp": "2026-02-17 Tue",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 21
+  },
+  {
+    "cite": "@marquesCombinatorialViewSpeciation2019",
+    "timestamp": "2026-02-17 Tue",
+    "has_note": "yes",
+    "words": 253,
+    "links": 9,
+    "pages": 14
+  },
+  {
+    "cite": "@grantExploitationOpuntiaCactus1981",
+    "timestamp": "2026-02-16 Mon",
+    "has_note": "yes",
+    "words": 159,
+    "links": 5,
+    "pages": 9
+  },
+  {
+    "cite": "@grantNicheShiftsCompetition1982",
+    "timestamp": "2026-02-15 Sun",
+    "has_note": "yes",
+    "words": 124,
+    "links": 7,
+    "pages": 21
+  },
+  {
+    "cite": "@millingtonSongInheritanceMating1985",
+    "timestamp": "2026-02-14 Sat",
+    "has_note": "yes",
+    "words": 103,
+    "links": 3,
+    "pages": 5
+  },
+  {
+    "cite": "@ratcliffeSpeciesRecognitionDarwins1983",
+    "timestamp": "2026-02-11 Wed",
+    "has_note": "yes",
+    "words": 134,
+    "links": 6,
+    "pages": 12
+  },
+  {
+    "cite": "@grantAllopatricPhaseSpeciation2000",
+    "timestamp": "2026-02-10 Tue",
+    "has_note": "yes",
+    "words": 43,
+    "links": 0,
+    "pages": 31
+  },
+  {
+    "cite": "@grantDarwinsFinchesPopulation1979",
+    "timestamp": "2026-02-09 Mon",
+    "has_note": "yes",
+    "words": 27,
+    "links": 0,
+    "pages": 5
+  },
+  {
+    "cite": "@grantConvergenceDarwinsFinches2025",
+    "timestamp": "2026-02-05 Thu",
+    "has_note": "yes",
+    "words": 211,
+    "links": 11,
+    "pages": 10
+  },
+  {
+    "cite": "@ratcliffeSpeciesRecognitionDarwins1985",
+    "timestamp": "2026-02-04 Wed",
+    "has_note": "yes",
+    "words": 195,
+    "links": 9,
+    "pages": 18
+  },
+  {
+    "cite": "@grantSimulatingSecondaryContact2002",
+    "timestamp": "2026-02-03 Tue",
+    "has_note": "yes",
+    "words": 262,
+    "links": 15,
+    "pages": 12
+  },
+  {
+    "cite": "@grantSELECTIONBILLCHARACTERS1985",
+    "timestamp": "2026-02-03 Tue",
+    "has_note": "yes",
+    "words": 336,
+    "links": 14,
+    "pages": 10
+  },
+  {
+    "cite": "@grantExtraordinaryNinoEvent1987",
+    "timestamp": "2026-02-03 Tue",
+    "has_note": "yes",
+    "words": 215,
+    "links": 5,
+    "pages": 12
+  },
+  {
+    "cite": "@schluterTaxonomicStatusSmall1991",
+    "timestamp": "2026-02-02 Mon",
+    "has_note": "yes",
+    "words": 97,
+    "links": 5,
+    "pages": 4
+  },
+  {
+    "cite": "@solis-lemusPhyloNetworksPackagePhylogenetic2017",
+    "timestamp": "2026-02-18 Wed 13:53",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 7
+  },
+  {
+    "cite": "@kolbowSNaQjlImprovedScalability2025",
+    "timestamp": "2026-02-18 Wed 19:35",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 19
+  },
+  {
+    "cite": "@kolbowMethodMassivelyScalable2025",
+    "timestamp": "2026-02-19 Thu 09:30",
+    "has_note": "yes",
+    "words": 269,
+    "links": 2,
+    "pages": 29
+  },
+  {
+    "cite": "@caiDisentanglingVariationalBias2025",
+    "timestamp": "2026-02-19 Thu 10:23",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 10
+  },
+  {
+    "cite": "@pickrellInferencePopulationSplits2012",
+    "timestamp": "2026-02-24 Tue 10:00",
+    "has_note": "yes",
+    "words": 31,
+    "links": 0,
+    "pages": 17
+  },
+  {
+    "cite": "@dengRobustAccurateBayesian2025",
+    "timestamp": "2026-02-24 Tue 11:27",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 12
+  },
+  {
+    "cite": "@lifchitzTwisstNTern2Ternary2025",
+    "timestamp": "2026-02-26 Thu 09:27",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 11
+  },
+  {
+    "cite": "@canoMutationBiasShapes2022",
+    "timestamp": "2026-03-03 Tue 13:23",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 11
+  },
+  {
+    "cite": "@schluterMorphologicalPhylogeneticRelations1984",
+    "timestamp": "2026-03-03 Tue 14:09",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 10
+  },
+  {
+    "cite": "@murray2017natural",
+    "timestamp": "2026-03-04 Wed 08:52",
+    "has_note": "yes",
+    "words": 65,
+    "links": 0,
+    "pages": 4
+  },
+  {
+    "cite": "@corbett-detigHiddenMarkovModel2017",
+    "timestamp": "2026-03-04 Wed 10:57",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 40
+  },
+  {
+    "cite": "@yiSequencing50Human2010",
+    "timestamp": "2026-03-04 Wed 11:45",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 4
+  },
+  {
+    "cite": "@malinskyDsuiteFastDstatistics2021",
+    "timestamp": "2026-03-05 Thu 08:49",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 12
+  },
+  {
+    "cite": "@paradisPegasPackagePopulation2010",
+    "timestamp": "2026-03-05 Thu 09:06",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 2
+  },
+  {
+    "cite": "@knausVcfrPackageManipulate2017",
+    "timestamp": "2026-03-05 Thu 09:40",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 10
+  },
+  {
+    "cite": "@gouldSpandrelsSanMarco1979",
+    "timestamp": "2026-03-05 Thu 19:43",
+    "has_note": "yes",
+    "words": 149,
+    "links": 5,
+    "pages": 18
+  }
+]

@@ -9,14 +9,22 @@
     <style>
       body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; margin: 0; padding: 1vh 2vw; color: #1a1a1b; overflow: hidden; }
       .container { width: 96%; max-width: 1400px; margin: 1vh auto; background: white; padding: 1.2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); height: 96vh; display: flex; flex-direction: column; box-sizing: border-box; }
-      h1 { text-align: center; color: #2c3e50; font-size: 1.4rem; margin: 0 0 0.8rem 0; }
+      .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
+      h1 { color: #2c3e50; font-size: 1.4rem; margin: 0; flex-grow: 1; text-align: center; }
+      
+      .toggle-container { background: #edf2f7; padding: 4px; border-radius: 10px; display: flex; gap: 4px; }
+      .toggle-btn { border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #4a5568; transition: 0.2s; }
+      .toggle-btn.active { background: white; color: #3182ce; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
       .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 0.8rem; }
       .stat-card { background: #f8fafc; padding: 0.6rem; border-radius: 10px; text-align: center; border: 1px solid #e2e8f0; }
       .stat-value { font-size: 1.4rem; font-weight: bold; color: #3182ce; }
       .stat-label { color: #64748b; font-size: 0.75rem; }
+      
       .tabs { display: flex; justify-content: center; margin-bottom: 10px; border-bottom: 2px solid #edf2f7; gap: 4px; flex-wrap: wrap; }
       .tab-btn { padding: 8px 16px; cursor: pointer; border: none; background: none; font-size: 0.9rem; font-weight: 600; color: #718096; border-radius: 8px 8px 0 0; }
       .tab-btn.active { color: #3182ce; border-bottom: 3px solid #3182ce; background: rgba(49, 130, 206, 0.05); }
+      
       .tab-content { flex-grow: 1; width: 100%; display: none; height: 55vh; animation: fadeIn 0.3s ease; }
       .tab-content.active { display: block; }
       canvas { width: 100% !important; height: 100% !important; }
@@ -25,12 +33,21 @@
   </head>
   <body>
     <div class="container">
-      <h1>Research Reading Dashboard</h1>
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-value" id="totalPapers">0</div><div class="stat-label">Total Papers</div></div>
-        <div class="stat-card"><div class="stat-value" id="noteCoverage">0%</div><div class="stat-label">Note Coverage</div></div>
-        <div class="stat-card"><div class="stat-value" id="totalWords">0</div><div class="stat-label">Total Words</div></div>
+      <div class="header">
+        <div style="width: 150px"></div>
+        <h1>Research Reading Dashboard</h1>
+        <div class="toggle-container">
+          <button class="toggle-btn active" onclick="setMetric('papers')">Papers</button>
+          <button class="toggle-btn" onclick="setMetric('pages')">Pages</button>
+        </div>
       </div>
+
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-value" id="mainCount">0</div><div class="stat-label" id="mainLabel">Total Papers</div></div>
+        <div class="stat-card"><div class="stat-value" id="noteCoverage">0%</div><div class="stat-label">Note Coverage</div></div>
+        <div class="stat-card"><div class="stat-value" id="totalWords">0</div><div class="stat-label">Words Written</div></div>
+      </div>
+
       <div class="tabs">
         <button class="tab-btn active" onclick="openTab(event, 'overviewTab')">Overview</button>
         <button class="tab-btn" onclick="openTab(event, 'dayTab')">By Day</button>
@@ -40,6 +57,7 @@
         <button class="tab-btn" onclick="openTab(event, 'heatmapTab')">Heatmap</button>
         <button class="tab-btn" onclick="openTab(event, 'hourTab')">Hour</button>
       </div>
+
       <div id="overviewTab" class="tab-content active"><canvas id="cumulativeChart"></canvas></div>
       <div id="dayTab" class="tab-content"><canvas id="historyChart"></canvas></div>
       <div id="monthTab" class="tab-content"><canvas id="monthChart"></canvas></div>
@@ -48,122 +66,150 @@
       <div id="heatmapTab" class="tab-content"><canvas id="heatmapChart"></canvas></div>
       <div id="hourTab" class="tab-content"><canvas id="hourChart"></canvas></div>
     </div>
+
     <script>
+      let rawData = [];
+      let currentMetric = 'papers'; // 'papers' or 'pages'
+      let charts = {};
+
       function openTab(evt, tabName) {
           const contents = document.getElementsByClassName("tab-content");
           for (let i = 0; i < contents.length; i++) contents[i].style.display = "none";
           const buttons = document.getElementsByClassName("tab-btn");
           for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove("active");
-      document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.classList.add("active");
+          document.getElementById(tabName).style.display = "block";
+          evt.currentTarget.classList.add("active");
       }
 
-      async function loadStats() {
-      try {
-      const response = await fetch('data.json?t=' + Date.now());
-      const data = await response.json();
-      if (!data || data.length === 0) return;
+      function setMetric(metric) {
+          currentMetric = metric;
+          document.querySelectorAll('.toggle-btn').forEach(btn => {
+              btn.classList.toggle('active', btn.innerText.toLowerCase() === metric);
+          });
+          updateDashboard();
+      }
 
-      // Actualización inmediata del contador
-      document.getElementById('totalPapers').innerText = data.length;
+      async function init() {
+          try {
+              const response = await fetch('data.json?t=' + Date.now());
+              rawData = await response.json();
+              updateDashboard();
+          } catch (err) { console.error(err); }
+      }
 
-      let papersWithNotes = 0, totalWords = 0;
-      const historyMap = {}, monthMap = {}, weekdayCounts = new Array(7).fill(0);
-      const hourCounts = new Array(24).fill(0);
-      const heatmapData = Array.from({length: 7}, () => new Array(24).fill(0));
-        const depthData = [];
-        const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        
-        let minDate = null;
-        let maxDate = null;
+      function updateDashboard() {
+          if (!rawData || rawData.length === 0) return;
 
-        data.forEach(entry => {
-        const rawTs = entry.timestamp || "";
-        const cleanTs = rawTs.replace(/Mon|Tue|Wed|Thu|Fri|Sat|Sun/g, '').trim();
-        const dateObj = new Date(cleanTs);
+          let papersWithNotes = 0, totalWords = 0, totalPages = 0;
+          const historyMap = {}, monthMap = {}, weekdayCounts = new Array(7).fill(0);
+          const hourCounts = new Array(24).fill(0);
+          const heatmapData = Array.from({length: 7}, () => new Array(24).fill(0));
+          const depthData = [];
+          const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+          
+          let minDate = null, maxDate = null;
 
-        if (!isNaN(dateObj.getTime())) {
-        const dateKey = dateObj.toISOString().split('T')[0];
-        historyMap[dateKey] = (historyMap[dateKey] || 0) + 1;
-        
-        const monthKey = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
-        monthMap[monthKey] = (monthMap[monthKey] || 0) + 1;
+          rawData.forEach(entry => {
+              const rawTs = entry.timestamp || "";
+              const cleanTs = rawTs.replace(/Mon|Tue|Wed|Thu|Fri|Sat|Sun/g, '').trim();
+              const dateObj = new Date(cleanTs);
 
-        const wDay = dateObj.getDay();
-        weekdayCounts[wDay]++;
+              if (!isNaN(dateObj.getTime())) {
+                  // FIX: Use local date string to avoid timezone shift in Ithaca
+                  const dateKey = dateObj.toLocaleDateString('en-CA'); 
+                  const metricValue = (currentMetric === 'papers') ? 1 : (entry.pages || 1);
+                  
+                  historyMap[dateKey] = (historyMap[dateKey] || 0) + metricValue;
+                  
+                  const monthKey = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
+                  monthMap[monthKey] = (monthMap[monthKey] || 0) + metricValue;
 
-        if (entry.has_note === "yes") {
-        papersWithNotes++;
-        totalWords += (entry.words || 0);
-        depthData.push({ x: dateObj, y: entry.words, r: Math.min(2 + (entry.links || 0) * 3, 25) });
-        }
-        if (rawTs.includes(':')) {
-        const hr = dateObj.getHours();
-        hourCounts[hr]++;
-        heatmapData[wDay][hr]++;
-        }
-        
-        const dayTs = dateObj.getTime();
-        if (!minDate || dayTs < minDate) minDate = dayTs;
-				if (!maxDate || dayTs > maxDate) maxDate = dayTs;
-          }
+                  const wDay = dateObj.getDay();
+                  weekdayCounts[wDay] += metricValue;
+
+                  if (entry.has_note === "yes") {
+                      papersWithNotes++;
+                      totalWords += (entry.words || 0);
+                      depthData.push({ x: dateObj, y: entry.words, r: Math.min(2 + (entry.links || 0) * 3, 25) });
+                  }
+                  if (rawTs.includes(':')) {
+                      const hr = dateObj.getHours();
+                      hourCounts[hr] += metricValue;
+                      heatmapData[wDay][hr] += metricValue;
+                  }
+                  
+                  totalPages += (entry.pages || 1);
+                  const dayTs = dateObj.getTime();
+                  if (!minDate || dayTs < minDate) minDate = dayTs;
+                  if (!maxDate || dayTs > maxDate) maxDate = dayTs;
+              }
           });
 
-          document.getElementById('noteCoverage').innerText = Math.round((papersWithNotes/data.length)*100) + '%';
+          // Update Stats
+          document.getElementById('mainCount').innerText = (currentMetric === 'papers') ? rawData.length : totalPages.toLocaleString();
+          document.getElementById('mainLabel').innerText = (currentMetric === 'papers') ? 'Total Papers' : 'Total Pages';
+          document.getElementById('noteCoverage').innerText = Math.round((papersWithNotes/rawData.length)*100) + '%';
           document.getElementById('totalWords').innerText = totalWords.toLocaleString();
 
-          // GENERACIÓN DEL EJE X ROBUSTA
-          const sortedLabels = [], dailyValues = [], cumulativeValues = [];
+          // Timeline Processing
+          const sortedLabels = [], stepValues = [], cumulativeValues = [];
           let runningTotal = 0;
-          
-          // Normalizamos min/max a solo fecha (sin hora) para el bucle de días
-          let curr = new Date(minDate);
-          curr.setHours(0, 0, 0, 0);
-          let end = new Date(maxDate);
-          end.setHours(23, 59, 59, 999);
+          let curr = new Date(minDate); curr.setHours(0, 0, 0, 0);
+          let end = new Date(maxDate); end.setHours(23, 59, 59, 999);
 
           while (curr <= end) {
-			 const k = curr.toISOString().split('T')[0];
-			 const count = historyMap[k] || 0;
-			 runningTotal += count;
-			 sortedLabels.push(k);
-			 dailyValues.push(count);
-			 cumulativeValues.push(runningTotal);
-			 curr.setDate(curr.getDate() + 1);
-			 }
+              const k = curr.toLocaleDateString('en-CA');
+              const val = historyMap[k] || 0;
+              runningTotal += val;
+              sortedLabels.push(k);
+              stepValues.push(val);
+              cumulativeValues.push(runningTotal);
+              curr.setDate(curr.getDate() + 1);
+          }
 
-			 renderChart('cumulativeChart', 'line', sortedLabels, cumulativeValues, '#f39c12', 'Cumulative Total');
-			 renderChart('historyChart', 'line', sortedLabels, dailyValues, '#3182ce', 'Papers per Day');
-			 renderChart('monthChart', 'bar', Object.keys(monthMap), Object.values(monthMap), '#71368a', 'By Month');
-			 renderChart('weekdayChart', 'bar', weekdays, weekdayCounts, '#1e8449', 'By Weekday');
+          // Charts
+          const label = currentMetric.charAt(0).toUpperCase() + currentMetric.slice(1);
+          refreshChart('cumulativeChart', 'line', sortedLabels, cumulativeValues, '#f39c12', 'Cumulative ' + label);
+          refreshChart('historyChart', 'line', sortedLabels, stepValues, '#3182ce', label + ' per Day');
+          refreshChart('monthChart', 'bar', Object.keys(monthMap), Object.values(monthMap), '#71368a', label + ' by Month');
+          refreshChart('weekdayChart', 'bar', weekdays, weekdayCounts, '#1e8449', label + ' by Weekday');
 
-			 new Chart(document.getElementById('depthChart'), {
-			 type: 'bubble',
-			 data: { datasets: [{ label: 'Word Count (Radius = Links)', data: depthData, backgroundColor: 'rgba(52, 152, 219, 0.7)' }] },
-			 options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'day' } }, y: { title: { display: true, text: 'Words' } } } }
-			 });
+          refreshChart('depthChart', 'bubble', null, depthData, '#3498db', 'Word Count (Radius = Links)', {
+              type: 'bubble',
+              data: { datasets: [{ label: 'Word Count (Radius = Links)', data: depthData, backgroundColor: 'rgba(52, 152, 219, 0.7)' }] },
+              options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'day' } }, y: { title: { display: true, text: 'Words' } } } }
+          });
 
-			 const matrixValues = [];
-			 for(let d=0; d<7; d++) for(let h=0; h<24; h++) matrixValues.push({ x: h, y: weekdays[d], v: heatmapData[d][h] });
-								   new Chart(document.getElementById('heatmapChart'), {
-								   type: 'matrix',
-								   data: { datasets: [{ data: matrixValues, backgroundColor: (c) => `rgba(49, 130, 206, ${c.dataset.data[c.dataIndex].v * 0.5 || 0.05})`, width: ({chart}) => chart.chartArea ? (chart.chartArea.width / 24) - 2 : 20, height: ({chart}) => chart.chartArea ? (chart.chartArea.height / 7) - 2 : 40 }]},
-            options: { maintainAspectRatio: false, scales: { x: { type: 'linear', min: -0.5, max: 23.5, ticks: { stepSize: 1 } }, y: { type: 'category', labels: weekdays, offset: true } }, plugins: { legend: { display: false } } }
-            });
+          const matrixValues = [];
+          for(let d=0; d<7; d++) for(let h=0; h<24; h++) matrixValues.push({ x: h, y: weekdays[d], v: heatmapData[d][h] });
+          refreshChart('heatmapChart', 'matrix', null, null, null, null, {
+              type: 'matrix',
+              data: { datasets: [{ data: matrixValues, backgroundColor: (c) => `rgba(49, 130, 206, ${c.dataset.data[c.dataIndex].v * 0.2 || 0.05})`, width: ({chart}) => chart.chartArea ? (chart.chartArea.width / 24) - 2 : 20, height: ({chart}) => chart.chartArea ? (chart.chartArea.height / 7) - 2 : 40 }]},
+              options: { maintainAspectRatio: false, scales: { x: { type: 'linear', min: -0.5, max: 23.5, ticks: { stepSize: 1 } }, y: { type: 'category', labels: weekdays, offset: true } }, plugins: { legend: { display: false } } }
+          });
 
-            new Chart(document.getElementById('hourChart'), {
-            type: 'radar',
-            data: { labels: Array.from({length: 24}, (_, i) => i+":00"), datasets: [{ label: 'Intensity', data: hourCounts, backgroundColor: 'rgba(229, 62, 62, 0.7)', borderColor: '#c53030', fill: true }] },
-            options: { maintainAspectRatio: false }
-            });
+          refreshChart('hourChart', 'radar', Array.from({length: 24}, (_, i) => i+":00"), hourCounts, '#c53030', label + ' Intensity', {
+              type: 'radar',
+              data: { labels: Array.from({length: 24}, (_, i) => i+":00"), datasets: [{ label: label + ' Intensity', data: hourCounts, backgroundColor: 'rgba(229, 62, 62, 0.7)', borderColor: '#c53030', fill: true }] },
+              options: { maintainAspectRatio: false }
+          });
+      }
 
-            } catch (err) { console.error(err); }
-	    }
+      function refreshChart(id, type, labels, data, color, label, fullConfig = null) {
+          if (charts[id]) charts[id].destroy();
+          const ctx = document.getElementById(id).getContext('2d');
+          if (fullConfig) {
+              charts[id] = new Chart(ctx, fullConfig);
+          } else {
+              charts[id] = new Chart(ctx, {
+                  type: type,
+                  data: { labels: labels, datasets: [{ label: label, data: data, borderColor: color, backgroundColor: color + 'CC', fill: true, tension: 0.3 }] },
+                  options: { maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: (currentMetric === 'papers' ? 1 : undefined) } } } }
+              });
+          }
+      }
 
-	    function renderChart(id, type, labels, data, color, label) {
-            new Chart(document.getElementById(id), { type: type, data: { labels: labels, datasets: [{ label: label, data: data, borderColor: color, backgroundColor: color + 'CC', fill: true, tension: 0.3 }] }, options: { maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } } });
-	    }
-	    loadStats();
+      init();
     </script>
   </body>
 </html>
