@@ -35,8 +35,8 @@
     "cite": "@grantNicheShiftsCompetition1982",
     "timestamp": "2026-02-15 Sun",
     "has_note": "yes",
-    "words": 124,
-    "links": 7,
+    "words": 237,
+    "links": 13,
     "pages": 21
   },
   {
@@ -246,5 +246,221 @@
     "words": 149,
     "links": 5,
     "pages": 18
+  },
+  {
+    "cite": "@mccolganUnderstandingDevelopmentalSystem2024",
+    "timestamp": "2026-03-06 Fri 09:56",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 15
+  },
+  {
+    "cite": "@mallarinoTwoDevelopmentalModules2011",
+    "timestamp": "2026-03-09 Mon 11:50",
+    "has_note": "yes",
+    "words": 155,
+    "links": 8,
+    "pages": 6
+  },
+  {
+    "cite": "@abzhanovCalmodulinPathwayEvolution2006",
+    "timestamp": "2026-03-09 Mon 19:41",
+    "has_note": "yes",
+    "words": 82,
+    "links": 2,
+    "pages": 5
+  },
+  {
+    "cite": "@gatesEvolutionGenetics1926",
+    "timestamp": "2026-03-09 Mon 19:55",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 1
+  },
+  {
+    "cite": "@goldschmidtAspectsEvolution1933a",
+    "timestamp": "2026-03-09 Mon 20:44",
+    "has_note": "yes",
+    "words": 154,
+    "links": 7,
+    "pages": 9
+  },
+  {
+    "cite": "@gibbsAdultSurvivorshipDarwins1987",
+    "timestamp": "2026-03-11 Wed 10:48",
+    "has_note": "yes",
+    "words": 164,
+    "links": 4,
+    "pages": 17
+  },
+  {
+    "cite": "@tengstedtEvaluatingInbreedingAssessing2026",
+    "timestamp": "2026-03-11 Wed 11:47",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 12
+  },
+  {
+    "cite": "@priceGeneticChangesMorphological1984",
+    "timestamp": "2026-03-12 Thu 10:20",
+    "has_note": "yes",
+    "words": 142,
+    "links": 5,
+    "pages": 18
+  },
+  {
+    "cite": "@excoffierFastsimcoal2DemographicInference2021",
+    "timestamp": "2026-03-12 Thu 11:34",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 4
+  },
+  {
+    "cite": "@avsecAdvancingRegulatoryVariant2026",
+    "timestamp": "2026-03-13 Fri 09:53",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 13
+  },
+  {
+    "cite": "@grantNicheShiftsCompetition1982",
+    "timestamp": "2026-03-18 Wed 10:33",
+    "has_note": "yes",
+    "words": 237,
+    "links": 13,
+    "pages": 21
+  },
+  {
+    "cite": "@grantConvergenceDarwinsFinches2025",
+    "timestamp": "2026-03-20 Fri 11:27",
+    "has_note": "yes",
+    "words": 211,
+    "links": 11,
+    "pages": 10
+  },
+  {
+    "cite": "@rubinRapidAdaptiveRadiation2022",
+    "timestamp": "2026-03-20 Fri 12:03",
+    "has_note": "yes",
+    "words": 108,
+    "links": 6,
+    "pages": 15
+  },
+  {
+    "cite": "@grantMicrocosmMacrocosmAdaptive2024",
+    "timestamp": "2026-03-20 Fri 13:46",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 14
+  },
+  {
+    "cite": "@lamichhaneyRapidHybridSpeciation2018",
+    "timestamp": "2026-03-20 Fri 14:07",
+    "has_note": "yes",
+    "words": 66,
+    "links": 2,
+    "pages": 5
+  },
+  {
+    "cite": "@enbodyMultispeciesBCO2Beak2021",
+    "timestamp": "2026-03-20 Fri 14:44",
+    "has_note": "yes",
+    "words": 145,
+    "links": 4,
+    "pages": 8
+  },
+  {
+    "cite": "@gouldNewGeneralTheory1980",
+    "timestamp": "2026-03-22 Sun 21:13",
+    "has_note": "yes",
+    "words": 200,
+    "links": 9,
+    "pages": 12
+  },
+  {
+    "cite": "@fosterGeometricMorphometricAppraisal2008",
+    "timestamp": "2026-03-23 Mon 10:43",
+    "has_note": "yes",
+    "words": 161,
+    "links": 8,
+    "pages": 13
+  },
+  {
+    "cite": "@grantVariationSizeShape1985",
+    "timestamp": "2026-03-23 Mon 12:22",
+    "has_note": "yes",
+    "words": 158,
+    "links": 8,
+    "pages": 39
+  },
+  {
+    "cite": "@podosCorrelatedEvolutionMorphology2001",
+    "timestamp": "2026-03-23 Mon 13:26",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 4
+  },
+  {
+    "cite": "@campasScalingShearTransformations2010",
+    "timestamp": "2026-03-24 Tue 08:25",
+    "has_note": "yes",
+    "words": 122,
+    "links": 6,
+    "pages": 5
+  },
+  {
+    "cite": "@chavesGenomicVariationTips2016",
+    "timestamp": "2026-03-24 Tue 09:27",
+    "has_note": "yes",
+    "words": 175,
+    "links": 4,
+    "pages": 14
+  },
+  {
+    "cite": "@beausoleilTemporallyVaryingDisruptive2019",
+    "timestamp": "2026-03-24 Tue 10:18",
+    "has_note": "yes",
+    "words": 161,
+    "links": 3,
+    "pages": 10
+  },
+  {
+    "cite": "@hendryPossibleHumanImpacts2006",
+    "timestamp": "2026-03-25 Wed 08:27",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 8
+  },
+  {
+    "cite": "@huberReproductiveIsolationSympatric2007a",
+    "timestamp": "2026-03-25 Wed 09:05",
+    "has_note": "yes",
+    "words": 142,
+    "links": 5,
+    "pages": 6
+  },
+  {
+    "cite": "@zapataDarwinsOverlookedRadiation2024",
+    "timestamp": "2026-03-25 Wed 11:02",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 15
+  },
+  {
+    "cite": "@dewitt2025replaying",
+    "timestamp": "2026-03-25 Wed 12:22",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 28
   }
 ]

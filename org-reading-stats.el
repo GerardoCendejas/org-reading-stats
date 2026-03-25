@@ -108,12 +108,13 @@
     (message "Dashboard updated: %d papers processed across multiple bibliographies." (length results))))
 
 (defun org-reading-stats-start ()
-  "Start server."
+  "Start the local server and open the reading stats index."
   (interactive)
   (org-reading-stats-generate-json)
-  (setq httpd-port 8087)
-  (setq httpd-root (expand-file-name "web/" (file-name-directory (or load-file-name (buffer-file-name) default-directory))))
-  (httpd-start)
-  (browse-url "http://localhost:8087/index.html"))
+  (let* ((base-dir (file-name-directory (or load-file-name buffer-file-name default-directory)))
+         (web-path (expand-file-name "web/" base-dir)))
+    (setq httpd-port 8087 httpd-root web-path)
+    (httpd-start)
+    (browse-url "http://localhost:8087/index.html")))
 
 (provide 'org-reading-stats)
