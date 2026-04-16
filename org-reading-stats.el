@@ -57,15 +57,37 @@
     (or found-pages 10)))
 
 (defun org-reading-stats-get-file-info (path)
+  "Cuenta palabras (estrictamente post-configuración #+) y links en la nota de roam."
   (with-temp-buffer
     (insert-file-contents path)
-    (let ((word-count (count-words (point-min) (point-max)))
-          (link-count 0))
+    (let ((word-count 0)
+          (link-count 0)
+          (body-start (point-min)))
+      
+      (save-excursion
+        (goto-char (point-min))
+        ;; Buscamos la última línea que empiece con #+
+        ;; El punto (.) no matchea saltos de línea, asegurando que nos quedamos en la cabecera
+        (while (re-search-forward "^#\\+.*$" nil t)
+          (setq body-start (match-end 0)))
+        
+        ;; Movemos el cursor al inicio del cuerpo real
+        (goto-char body-start)
+        ;; Saltamos cualquier espacio, salto de línea o metadato extra (como :PROPERTIES:)
+        ;; para llegar al primer carácter de texto real.
+        (when (re-search-forward "[[:alnum:]]" nil t)
+          (setq body-start (match-beginning 0))))
+
+      ;; 1. Contar palabras desde el cuerpo real hasta el final
+      (setq word-count (count-words body-start (point-max)))
+
+      ;; 2. Contar links (esto se mantiene en todo el archivo por seguridad)
       (goto-char (point-min))
       (while (re-search-forward "\\[\\[" nil t)
         (setq link-count (1+ link-count)))
-      (list word-count link-count))))
 
+      (list word-count link-count))))
+      
 (defun org-reading-stats-generate-json ()
   "Genera JSON con soporte para relecturas y detección de hora."
   (interactive)
