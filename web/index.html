@@ -1,214 +1,251 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
-    <title>Org Reading Analytics</title>
+    <title>Research Reading Analytics - PhD Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@1.1.1/dist/chartjs-chart-matrix.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <style>
-      body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; margin: 0; padding: 1vh 2vw; color: #1a1a1b; overflow: hidden; }
-      .container { width: 96%; max-width: 1400px; margin: 1vh auto; background: white; padding: 1.2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); height: 96vh; display: flex; flex-direction: column; box-sizing: border-box; }
+      body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; margin: 0; padding: 1vh 2vw; overflow: hidden; }
+      .container { background: white; padding: 1.2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); height: 96vh; display: flex; flex-direction: column; box-sizing: border-box; }
       .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
-      h1 { color: #2c3e50; font-size: 1.4rem; margin: 0; flex-grow: 1; text-align: center; }
-      
       .toggle-container { background: #edf2f7; padding: 4px; border-radius: 10px; display: flex; gap: 4px; }
-      .toggle-btn { border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: #4a5568; transition: 0.2s; }
+      .toggle-btn { border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; color: #4a5568; }
       .toggle-btn.active { background: white; color: #3182ce; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-
-      .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 0.8rem; }
+      .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 0.8rem; }
       .stat-card { background: #f8fafc; padding: 0.6rem; border-radius: 10px; text-align: center; border: 1px solid #e2e8f0; }
-      .stat-value { font-size: 1.4rem; font-weight: bold; color: #3182ce; }
-      .stat-label { color: #64748b; font-size: 0.75rem; }
-      
+      .stat-value { font-size: 1.3rem; font-weight: bold; color: #3182ce; }
       .tabs { display: flex; justify-content: center; margin-bottom: 10px; border-bottom: 2px solid #edf2f7; gap: 4px; flex-wrap: wrap; }
-      .tab-btn { padding: 8px 16px; cursor: pointer; border: none; background: none; font-size: 0.9rem; font-weight: 600; color: #718096; border-radius: 8px 8px 0 0; }
+      .tab-btn { padding: 8px 16px; cursor: pointer; border: none; background: none; font-weight: 600; color: #718096; border-radius: 8px 8px 0 0; }
       .tab-btn.active { color: #3182ce; border-bottom: 3px solid #3182ce; background: rgba(49, 130, 206, 0.05); }
-      
-      .tab-content { flex-grow: 1; width: 100%; display: none; height: 55vh; animation: fadeIn 0.3s ease; }
+      .tab-content { flex-grow: 1; display: none; height: 55vh; }
       .tab-content.active { display: block; }
       canvas { width: 100% !important; height: 100% !important; }
-      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="header">
         <div style="width: 150px"></div>
-        <h1>Research Reading Dashboard</h1>
+        <h1 style="font-size: 1.4rem; color: #2c3e50; margin: 0;">Research Reading Dashboard</h1>
         <div class="toggle-container">
           <button class="toggle-btn active" onclick="setMetric('papers')">Papers</button>
-          <button class="toggle-btn" onclick="setMetric('pages')">Pages</button>
+          <button class="toggle-btn" onclick="setMetric('pages')">Páginas</button>
         </div>
       </div>
 
       <div class="stats-grid">
-        <div class="stat-card"><div class="stat-value" id="mainCount">0</div><div class="stat-label" id="mainLabel">Total Papers</div></div>
-        <div class="stat-card"><div class="stat-value" id="noteCoverage">0%</div><div class="stat-label">Note Coverage</div></div>
-        <div class="stat-card"><div class="stat-value" id="totalWords">0</div><div class="stat-label">Words Written</div></div>
+        <div class="stat-card"><div class="stat-value" id="totalCount">0</div><div style="font-size: 0.75rem; color: #64748b;">Totales</div></div>
+        <div class="stat-card"><div class="stat-value" id="uniqueCount">0</div><div style="font-size: 0.75rem; color: #64748b;">Únicos</div></div>
+        <div class="stat-card"><div class="stat-value" id="rereadCount">0</div><div style="font-size: 0.75rem; color: #64748b;">Relecturas</div></div>
+        <div class="stat-card"><div class="stat-value" id="wordCount">0</div><div style="font-size: 0.75rem; color: #64748b;">Palabras</div></div>
       </div>
 
       <div class="tabs">
-        <button class="tab-btn active" onclick="openTab(event, 'overviewTab')">Overview</button>
-        <button class="tab-btn" onclick="openTab(event, 'dayTab')">By Day</button>
-        <button class="tab-btn" onclick="openTab(event, 'monthTab')">By Month</button>
-        <button class="tab-btn" onclick="openTab(event, 'weekdayTab')">By Weekday</button>
-        <button class="tab-btn" onclick="openTab(event, 'depthTab')">Depth</button>
-        <button class="tab-btn" onclick="openTab(event, 'heatmapTab')">Heatmap</button>
-        <button class="tab-btn" onclick="openTab(event, 'hourTab')">Hour</button>
+        <button class="tab-btn active" onclick="openTab(event, 'overviewTab')">Acumulado</button>
+        <button class="tab-btn" onclick="openTab(event, 'dayTab')">Por Día</button>
+        <button class="tab-btn" onclick="openTab(event, 'monthTab')">Por Mes</button>
+        <button class="tab-btn" onclick="openTab(event, 'weekdayTab')">Día Semana</button>
+        <button class="tab-btn" onclick="openTab(event, 'hourTab')">Horarios (R)</button>
+        <button class="tab-btn" onclick="openTab(event, 'intensityTab')">Intensidad (H)</button>
+        <button class="tab-btn" onclick="openTab(event, 'depthTab')">Profundidad</button>
       </div>
 
       <div id="overviewTab" class="tab-content active"><canvas id="cumulativeChart"></canvas></div>
       <div id="dayTab" class="tab-content"><canvas id="historyChart"></canvas></div>
       <div id="monthTab" class="tab-content"><canvas id="monthChart"></canvas></div>
       <div id="weekdayTab" class="tab-content"><canvas id="weekdayChart"></canvas></div>
-      <div id="depthTab" class="tab-content"><canvas id="depthChart"></canvas></div>
-      <div id="heatmapTab" class="tab-content"><canvas id="heatmapChart"></canvas></div>
       <div id="hourTab" class="tab-content"><canvas id="hourChart"></canvas></div>
+      <div id="intensityTab" class="tab-content"><canvas id="intensityChart"></canvas></div>
+      <div id="depthTab" class="tab-content"><canvas id="depthChart"></canvas></div>
     </div>
 
     <script>
       let rawData = [];
-      let currentMetric = 'papers'; // 'papers' or 'pages'
+      let currentMetric = 'papers';
       let charts = {};
+      const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
       function openTab(evt, tabName) {
-          const contents = document.getElementsByClassName("tab-content");
-          for (let i = 0; i < contents.length; i++) contents[i].style.display = "none";
-          const buttons = document.getElementsByClassName("tab-btn");
-          for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove("active");
+          document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
+          document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
           document.getElementById(tabName).style.display = "block";
           evt.currentTarget.classList.add("active");
+          Object.values(charts).forEach(c => c.resize());
       }
 
-      function setMetric(metric) {
-          currentMetric = metric;
-          document.querySelectorAll('.toggle-btn').forEach(btn => {
-              btn.classList.toggle('active', btn.innerText.toLowerCase() === metric);
-          });
-          updateDashboard();
-      }
+      function setMetric(m) { currentMetric = m; updateDashboard(); }
 
       async function init() {
           try {
               const response = await fetch('data.json?t=' + Date.now());
               rawData = await response.json();
               updateDashboard();
-          } catch (err) { console.error(err); }
+          } catch (err) { console.error("Error al cargar JSON:", err); }
       }
 
       function updateDashboard() {
-          if (!rawData || rawData.length === 0) return;
+          if (!rawData.length) return;
 
-          let papersWithNotes = 0, totalWords = 0, totalPages = 0;
-          const historyMap = {}, monthMap = {}, weekdayCounts = new Array(7).fill(0);
+          const seen = new Set(), historyMap = {}, monthMap = {};
+          const weekdayMap = Array.from({length: 7}, () => ({ new: 0, reread: 0 }));
+          const intensityMap = Array.from({length: 7}, () => new Array(24).fill(0));
           const hourCounts = new Array(24).fill(0);
-          const heatmapData = Array.from({length: 7}, () => new Array(24).fill(0));
-          const depthData = [];
-          const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-          
-          let minDate = null, maxDate = null;
+          let uniqueCount = 0, rereadCount = 0, totalPages = 0, totalWords = 0;
 
-          rawData.forEach(entry => {
-              const rawTs = entry.timestamp || "";
-              const cleanTs = rawTs.replace(/Mon|Tue|Wed|Thu|Fri|Sat|Sun/g, '').trim();
-              const dateObj = new Date(cleanTs);
+          const processed = rawData.map(d => {
+              const cleanStr = d.timestamp.replace(/\[|\]|Mon|Tue|Wed|Thu|Fri|Sat|Sun|Lun|Mar|Mié|Jue|Vie|Sáb|Dom/g, '').trim();
+              return { ...d, _date: new Date(cleanStr), _hasTime: d.timestamp.includes(":") };
+          }).filter(d => !isNaN(d._date.getTime())).sort((a,b) => a._date - b._date);
 
-              if (!isNaN(dateObj.getTime())) {
-                  // FIX: Use local date string to avoid timezone shift in Ithaca
-                  const dateKey = dateObj.toLocaleDateString('en-CA'); 
-                  const metricValue = (currentMetric === 'papers') ? 1 : (entry.pages || 1);
-                  
-                  historyMap[dateKey] = (historyMap[dateKey] || 0) + metricValue;
-                  
-                  const monthKey = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
-                  monthMap[monthKey] = (monthMap[monthKey] || 0) + metricValue;
+          processed.forEach(entry => {
+              const dateKey = entry._date.toLocaleDateString('en-CA');
+              const monthKey = entry._date.toLocaleString('default', { month: 'short', year: 'numeric' });
+              const isReread = seen.has(entry.cite);
+              const val = (currentMetric === 'papers') ? 1 : (entry.pages || 1);
+              const wDay = entry._date.getDay();
 
-                  const wDay = dateObj.getDay();
-                  weekdayCounts[wDay] += metricValue;
-
-                  if (entry.has_note === "yes") {
-                      papersWithNotes++;
-                      totalWords += (entry.words || 0);
-                      depthData.push({ x: dateObj, y: entry.words, r: Math.min(2 + (entry.links || 0) * 3, 25) });
-                  }
-                  if (rawTs.includes(':')) {
-                      const hr = dateObj.getHours();
-                      hourCounts[hr] += metricValue;
-                      heatmapData[wDay][hr] += metricValue;
-                  }
-                  
-                  totalPages += (entry.pages || 1);
-                  const dayTs = dateObj.getTime();
-                  if (!minDate || dayTs < minDate) minDate = dayTs;
-                  if (!maxDate || dayTs > maxDate) maxDate = dayTs;
+              if (entry._hasTime) {
+                  const hr = entry._date.getHours();
+                  hourCounts[hr] += val;
+                  intensityMap[wDay][hr] += val;
               }
+
+              if (!historyMap[dateKey]) historyMap[dateKey] = { new: 0, reread: 0 };
+              if (!monthMap[monthKey]) monthMap[monthKey] = { new: 0, reread: 0 };
+
+              if (isReread) {
+                  historyMap[dateKey].reread += val;
+                  monthMap[monthKey].reread += val;
+                  weekdayMap[wDay].reread += val;
+                  rereadCount += val;
+              } else {
+                  historyMap[dateKey].new += val;
+                  monthMap[monthKey].new += val;
+                  weekdayMap[wDay].new += val;
+                  uniqueCount += val;
+                  seen.add(entry.cite);
+              }
+              totalPages += (entry.pages || 1);
+              if (entry.has_note === "yes" && !isReread) totalWords += (entry.words || 0);
           });
 
-          // Update Stats
-          document.getElementById('mainCount').innerText = (currentMetric === 'papers') ? rawData.length : totalPages.toLocaleString();
-          document.getElementById('mainLabel').innerText = (currentMetric === 'papers') ? 'Total Papers' : 'Total Pages';
-          document.getElementById('noteCoverage').innerText = Math.round((papersWithNotes/rawData.length)*100) + '%';
-          document.getElementById('totalWords').innerText = totalWords.toLocaleString();
+          document.getElementById('totalCount').innerText = (currentMetric === 'papers' ? processed.length : totalPages).toLocaleString();
+          document.getElementById('uniqueCount').innerText = uniqueCount.toLocaleString();
+          document.getElementById('rereadCount').innerText = rereadCount.toLocaleString();
+          document.getElementById('wordCount').innerText = totalWords.toLocaleString();
 
-          // Timeline Processing
-          const sortedLabels = [], stepValues = [], cumulativeValues = [];
-          let runningTotal = 0;
-          let curr = new Date(minDate); curr.setHours(0, 0, 0, 0);
-          let end = new Date(maxDate); end.setHours(23, 59, 59, 999);
+          const labels = [], cumTotal = [], cumUnique = [], cumReread = [], dailyNew = [], dailyReread = [], heatmapData = [];
+          let runU = 0, runR = 0;
+          let curr = new Date(processed[0]._date); curr.setHours(0,0,0,0);
+          const today = new Date();
 
-          while (curr <= end) {
+          while (curr <= today) {
               const k = curr.toLocaleDateString('en-CA');
-              const val = historyMap[k] || 0;
-              runningTotal += val;
-              sortedLabels.push(k);
-              stepValues.push(val);
-              cumulativeValues.push(runningTotal);
+              const d = historyMap[k] || { new: 0, reread: 0 };
+              runU += d.new; runR += d.reread;
+              
+              labels.push(k);
+              cumUnique.push(runU); cumReread.push(runR); cumTotal.push(runU + runR);
+              dailyNew.push(d.new); dailyReread.push(d.reread);
+              
+              // FIX: Forzamos la medianoche para evitar desplazamientos por zona horaria
+              const midnight = new Date(curr);
+              midnight.setHours(0,0,0,0);
+              heatmapData.push({ x: midnight, y: days[midnight.getDay()], v: d.new + d.reread });
+              
               curr.setDate(curr.getDate() + 1);
           }
 
-          // Charts
-          const label = currentMetric.charAt(0).toUpperCase() + currentMetric.slice(1);
-          refreshChart('cumulativeChart', 'line', sortedLabels, cumulativeValues, '#f39c12', 'Cumulative ' + label);
-          refreshChart('historyChart', 'line', sortedLabels, stepValues, '#3182ce', label + ' per Day');
-          refreshChart('monthChart', 'bar', Object.keys(monthMap), Object.values(monthMap), '#71368a', label + ' by Month');
-          refreshChart('weekdayChart', 'bar', weekdays, weekdayCounts, '#1e8449', label + ' by Weekday');
-
-          refreshChart('depthChart', 'bubble', null, depthData, '#3498db', 'Word Count (Radius = Links)', {
-              type: 'bubble',
-              data: { datasets: [{ label: 'Word Count (Radius = Links)', data: depthData, backgroundColor: 'rgba(52, 152, 219, 0.7)' }] },
-              options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'day' } }, y: { title: { display: true, text: 'Words' } } } }
+          // 1. ACUMULADO
+          refreshChart('cumulativeChart', 'line', labels, null, null, null, {
+              type: 'line',
+              data: {
+                  labels,
+                  datasets: [
+                      { label: 'Total', data: cumTotal, borderColor: '#2c3e50', backgroundColor: 'rgba(44, 62, 80, 0.15)', fill: true, tension: 0.3 },
+                      { label: 'Únicos', data: cumUnique, borderColor: '#3182ce', backgroundColor: 'rgba(49, 130, 206, 0.4)', fill: true, tension: 0.3 },
+                      { label: 'Relecturas', data: cumReread, borderColor: '#9b59b6', backgroundColor: 'rgba(155, 89, 182, 0.4)', fill: true, tension: 0.3 }
+                  ]
+              },
+              options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'month' } } } }
           });
 
-          const matrixValues = [];
-          for(let d=0; d<7; d++) for(let h=0; h<24; h++) matrixValues.push({ x: h, y: weekdays[d], v: heatmapData[d][h] });
-          refreshChart('heatmapChart', 'matrix', null, null, null, null, {
-              type: 'matrix',
-              data: { datasets: [{ data: matrixValues, backgroundColor: (c) => `rgba(49, 130, 206, ${c.dataset.data[c.dataIndex].v * 0.2 || 0.05})`, width: ({chart}) => chart.chartArea ? (chart.chartArea.width / 24) - 2 : 20, height: ({chart}) => chart.chartArea ? (chart.chartArea.height / 7) - 2 : 40 }]},
-              options: { maintainAspectRatio: false, scales: { x: { type: 'linear', min: -0.5, max: 23.5, ticks: { stepSize: 1 } }, y: { type: 'category', labels: weekdays, offset: true } }, plugins: { legend: { display: false } } }
+          // 2. POR DÍA
+          refreshChart('historyChart', 'line', labels, null, null, null, {
+              type: 'line',
+              data: {
+                  labels,
+                  datasets: [
+                      { label: 'Total Día', data: labels.map((_,i) => dailyNew[i] + dailyReread[i]), borderColor: '#2c3e50', backgroundColor: 'rgba(44, 62, 80, 0.1)', fill: true, tension: 0.3 },
+                      { label: 'Nuevos', data: dailyNew, borderColor: '#3182ce', backgroundColor: 'rgba(49, 130, 206, 0.3)', fill: true },
+                      { label: 'Relecturas', data: dailyReread, borderColor: '#9b59b6', backgroundColor: 'rgba(155, 89, 182, 0.3)', fill: true }
+                  ]
+              },
+              options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'day' } } } }
           });
 
-          refreshChart('hourChart', 'radar', Array.from({length: 24}, (_, i) => i+":00"), hourCounts, '#c53030', label + ' Intensity', {
+          // 3. MES
+          const mLabels = Object.keys(monthMap);
+          refreshChart('monthChart', 'bar', mLabels, null, null, null, {
+              type: 'bar',
+              data: { labels: mLabels, datasets: [{ label: 'Nuevos', data: mLabels.map(m => monthMap[m].new), backgroundColor: '#3182ce' }, { label: 'Relecturas', data: mLabels.map(m => monthMap[m].reread), backgroundColor: '#9b59b6' }] },
+              options: { maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
+          });
+
+          // 4. DÍA SEMANA
+          refreshChart('weekdayChart', 'bar', days, null, null, null, {
+              type: 'bar',
+              data: { labels: days, datasets: [{ label: 'Nuevos', data: weekdayMap.map(d => d.new), backgroundColor: '#3182ce' }, { label: 'Relecturas', data: weekdayMap.map(d => d.reread), backgroundColor: '#9b59b6' }] },
+              options: { maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
+          });
+
+          // 5. HORARIOS RADAR
+          refreshChart('hourChart', 'radar', Array.from({length: 24}, (_, i) => i+":00"), null, null, null, {
               type: 'radar',
-              data: { labels: Array.from({length: 24}, (_, i) => i+":00"), datasets: [{ label: label + ' Intensity', data: hourCounts, backgroundColor: 'rgba(229, 62, 62, 0.7)', borderColor: '#c53030', fill: true }] },
+              data: { labels: Array.from({length: 24}, (_, i) => i+":00"), datasets: [{ label: 'Intensidad', data: hourCounts, backgroundColor: 'rgba(231, 76, 60, 0.3)', borderColor: '#e74c3c', fill: true }] },
               options: { maintainAspectRatio: false }
           });
+
+          // 6. INTENSIDAD GRID
+          const intensityData = [];
+          for(let d=0; d<7; d++) for(let h=0; h<24; h++) intensityData.push({ x: h, y: days[d], v: intensityMap[d][h] });
+          refreshChart('intensityChart', 'matrix', null, null, null, null, {
+              type: 'matrix',
+              data: {
+                  datasets: [{
+                      data: intensityData,
+                      backgroundColor: c => `rgba(229, 62, 62, ${Math.min(c.dataset.data[c.dataIndex].v / 2, 0.8)})`,
+                      width: ({chart}) => chart.chartArea ? chart.chartArea.width / 24 - 1 : 10,
+                      height: ({chart}) => chart.chartArea ? chart.chartArea.height / 7 - 1 : 10
+                  }]
+              },
+              options: {
+                  maintainAspectRatio: false,
+                  scales: {
+                      x: { type: 'linear', min: -0.5, max: 23.5, ticks: { stepSize: 1, callback: v => v+":00" } },
+                      y: { type: 'category', labels: days, offset: true }
+                  },
+                  plugins: { tooltip: { callbacks: { label: (it) => `${it.raw.y} a las ${it.raw.x}:00 -> ${it.raw.v} lecturas` } } }
+              }
+          });
+
+          
+          // 8. PROFUNDIDAD
+          const depthData = processed.filter(d => d.has_note === "yes").map(d => ({ x: d._date, y: d.words, r: Math.min(d.links * 3 + 5, 25), label: d.cite }));
+          refreshChart('depthChart', 'bubble', null, null, null, null, {
+              type: 'bubble',
+              data: { datasets: [{ label: 'Notas', data: depthData, backgroundColor: 'rgba(52, 152, 219, 0.6)', borderColor: '#2980b9' }] },
+              options: { maintainAspectRatio: false, plugins: { tooltip: { callbacks: { label: (ctx) => `Paper: ${ctx.raw.label} | Palabras: ${ctx.raw.y}` } } }, scales: { x: { type: 'time', time: { unit: 'month' } } } }
+          });
       }
 
-      function refreshChart(id, type, labels, data, color, label, fullConfig = null) {
+      function refreshChart(id, type, labels, data, color, label, config = null) {
           if (charts[id]) charts[id].destroy();
           const ctx = document.getElementById(id).getContext('2d');
-          if (fullConfig) {
-              charts[id] = new Chart(ctx, fullConfig);
-          } else {
-              charts[id] = new Chart(ctx, {
-                  type: type,
-                  data: { labels: labels, datasets: [{ label: label, data: data, borderColor: color, backgroundColor: color + 'CC', fill: true, tension: 0.3 }] },
-                  options: { maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: (currentMetric === 'papers' ? 1 : undefined) } } } }
-              });
-          }
+          charts[id] = new Chart(ctx, config || { type, data: { labels, datasets: [{ label, data, backgroundColor: color, borderColor: color }] }, options: { maintainAspectRatio: false } });
       }
-
       init();
     </script>
   </body>
