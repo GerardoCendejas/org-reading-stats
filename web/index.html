@@ -76,18 +76,14 @@
       Object.values(charts).forEach(c => c.resize());
 	}
 
-	// Función actualizada para cambiar estados de botones
 	function setMetric(m) { 
         currentMetric = m; 
-        
-        // Actualizar UI de botones
         document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
         if (m === 'papers') {
         document.getElementById('btn-papers').classList.add('active');
         } else {
         document.getElementById('btn-pages').classList.add('active');
         }
-        
         updateDashboard(); 
 	}
 
@@ -144,7 +140,6 @@
         
         actualUniquePapers++;
         if (entry.has_note === "yes") uniqueWithNotes++;
-        
         seen.add(entry.cite);
         }
         totalPages += (entry.pages || 1);
@@ -174,87 +169,86 @@
 		       curr.setDate(curr.getDate() + 1);
 		       }
 
-		       // Charts refresh logic...
+		       // 1. ACUMULADO
 		       refreshChart('cumulativeChart', 'line', labels, null, null, null, {
 		       type: 'line',
 		       data: { labels, datasets: [
                        { label: 'Total', data: cumTotal, borderColor: '#2c3e50', backgroundColor: 'rgba(44, 62, 80, 0.15)', fill: true, tension: 0.3 },
-                       { label: 'Unique', data: cumUnique, borderColor: '#3182ce', backgroundColor: 'rgba(49, 130, 206, 0.4)', fill: true, tension: 0.3 },
-                       { label: 'Reread', data: cumReread, borderColor: '#9b59b6', backgroundColor: 'rgba(155, 89, 182, 0.4)', fill: true, tension: 0.3 }
+                       { label: 'Únicos', data: cumUnique, borderColor: '#3182ce', backgroundColor: 'rgba(49, 130, 206, 0.4)', fill: true, tension: 0.3 },
+                       { label: 'Relecturas', data: cumReread, borderColor: '#9b59b6', backgroundColor: 'rgba(155, 89, 182, 0.4)', fill: true, tension: 0.3 }
 		       ]},
 		       options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'month' } } } }
 		       });
 
+		       // 2. POR DÍA
 		       refreshChart('historyChart', 'line', labels, null, null, null, {
 		       type: 'line',
 		       data: { labels, datasets: [
-                       { label: 'Total Day', data: labels.map((_,i) => dailyNew[i] + dailyReread[i]), borderColor: '#2c3e50', backgroundColor: 'rgba(44, 62, 80, 0.1)', fill: true, tension: 0.3 },
-          { label: 'New', data: dailyNew, borderColor: '#3182ce', backgroundColor: 'rgba(49, 130, 206, 0.3)', fill: true },
-          { label: 'Reread', data: dailyReread, borderColor: '#9b59b6', backgroundColor: 'rgba(155, 89, 182, 0.3)', fill: true }
+                       { label: 'Total Día', data: labels.map((_,i) => dailyNew[i] + dailyReread[i]), borderColor: '#2c3e50', backgroundColor: 'rgba(44, 62, 80, 0.1)', fill: true, tension: 0.3 },
+          { label: 'Nuevos', data: dailyNew, borderColor: '#3182ce', backgroundColor: 'rgba(49, 130, 206, 0.3)', fill: true },
+          { label: 'Relecturas', data: dailyReread, borderColor: '#9b59b6', backgroundColor: 'rgba(155, 89, 182, 0.3)', fill: true }
           ]},
           options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'day' } } } }
           });
 
+          // 3. MES
           const mLabels = Object.keys(monthMap);
           refreshChart('monthChart', 'bar', mLabels, null, null, null, {
           type: 'bar',
-          data: { labels: mLabels, datasets: [{ label: 'New', data: mLabels.map(m => monthMap[m].new), backgroundColor: '#3182ce' }, { label: 'Reread', data: mLabels.map(m => monthMap[m].reread), backgroundColor: '#9b59b6' }] },
+          data: { labels: mLabels, datasets: [{ label: 'Nuevos', data: mLabels.map(m => monthMap[m].new), backgroundColor: '#3182ce' }, { label: 'Relecturas', data: mLabels.map(m => monthMap[m].reread), backgroundColor: '#9b59b6' }] },
           options: { maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
           });
 
+          // 4. DÍA SEMANA
           refreshChart('weekdayChart', 'bar', days, null, null, null, {
           type: 'bar',
-          data: { labels: days, datasets: [{ label: 'New', data: weekdayMap.map(d => d.new), backgroundColor: '#3182ce' }, { label: 'Reread', data: weekdayMap.map(d => d.reread), backgroundColor: '#9b59b6' }] },
+          data: { labels: days, datasets: [{ label: 'Nuevos', data: weekdayMap.map(d => d.new), backgroundColor: '#3182ce' }, { label: 'Relecturas', data: weekdayMap.map(d => d.reread), backgroundColor: '#9b59b6' }] },
           options: { maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
           });
 
+          // 5. HORARIOS RADAR
           refreshChart('hourChart', 'radar', Array.from({length: 24}, (_, i) => i+":00"), null, null, null, {
           type: 'radar',
-          data: { labels: Array.from({length: 24}, (_, i) => i+":00"), datasets: [{ label: 'Intensity', data: hourCounts, backgroundColor: 'rgba(231, 76, 60, 0.3)', borderColor: '#e74c3c', fill: true }] },
+          data: { labels: Array.from({length: 24}, (_, i) => i+":00"), datasets: [{ label: 'Intensidad', data: hourCounts, backgroundColor: 'rgba(231, 76, 60, 0.3)', borderColor: '#e74c3c', fill: true }] },
           options: { maintainAspectRatio: false }
           });
 
-	  const allValues = intensityMap.flat();
-	  const maxIntensity = Math.max(...allValues, 1); // Evitamos división por cero
-
-	  const intensityData = [];
-	  for(let d=0; d<7; d++) {
-			    for(let h=0; h<24; h++) {
-					       intensityData.push({ x: h, y: days[d], v: intensityMap[d][h] });
-					       }
-					       }
-
-					       refreshChart('intensityChart', 'matrix', null, null, null, null, {
-					       type: 'matrix',
-					       data: {
-					       datasets: [{
-					       data: intensityData,
-					       backgroundColor: c => {
-			    const value = c.dataset.data[c.dataIndex].v;
-			    if (value === 0) return 'transparent';
-			    // Normalizamos la opacidad basándonos en el máximo real (min 0.1 para que se vea algo)
-			    const alpha = Math.max(0.1, (value / maxIntensity) * 0.9);
+          // 6. INTENSIDAD GRID (FIXED GRADIENT)
+          const allIntensityValues = intensityMap.flat();
+          const maxIntensity = Math.max(...allIntensityValues, 1);
+          const intensityData = [];
+          for(let d=0; d<7; d++) for(let h=0; h<24; h++) intensityData.push({ x: h, y: days[d], v: intensityMap[d][h] });
+						    
+						    refreshChart('intensityChart', 'matrix', null, null, null, null, {
+						    type: 'matrix',
+						    data: { datasets: [{
+						    data: intensityData,
+						    backgroundColor: c => {
+			    const val = c.dataset.data[c.dataIndex].v;
+			    if (val === 0) return 'transparent';
+			    const alpha = Math.max(0.1, (val / maxIntensity) * 0.9);
 			    return `rgba(229, 62, 62, ${alpha})`;
 			    },
 			    width: ({chart}) => chart.chartArea ? chart.chartArea.width / 24 - 1 : 10,
             height: ({chart}) => chart.chartArea ? chart.chartArea.height / 7 - 1 : 10
-            }]
-	    },
-	    options: {
+            }]},
+            options: {
             maintainAspectRatio: false,
             scales: {
             x: { type: 'linear', min: -0.5, max: 23.5, ticks: { stepSize: 1, callback: v => v+":00" } },
             y: { type: 'category', labels: days, offset: true }
             },
-            plugins: { 
-            tooltip: { 
-            callbacks: { 
-            label: (it) => `${it.raw.y} at ${it.raw.x}:00 -> ${it.raw.v} readings` 
-            } 
-            } 
+            plugins: { tooltip: { callbacks: { label: (it) => `${it.raw.y} a las ${it.raw.x}:00 -> ${it.raw.v} lecturas` } } }
             }
-	    }
-	    });
+            });
+
+            // 8. PROFUNDIDAD
+            const depthData = processed.filter(d => d.has_note === "yes").map(d => ({ x: d._date, y: d.words, r: Math.min(d.links * 3 + 5, 25), label: d.cite }));
+            refreshChart('depthChart', 'bubble', null, null, null, null, {
+            type: 'bubble',
+            data: { datasets: [{ label: 'Notas', data: depthData, backgroundColor: 'rgba(52, 152, 219, 0.6)', borderColor: '#2980b9' }] },
+            options: { maintainAspectRatio: false, plugins: { tooltip: { callbacks: { label: (ctx) => `Paper: ${ctx.raw.label} | Palabras: ${ctx.raw.y}` } } }, scales: { x: { type: 'time', time: { unit: 'month' } } } }
+            });
 	    }
 
 	    function refreshChart(id, type, labels, data, color, label, config = null) {
