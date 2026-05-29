@@ -6,6 +6,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@1.1.1/dist/chartjs-chart-matrix.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-tag-cloud.min.js"></script>
     <style>
       body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; margin: 0; padding: 1vh 2vw; overflow: hidden; }
       .container { background: white; padding: 1.2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); height: 96vh; display: flex; flex-direction: column; box-sizing: border-box; }
@@ -22,6 +24,11 @@
       .tab-content { flex-grow: 1; display: none; height: 55vh; }
       .tab-content.active { display: block; }
       canvas { width: 100% !important; height: 100% !important; }
+      /* Estilos para controles del Word Cloud */
+      .cloud-controls { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; }
+      .cloud-sub-btn { border: 1px solid #cbd5e1; background: white; padding: 4px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600; color: #64748b; transition: all 0.2s; }
+      .cloud-sub-btn.active { background: #3182ce; color: white; border-color: #3182ce; }
+      #wordcloudChartContainer { width: 100%; height: calc(100% - 40px); }
     </style>
   </head>
   <body>
@@ -51,6 +58,7 @@
         <button class="tab-btn" onclick="openTab(event, 'hourTab')">Horarios (R)</button>
         <button class="tab-btn" onclick="openTab(event, 'intensityTab')">Intensidad (H)</button>
         <button class="tab-btn" onclick="openTab(event, 'depthTab')">Profundidad</button>
+        <button class="tab-btn" onclick="openTab(event, 'wordcloudTab')">Nube de Palabras</button>
       </div>
 
       <div id="overviewTab" class="tab-content active"><canvas id="cumulativeChart"></canvas></div>
@@ -60,6 +68,14 @@
       <div id="hourTab" class="tab-content"><canvas id="hourChart"></canvas></div>
       <div id="intensityTab" class="tab-content"><canvas id="intensityChart"></canvas></div>
       <div id="depthTab" class="tab-content"><canvas id="depthChart"></canvas></div>
+      
+      <div id="wordcloudTab" class="tab-content">
+        <div class="cloud-controls">
+          <button id="cloud-btn-titles" class="cloud-sub-btn active" onclick="changeCloudTarget('titles')">Títulos</button>
+          <button id="cloud-btn-authors" class="cloud-sub-btn" onclick="changeCloudTarget('authors')">Autores</button>
+        </div>
+        <div id="wordcloudChartContainer"></div>
+      </div>
     </div>
 
     <script>
@@ -67,12 +83,14 @@
       let currentMetric = 'papers';
       let charts = {};
       const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+      let currentCloudTarget = 'titles';
+      let anycloudInstance = null; // Instancia global para AnyChart
 
       function openTab(evt, tabName) {
           document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
           document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-          document.getElementById(tabName).style.display = "block";
-          evt.currentTarget.classList.add("active");
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.classList.add("active");
       Object.values(charts).forEach(c => c.resize());
 	}
 
@@ -95,6 +113,17 @@
         } catch (err) { console.error("Error loading JSON:", err); }
 	}
 
+	function changeCloudTarget(target) {
+	currentCloudTarget = target;
+	document.querySelectorAll('.cloud-sub-btn').forEach(btn => btn.classList.remove('active'));
+	if (target === 'titles') {
+	document.getElementById('cloud-btn-titles').classList.add('active');
+	} else {
+	document.getElementById('cloud-btn-authors').classList.add('active');
+	}
+	updateDashboard();
+	}
+
 	function updateDashboard() {
         if (!rawData.length) return;
 
@@ -105,6 +134,11 @@
         
         let uniqueCount = 0, rereadCount = 0, totalPages = 0, totalWords = 0;
         let uniqueWithNotes = 0, actualUniquePapers = 0;
+
+        // Estructuras de conteo para Word Cloud
+        const titleWordsMap = {};
+        const authorsMap = {};
+        const stopwords = new Set(['the', 'a', 'an', 'and', 'of', 'in', 'on', 'at', 'to', 'for', 'with', 'by', 'from', 'on', 'using', 'based', 'through', 'de', 'la', 'el', 'en', 'y', 'los', 'las', 'un', 'una', 'para', 'por', 'con', 'sobre', 'is', 'are', 'it', 'their', 'model', 'data', 'analysis', 'method', 'approach']);
 
         const processed = rawData.map(d => {
         const cleanStr = d.timestamp.replace(/\[|\]|Mon|Tue|Wed|Thu|Fri|Sat|Sun|Lun|Mar|Mié|Jue|Vie|Sáb|Dom/g, '').trim();
@@ -144,6 +178,35 @@
         }
         totalPages += (entry.pages || 1);
         if (entry.has_note === "yes" && !isReread) totalWords += (entry.words || 0);
+
+        // Extracción de palabras del título desde el json (ejemplo: cite keys)
+        // Dado que vienes usando strings o el cite, extraeremos la porción legible del cite o title si existiese
+        let textToParse = entry.title || entry.cite.replace(/^@/, '');
+        // Separar CamelCase o limpiar strings para los títulos
+        const words = textToParse.replace(/([A-Z])/g, ' $1').toLowerCase()
+        .replace(/[^a-záéíóúüñ\s-]/g, '')
+        .split(/\s+/);
+        
+        words.forEach(w => {
+        if (w.length > 3 && !stopwords.has(w) && isNaN(w)) {
+        titleWordsMap[w] = (titleWordsMap[w] || 0) + 1;
+        }
+        });
+
+        // Parseo de Autores desde el KeyCite o Metadata si existiera en data.json
+        if (entry.author) {
+        const authorList = entry.author.split(/,| and | y /);
+        authorList.forEach(auth => {
+        const cleanAuth = auth.trim();
+        if (cleanAuth.length > 1) authorsMap[cleanAuth] = (authorsMap[cleanAuth] || 0) + 1;
+        });
+        } else {
+        // Fallback inteligente usando el prefijo de la cita si no hay campo author explícito
+        const fallbackAuthor = entry.cite.replace(/^@/, '').replace(/[0-9].*$/, '');
+        if(fallbackAuthor.length > 2) {
+        authorsMap[fallbackAuthor] = (authorsMap[fallbackAuthor] || 0) + 1;
+        }
+        }
         });
 
         const notePercentage = actualUniquePapers > 0 ? ((uniqueWithNotes / actualUniquePapers) * 100).toFixed(1) : 0;
@@ -213,7 +276,7 @@
           options: { maintainAspectRatio: false }
           });
 
-          // 6. INTENSIDAD GRID (FIXED GRADIENT)
+          // 6. INTENSIDAD GRID
           const allIntensityValues = intensityMap.flat();
           const maxIntensity = Math.max(...allIntensityValues, 1);
           const intensityData = [];
@@ -249,11 +312,40 @@
             data: { datasets: [{ label: 'Notas', data: depthData, backgroundColor: 'rgba(52, 152, 219, 0.6)', borderColor: '#2980b9' }] },
             options: { maintainAspectRatio: false, plugins: { tooltip: { callbacks: { label: (ctx) => `Paper: ${ctx.raw.label} | Palabras: ${ctx.raw.y}` } } }, scales: { x: { type: 'time', time: { unit: 'month' } } } }
             });
+
+            // 9. RENDERIZADO DEL ENTORNO WORD CLOUD (CÓDIGO DE ANYCHART)
+            const targetDataSource = (currentCloudTarget === 'titles') ? titleWordsMap : authorsMap;
+            const anychartFormattedData = Object.keys(targetDataSource).map(key => {
+            return { "x": key, "value": targetDataSource[key] };
+            });
+
+            // Limpiar el contenedor div de AnyChart anterior si existía
+            document.getElementById('wordcloudChartContainer').innerHTML = "";
+            
+            // Inicializar AnyChart Tag Cloud
+            anycloudInstance = anychart.tagCloud(anychartFormattedData);
+            anycloudInstance.angles([0, 15, -15, 30, -30]);
+            anycloudInstance.colorRange(false);
+            
+            // Paleta de colores para encajar perfectamente con la estética del dashboard
+            const customPalette = anychart.palettes.distinctColors();
+            customPalette.items(
+            (currentCloudTarget === 'titles') 
+            ? ['#3182ce', '#2b6cb0', '#4299e1', '#63b3ed', '#2c5282'] 
+            : ['#2c3e50', '#34495e', '#1a252f', '#4e6a85', '#7f8c8d']
+            );
+            anycloudInstance.palette(customPalette);
+            
+            // Renderizar en el contenedor Div dedicado
+            anycloudInstance.container('wordcloudChartContainer');
+            anycloudInstance.draw();
 	    }
 
 	    function refreshChart(id, type, labels, data, color, label, config = null) {
             if (charts[id]) charts[id].destroy();
-            const ctx = document.getElementById(id).getContext('2d');
+            const canvasElement = document.getElementById(id);
+            if (!canvasElement) return;
+            const ctx = canvasElement.getContext('2d');
             charts[id] = new Chart(ctx, config || { type, data: { labels, datasets: [{ label, data, backgroundColor: color, borderColor: color }] }, options: { maintainAspectRatio: false } });
 	    }
 	    init();

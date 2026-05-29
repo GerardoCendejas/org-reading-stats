@@ -1,6 +1,8 @@
 [
   {
     "cite": "@solis-lemusInferringPhylogeneticNetworks2016",
+    "title": "Inferring Phylogenetic Networks with Maximum Pseudolikelihood under Incomplete Lineage Sorting",
+    "author": "Sol\\'is-Lemus, Claudia and An\\'e, C\\'ecile",
     "timestamp": "2026-02-18 Wed 11:52",
     "has_note": "yes",
     "words": 64,
@@ -9,6 +11,8 @@
   },
   {
     "cite": "@mallarinoPathsLessTraveled2012",
+    "title": "Paths Less Traveled: Evo-Devo Approaches to Investigating Animal Morphological Evolution",
+    "author": "Mallarino, Ricardo and Abzhanov, Arhat",
     "timestamp": "2026-02-17 Tue",
     "has_note": "no",
     "words": 0,
@@ -17,6 +21,8 @@
   },
   {
     "cite": "@marquesCombinatorialViewSpeciation2019",
+    "title": "A Combinatorial View on Speciation and Adaptive Radiation",
+    "author": "Marques, David A. and Meier, Joana I. and Seehausen, Ole",
     "timestamp": "2026-02-17 Tue",
     "has_note": "yes",
     "words": 216,
@@ -25,6 +31,8 @@
   },
   {
     "cite": "@grantExploitationOpuntiaCactus1981",
+    "title": "Exploitation of Opuntia Cactus by Birds on the Gal\\'apagos",
+    "author": "Grant, B. R. and Grant, P. R.",
     "timestamp": "2026-02-16 Mon",
     "has_note": "yes",
     "words": 121,
@@ -33,6 +41,8 @@
   },
   {
     "cite": "@grantNicheShiftsCompetition1982",
+    "title": "Niche Shifts and Competition in Darwin's Finches: Geospiza Conirostris and Congeners",
+    "author": "Grant, B. R. and Grant, P. R.",
     "timestamp": "2026-02-15 Sun",
     "has_note": "yes",
     "words": 198,
@@ -41,6 +51,8 @@
   },
   {
     "cite": "@millingtonSongInheritanceMating1985",
+    "title": "Song Inheritance and Mating Patterns in Darwin's Finches",
+    "author": "Millington, Stephen J. and Price, Trevor D.",
     "timestamp": "2026-02-14 Sat",
     "has_note": "yes",
     "words": 66,
@@ -49,6 +61,8 @@
   },
   {
     "cite": "@ratcliffeSpeciesRecognitionDarwins1983",
+    "title": "Species Recognition in Darwin's Finches (\\emphGeospiza, Gould). II. Geographic Variation in Mate Preference",
+    "author": "Ratcliffe, Laurene M. and Grant, Peter R.",
     "timestamp": "2026-02-11 Wed",
     "has_note": "yes",
     "words": 93,
@@ -57,6 +71,8 @@
   },
   {
     "cite": "@grantAllopatricPhaseSpeciation2000",
+    "title": "The Allopatric Phase of Speciation: The Sharp-Beaked Ground Finch (Geospiza Difficilis) on the Gal\\'apagos Islands",
+    "author": "Grant, PETER R and Grant, B ROSEMARY and Petren, \\relax KENNETH",
     "timestamp": "2026-02-10 Tue",
     "has_note": "yes",
     "words": 0,
@@ -65,6 +81,8 @@
   },
   {
     "cite": "@grantDarwinsFinchesPopulation1979",
+    "title": "Darwin's Finches: Population Variation and Sympatric Speciation",
+    "author": "Grant, B. R. and Grant, P. R.",
     "timestamp": "2026-02-09 Mon",
     "has_note": "yes",
     "words": 0,
@@ -73,6 +91,8 @@
   },
   {
     "cite": "@grantConvergenceDarwinsFinches2025",
+    "title": "Convergence of Darwin's Finches through Hybridization on a Remote Gal\\'apagos Island",
+    "author": "Grant, Peter R and Grant, B Rosemary",
     "timestamp": "2026-02-05 Thu",
     "has_note": "yes",
     "words": 172,
@@ -81,14 +101,18 @@
   },
   {
     "cite": "@ratcliffeSpeciesRecognitionDarwins1985",
+    "title": "Species Recognition in Darwin's Finches (\\emphGeospiza, Gould). III. Male Responses to Playback of Different Song Types, Dialects and Heterospecific Songs",
+    "author": "Ratcliffe, Laurene M. and Grant, Peter R.",
     "timestamp": "2026-02-04 Wed",
     "has_note": "yes",
-    "words": 146,
-    "links": 9,
+    "words": 138,
+    "links": 8,
     "pages": 18
   },
   {
     "cite": "@grantSimulatingSecondaryContact2002",
+    "title": "Simulating Secondary Contact in Allopatric Speciation: An Empirical Test of Premating Isolation",
+    "author": "GRANT, B. ROSEMARY and GRANT, PETER R.",
     "timestamp": "2026-02-03 Tue",
     "has_note": "yes",
     "words": 228,
@@ -97,6 +121,8 @@
   },
   {
     "cite": "@grantSELECTIONBILLCHARACTERS1985",
+    "title": "SELECTION ON BILL CHARACTERS IN A POPULATION OF DARWIN'S FINCHES: GEOSPIZA CONIROSTRIS ON ISLA GENOVESA, GAL\\'APAGOS",
+    "author": "Grant, B. R.",
     "timestamp": "2026-02-03 Tue",
     "has_note": "yes",
     "words": 308,
@@ -105,6 +131,8 @@
   },
   {
     "cite": "@grantExtraordinaryNinoEvent1987",
+    "title": "The Extraordinary El Ni\\~no Event of 1982-83: Effects on Darwin's Finches on Isla Genovesa, Gal\\'apagos",
+    "author": "Grant, Peter R. and Grant, B. Rosemary",
     "timestamp": "2026-02-03 Tue",
     "has_note": "yes",
     "words": 175,
@@ -113,6 +141,8 @@
   },
   {
     "cite": "@schluterTaxonomicStatusSmall1991",
+    "title": "The Taxonomic Status of the Small Genovesa Ground-Finch in the Gal\\'apagos",
+    "author": "Schluter, Dolph and Ratcliffe, Laurene M. and Grant, Peter R.",
     "timestamp": "2026-02-02 Mon",
     "has_note": "yes",
     "words": 62,
@@ -121,6 +151,8 @@
   },
   {
     "cite": "@solis-lemusPhyloNetworksPackagePhylogenetic2017",
+    "title": "PhyloNetworks: A Package for Phylogenetic Networks",
+    "author": "Sol\\'is-Lemus, Claudia and Bastide, Paul and An\\'e, C\\'ecile",
     "timestamp": "2026-02-18 Wed 13:53",
     "has_note": "no",
     "words": 0,
@@ -129,6 +161,8 @@
   },
   {
     "cite": "@kolbowSNaQjlImprovedScalability2025",
+    "title": "SNaQ.Jl: Improved Scalability for Phylogenetic Network Inference",
+    "author": "Kolbow, Nathan and Kong, Sungsik and Chafin, Tyler and Justison, Joshua and An\\'e, C\\'ecile and Sol\\'is-Lemus, Claudia",
     "timestamp": "2026-02-18 Wed 19:35",
     "has_note": "no",
     "words": 0,
@@ -137,6 +171,8 @@
   },
   {
     "cite": "@kolbowMethodMassivelyScalable2025",
+    "title": "A Method for Massively Scalable Inference of Phylogenetic Networks",
+    "author": "Kolbow, Nathan and Kong, Sungsik and Sol\\'is-Lemus, Claudia",
     "timestamp": "2026-02-19 Thu 09:30",
     "has_note": "yes",
     "words": 208,
@@ -145,6 +181,8 @@
   },
   {
     "cite": "@caiDisentanglingVariationalBias2025",
+    "title": "Disentangling Variational Bias: The Roles of Development, Mutation, and Selection",
+    "author": "Cai, Haoran and Melo, Diogo and Marais, David L. Des",
     "timestamp": "2026-02-19 Thu 10:23",
     "has_note": "no",
     "words": 0,
@@ -153,6 +191,8 @@
   },
   {
     "cite": "@pickrellInferencePopulationSplits2012",
+    "title": "Inference of Population Splits and Mixtures from Genome-Wide Allele Frequency Data",
+    "author": "Pickrell, Joseph K. and Pritchard, Jonathan K.",
     "timestamp": "2026-02-24 Tue 10:00",
     "has_note": "yes",
     "words": 0,
@@ -161,6 +201,8 @@
   },
   {
     "cite": "@dengRobustAccurateBayesian2025",
+    "title": "Robust and Accurate Bayesian Inference of Genome-Wide Genealogies for Hundreds of Genomes",
+    "author": "Deng, Yun and Nielsen, Rasmus and Song, Yun S.",
     "timestamp": "2026-02-24 Tue 11:27",
     "has_note": "no",
     "words": 0,
@@ -169,6 +211,8 @@
   },
   {
     "cite": "@lifchitzTwisstNTern2Ternary2025",
+    "title": "TwisstNTern 2: Ternary Analysis of Topology Weights from Tree Sequences",
+    "author": "Lifchitz, Hila and Vedula, Sanketh and Pal, Arka and Shipilina, Daria and Stankowski, Sean",
     "timestamp": "2026-02-26 Thu 09:27",
     "has_note": "no",
     "words": 0,
@@ -177,6 +221,8 @@
   },
   {
     "cite": "@canoMutationBiasShapes2022",
+    "title": "Mutation Bias Shapes the Spectrum of Adaptive Substitutions",
+    "author": "Cano, Alejandro V. and Rozho\\v nov\\'a, Hana and Stoltzfus, Arlin and McCandlish, David M. and Payne, Joshua L.",
     "timestamp": "2026-03-03 Tue 13:23",
     "has_note": "no",
     "words": 0,
@@ -185,6 +231,8 @@
   },
   {
     "cite": "@schluterMorphologicalPhylogeneticRelations1984",
+    "title": "Morphological and Phylogenetic Relations Among the Darwin's Finches",
+    "author": "Schluter, Dolph",
     "timestamp": "2026-03-03 Tue 14:09",
     "has_note": "no",
     "words": 0,
@@ -193,6 +241,8 @@
   },
   {
     "cite": "@murray2017natural",
+    "title": "Natural selection shaped the rise and fall of passenger pigeon genomic diversity",
+    "author": "Murray, Gemma GR and Soares, Andr\\'e ER and Novak, Ben J and Schaefer, Nathan K and Cahill, James A and Baker, Allan J and Demboski, John R and Doll, Andrew and Da Fonseca, Rute R and Fulton, Tara L and others",
     "timestamp": "2026-03-04 Wed 08:52",
     "has_note": "yes",
     "words": 0,
@@ -201,6 +251,8 @@
   },
   {
     "cite": "@corbett-detigHiddenMarkovModel2017",
+    "title": "A Hidden Markov Model Approach for Simultaneously Estimating Local Ancestry and Admixture Time Using Next Generation Sequence Data in Samples of Arbitrary Ploidy",
+    "author": "Corbett-Detig, Russell and Nielsen, Rasmus",
     "timestamp": "2026-03-04 Wed 10:57",
     "has_note": "no",
     "words": 0,
@@ -209,6 +261,8 @@
   },
   {
     "cite": "@yiSequencing50Human2010",
+    "title": "Sequencing of 50 Human Exomes Reveals Adaptation to High Altitude",
+    "author": "Yi, Xin and Liang, Yu and Huerta-Sanchez, Emilia and Jin, Xin and Cuo, Zha Xi Ping and Pool, John E. and Xu, Xun and Jiang, Hui and Vinckenbosch, Nicolas and Korneliussen, Thorfinn Sand and Zheng, Hancheng and Liu, Tao and He, Weiming and Li, Kui and Luo, Ruibang and Nie, Xifang and Wu, Honglong and Zhao, Meiru and Cao, Hongzhi and Zou, Jing and Shan, Ying and Li, Shuzheng and Yang, Qi and Asan and Ni, Peixiang and Tian, Geng and Xu, Junming and Liu, Xiao and Jiang, Tao and Wu, Renhua and Zhou, Guangyu and Tang, Meifang and Qin, Junjie and Wang, Tong and Feng, Shuijian and Li, Guohong and Huasang and Luosang, Jiangbai and Wang, Wei and Chen, Fang and Wang, Yading and Zheng, Xiaoguang and Li, Zhuo and Bianba, Zhuoma and Yang, Ge and Wang, Xinping and Tang, Shuhui and Gao, Guoyi and Chen, Yong and Luo, Zhen and Gusang, Lamu and Cao, Zheng and Zhang, Qinghui and Ouyang, Weihan and Ren, Xiaoli and Liang, Huiqing and Zheng, Huisong and Huang, Yebo and Li, Jingxiang and Bolund, Lars and Kristiansen, Karsten and Li, Yingrui and Zhang, Yong and Zhang, Xiuqing and Li, Ruiqiang and Li, Songgang and Yang, Huanming and Nielsen, Rasmus and Wang, Jun and Wang, Jian",
     "timestamp": "2026-03-04 Wed 11:45",
     "has_note": "no",
     "words": 0,
@@ -217,6 +271,8 @@
   },
   {
     "cite": "@malinskyDsuiteFastDstatistics2021",
+    "title": "Dsuite - Fast D-statistics and Related Admixture Evidence from VCF Files",
+    "author": "Malinsky, Milan and Matschiner, Michael and Svardal, Hannes",
     "timestamp": "2026-03-05 Thu 08:49",
     "has_note": "no",
     "words": 0,
@@ -225,6 +281,8 @@
   },
   {
     "cite": "@paradisPegasPackagePopulation2010",
+    "title": "Pegas: An R Package for Population Genetics with an Integrated--Modular Approach",
+    "author": "Paradis, Emmanuel",
     "timestamp": "2026-03-05 Thu 09:06",
     "has_note": "no",
     "words": 0,
@@ -233,6 +291,8 @@
   },
   {
     "cite": "@knausVcfrPackageManipulate2017",
+    "title": "Vcfr: A Package to Manipulate and Visualize Variant Call Format Data in R",
+    "author": "Knaus, Brian J. and Gr\\\"unwald, Niklaus J.",
     "timestamp": "2026-03-05 Thu 09:40",
     "has_note": "no",
     "words": 0,
@@ -241,6 +301,8 @@
   },
   {
     "cite": "@gouldSpandrelsSanMarco1979",
+    "title": "The Spandrels of San Marco and the Panglossian Paradigm: A Critique of the Adaptationist Programme",
+    "author": "Gould, S. J. and Lewontin, R. C.",
     "timestamp": "2026-03-05 Thu 19:43",
     "has_note": "yes",
     "words": 104,
@@ -249,6 +311,8 @@
   },
   {
     "cite": "@mccolganUnderstandingDevelopmentalSystem2024",
+    "title": "Understanding Developmental System Drift",
+    "author": "McColgan, \\'Aine and DiFrisco, James",
     "timestamp": "2026-03-06 Fri 09:56",
     "has_note": "no",
     "words": 0,
@@ -257,6 +321,8 @@
   },
   {
     "cite": "@mallarinoTwoDevelopmentalModules2011",
+    "title": "Two Developmental Modules Establish 3D Beak-Shape Variation in Darwin's Finches",
+    "author": "Mallarino, Ricardo and Grant, Peter R. and Grant, B. Rosemary and Herrel, Anthony and Kuo, Winston P. and Abzhanov, Arhat",
     "timestamp": "2026-03-09 Mon 11:50",
     "has_note": "yes",
     "words": 99,
@@ -265,6 +331,8 @@
   },
   {
     "cite": "@abzhanovCalmodulinPathwayEvolution2006",
+    "title": "The Calmodulin Pathway and Evolution of Elongated Beak Morphology in Darwin's Finches",
+    "author": "Abzhanov, Arhat and Kuo, Winston P. and Hartmann, Christine and Grant, B. Rosemary and Grant, Peter R. and Tabin, Clifford J.",
     "timestamp": "2026-03-09 Mon 19:41",
     "has_note": "yes",
     "words": 23,
@@ -273,6 +341,8 @@
   },
   {
     "cite": "@gatesEvolutionGenetics1926",
+    "title": "Evolution and Genetics",
+    "author": "Gates, R. Ruggles",
     "timestamp": "2026-03-09 Mon 19:55",
     "has_note": "no",
     "words": 0,
@@ -281,6 +351,8 @@
   },
   {
     "cite": "@goldschmidtAspectsEvolution1933a",
+    "title": "Some Aspects of Evolution",
+    "author": "Goldschmidt, Richard",
     "timestamp": "2026-03-09 Mon 20:44",
     "has_note": "yes",
     "words": 122,
@@ -289,6 +361,8 @@
   },
   {
     "cite": "@gibbsAdultSurvivorshipDarwins1987",
+    "title": "Adult Survivorship in Darwin's Ground Finch (Geospiza) Populations in a Variable Environment",
+    "author": "Gibbs, H. Lisle and Grant, Peter R.",
     "timestamp": "2026-03-11 Wed 10:48",
     "has_note": "yes",
     "words": 123,
@@ -297,6 +371,8 @@
   },
   {
     "cite": "@tengstedtEvaluatingInbreedingAssessing2026",
+    "title": "Evaluating Inbreeding and Assessing the Risk of Outbreeding Depression in Genetic Rescue Using Whole-Genome Sequence Data",
+    "author": "Tengstedt, Aja Noersgaard Buur and H\\oye, Toke Thomas and Kristensen, Torsten Nygaard and Hansen, Michael M.",
     "timestamp": "2026-03-11 Wed 11:47",
     "has_note": "no",
     "words": 0,
@@ -305,6 +381,8 @@
   },
   {
     "cite": "@priceGeneticChangesMorphological1984",
+    "title": "Genetic Changes in the Morphological Differentiation of Darwin's Ground Finches",
+    "author": "Price, T. D. and Grant, P. R. and Boag, P. T.",
     "timestamp": "2026-03-12 Thu 10:20",
     "has_note": "yes",
     "words": 100,
@@ -313,6 +391,8 @@
   },
   {
     "cite": "@excoffierFastsimcoal2DemographicInference2021",
+    "title": "Fastsimcoal2: Demographic Inference under Complex Evolutionary Scenarios",
+    "author": "Excoffier, Laurent and Marchi, Nina and Marques, David Alexander and Matthey-Doret, Remi and Gouy, Alexandre and Sousa, Vitor C",
     "timestamp": "2026-03-12 Thu 11:34",
     "has_note": "no",
     "words": 0,
@@ -321,6 +401,8 @@
   },
   {
     "cite": "@avsecAdvancingRegulatoryVariant2026",
+    "title": "Advancing Regulatory Variant Effect Prediction with AlphaGenome",
+    "author": "Avsec, \\v Ziga and Latysheva, Natasha and Cheng, Jun and Novati, Guido and Taylor, Kyle R. and Ward, Tom and Bycroft, Clare and Nicolaisen, Lauren and Arvaniti, Eirini and Pan, Joshua and Thomas, Raina and Dutordoir, Vincent and Perino, Matteo and De, Soham and Karollus, Alexander and Gayoso, Adam and Sargeant, Toby and Mottram, Anne and Wong, Lai Hong and Drot\\'ar, Pavol and Kosiorek, Adam and Senior, Andrew and Tanburn, Richard and Applebaum, Taylor and Basu, Souradeep and Hassabis, Demis and Kohli, Pushmeet",
     "timestamp": "2026-03-13 Fri 09:53",
     "has_note": "no",
     "words": 0,
@@ -329,6 +411,8 @@
   },
   {
     "cite": "@grantNicheShiftsCompetition1982",
+    "title": "Niche Shifts and Competition in Darwin's Finches: Geospiza Conirostris and Congeners",
+    "author": "Grant, B. R. and Grant, P. R.",
     "timestamp": "2026-03-18 Wed 10:33",
     "has_note": "yes",
     "words": 198,
@@ -337,6 +421,8 @@
   },
   {
     "cite": "@grantConvergenceDarwinsFinches2025",
+    "title": "Convergence of Darwin's Finches through Hybridization on a Remote Gal\\'apagos Island",
+    "author": "Grant, Peter R and Grant, B Rosemary",
     "timestamp": "2026-03-20 Fri 11:27",
     "has_note": "yes",
     "words": 172,
@@ -345,6 +431,8 @@
   },
   {
     "cite": "@rubinRapidAdaptiveRadiation2022",
+    "title": "Rapid Adaptive Radiation of Darwin's Finches Depends on Ancestral Genetic Modules",
+    "author": "Rubin, Carl-Johan and Enbody, Erik D. and Dobreva, Mariya P. and Abzhanov, Arhat and Davis, Brian W. and Lamichhaney, Sangeet and Pettersson, Mats and Sendell-Price, Ashley T. and Sprehn, C. Grace and Valle, Carlos A. and Vasco, Karla and Wallerman, Ola and Grant, B. Rosemary and Grant, Peter R. and Andersson, Leif",
     "timestamp": "2026-03-20 Fri 12:03",
     "has_note": "yes",
     "words": 77,
@@ -353,6 +441,8 @@
   },
   {
     "cite": "@grantMicrocosmMacrocosmAdaptive2024",
+    "title": "From Microcosm to Macrocosm: Adaptive Radiation of Darwin's Finches",
+    "author": "Grant, Peter R and Grant, B Rosemary",
     "timestamp": "2026-03-20 Fri 13:46",
     "has_note": "no",
     "words": 0,
@@ -361,14 +451,18 @@
   },
   {
     "cite": "@lamichhaneyRapidHybridSpeciation2018",
+    "title": "Rapid Hybrid Speciation in Darwin's Finches",
+    "author": "Lamichhaney, Sangeet and Han, Fan and Webster, Matthew T. and Andersson, Leif and Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-03-20 Fri 14:07",
     "has_note": "yes",
-    "words": 23,
-    "links": 2,
+    "words": 84,
+    "links": 6,
     "pages": 5
   },
   {
     "cite": "@enbodyMultispeciesBCO2Beak2021",
+    "title": "A Multispecies BCO2 Beak Color Polymorphism in the Darwin's Finch Radiation",
+    "author": "Enbody, Erik D. and Sprehn, C. Grace and Abzhanov, Arhat and Bi, Huijuan and Dobreva, Mariya P. and Osborne, Owen G. and Rubin, Carl-Johan and Grant, Peter R. and Grant, B. Rosemary and Andersson, Leif",
     "timestamp": "2026-03-20 Fri 14:44",
     "has_note": "yes",
     "words": 75,
@@ -377,6 +471,8 @@
   },
   {
     "cite": "@gouldNewGeneralTheory1980",
+    "title": "Is a New and General Theory of Evolution Emerging?",
+    "author": "Gould, Stephen Jay",
     "timestamp": "2026-03-22 Sun 21:13",
     "has_note": "yes",
     "words": 167,
@@ -385,6 +481,8 @@
   },
   {
     "cite": "@fosterGeometricMorphometricAppraisal2008",
+    "title": "A Geometric Morphometric Appraisal of Beak Shape in Darwin's Finches",
+    "author": "Foster, D. J. and Podos, J. and Hendry, A. P.",
     "timestamp": "2026-03-23 Mon 10:43",
     "has_note": "yes",
     "words": 119,
@@ -393,6 +491,8 @@
   },
   {
     "cite": "@grantVariationSizeShape1985",
+    "title": "Variation in the Size and Shape of Darwin's Finches",
+    "author": "Grant, P. R. and Abbott, I. and Schluter, D. and Curry, R. L. and Abbott, L. K.",
     "timestamp": "2026-03-23 Mon 12:22",
     "has_note": "yes",
     "words": 109,
@@ -401,6 +501,8 @@
   },
   {
     "cite": "@podosCorrelatedEvolutionMorphology2001",
+    "title": "Correlated Evolution of Morphology and Vocal Signal Structure in Darwin's Finches",
+    "author": "Podos, Jeffrey",
     "timestamp": "2026-03-23 Mon 13:26",
     "has_note": "no",
     "words": 0,
@@ -409,6 +511,8 @@
   },
   {
     "cite": "@campasScalingShearTransformations2010",
+    "title": "Scaling and Shear Transformations Capture Beak Shape Variation in Darwin's Finches",
+    "author": "Camp\\`as, O. and Mallarino, R. and Herrel, A. and Abzhanov, A. and Brenner, M. P.",
     "timestamp": "2026-03-24 Tue 08:25",
     "has_note": "yes",
     "words": 72,
@@ -417,6 +521,8 @@
   },
   {
     "cite": "@chavesGenomicVariationTips2016",
+    "title": "Genomic Variation at the Tips of the Adaptive Radiation of Darwin's Finches",
+    "author": "Chaves, Jaime A. and Cooper, Elizabeth A. and Hendry, Andrew P. and Podos, Jeffrey and De Le\\'on, Luis F. and Raeymaekers, Joost A. M. and MacMillan, W.Owen and Uy, J. Albert C.",
     "timestamp": "2026-03-24 Tue 09:27",
     "has_note": "yes",
     "words": 109,
@@ -425,6 +531,8 @@
   },
   {
     "cite": "@beausoleilTemporallyVaryingDisruptive2019",
+    "title": "Temporally Varying Disruptive Selection in the Medium Ground Finch (Geospiza Fortis)",
+    "author": "Beausoleil, Marc-Olivier and Frishkoff, Luke O. and M'Gonigle, Leithen K. and Raeymaekers, Joost A. M. and Knutie, Sarah A. and De Le\\'on, Luis F. and Huber, Sarah K. and Chaves, Jaime A. and Clayton, Dale H. and Koop, Jennifer A. H. and Podos, Jeffrey and Sharpe, Diana M. T. and Hendry, Andrew P. and Barrett, Rowan D. H.",
     "timestamp": "2026-03-24 Tue 10:18",
     "has_note": "yes",
     "words": 66,
@@ -433,6 +541,8 @@
   },
   {
     "cite": "@hendryPossibleHumanImpacts2006",
+    "title": "Possible Human Impacts on Adaptive Radiation: Beak Size Bimodality in Darwin's Finches",
+    "author": "Hendry, Andrew P and Grant, Peter R and Rosemary Grant, B and Ford, Hugh A and Brewer, Mark J and Podos, Jeffrey",
     "timestamp": "2026-03-25 Wed 08:27",
     "has_note": "no",
     "words": 0,
@@ -441,6 +551,8 @@
   },
   {
     "cite": "@huberReproductiveIsolationSympatric2007a",
+    "title": "Reproductive Isolation of Sympatric Morphs in a Population of Darwin's Finches",
+    "author": "Huber, Sarah K and Le\\'on, Luis Fernando De and Hendry, Andrew P and Bermingham, Eldredge and Podos, Jeffrey",
     "timestamp": "2026-03-25 Wed 09:05",
     "has_note": "yes",
     "words": 88,
@@ -449,6 +561,8 @@
   },
   {
     "cite": "@zapataDarwinsOverlookedRadiation2024",
+    "title": "Darwin's Overlooked Radiation: Genomic Evidence Points to the Early Stages of a Radiation in the Gal\\'apagos Prickly Pear Cactus (Opuntia: Cactaceae)",
+    "author": "Zapata, Felipe and Cerca, Jos\\'e and McCarney, Dana and Henriquez, Claudia L and Tiamiyu, Bashir B and McCormack, John E and Reckling, Kelsey R and Chaves, Jaime A and Rivas-Torres, Gonzalo",
     "timestamp": "2026-03-25 Wed 11:02",
     "has_note": "no",
     "words": 0,
@@ -457,6 +571,8 @@
   },
   {
     "cite": "@dewitt2025replaying",
+    "title": "Replaying germinal center evolution on a quantified affinity landscape",
+    "author": "DeWitt, William S and Vora, Ashni A and Araki, Tatsuya and Galloway, Jared G and Alkutkar, Tanwee and Bortolatto, Juliana and Castro, Tiago BR and Dumm, Will and Jennings-Shaffer, Chris and Jia, Tongqiu and others",
     "timestamp": "2026-03-25 Wed 12:22",
     "has_note": "no",
     "words": 0,
@@ -465,6 +581,8 @@
   },
   {
     "cite": "@rancilhacIntrogressionUnderliesPhylogenetic2024",
+    "title": "Introgression Underlies Phylogenetic Uncertainty But Not Parallel Plumage Evolution in a Recent Songbird Radiation",
+    "author": "Rancilhac, Lo\\\"is and Enbody, Erik D and Harris, Rebecca and Saitoh, Takema and Irestedt, Martin and Liu, Yang and Lei, Fumin and Andersson, Leif and Alstr\\\"om, Per",
     "timestamp": "2026-03-26 Thu 11:23",
     "has_note": "no",
     "words": 0,
@@ -473,6 +591,8 @@
   },
   {
     "cite": "@grantMorphologicalGhostsIntrogression2021",
+    "title": "Morphological Ghosts of Introgression in Darwin's Finch Populations",
+    "author": "Grant, Peter R. and Grant, B. Rosemary",
     "timestamp": "2026-03-27 Fri 10:37",
     "has_note": "yes",
     "words": 156,
@@ -481,6 +601,8 @@
   },
   {
     "cite": "@huberBeakMorphologySong2006",
+    "title": "Beak Morphology and Song Features Covary in a Population of Darwin's Finches (Geospiza Fortis)",
+    "author": "HUBER, SARAH K. and PODOS, \\relax JEFFREY",
     "timestamp": "2026-03-27 Fri 14:49",
     "has_note": "no",
     "words": 0,
@@ -489,6 +611,8 @@
   },
   {
     "cite": "@fontaineExtensiveIntrogressionMalaria2015",
+    "title": "Extensive Introgression in a Malaria Vector Species Complex Revealed by Phylogenomics",
+    "author": "Fontaine, Michael C. and Pease, James B. and Steele, Aaron and Waterhouse, Robert M. and Neafsey, Daniel E. and Sharakhov, Igor V. and Jiang, Xiaofang and Hall, Andrew B. and Catteruccia, Flaminia and Kakani, Evdoxia and Mitchell, Sara N. and Wu, Yi-Chieh and Smith, Hilary A. and Love, R. Rebecca and Lawniczak, Mara K. and Slotman, Michel A. and Emrich, Scott J. and Hahn, Matthew W. and Besansky, Nora J.",
     "timestamp": "2026-04-07 Tue 12:07",
     "has_note": "no",
     "words": 0,
@@ -497,6 +621,8 @@
   },
   {
     "cite": "@deleonDivergenceGeneFlow2010",
+    "title": "Divergence with Gene Flow as Facilitated by Ecological Differences: Within-Island Variation in Darwin's Finches",
+    "author": "de Le\\'on, Luis Fernando and Bermingham, Eldredge and Podos, Jeffrey and Hendry, Andrew P.",
     "timestamp": "2026-04-08 Wed 09:15",
     "has_note": "yes",
     "words": 73,
@@ -505,6 +631,8 @@
   },
   {
     "cite": "@reich2026hypothesis",
+    "title": "Hypothesis: A modern human range expansion\\~ 300,000 years ago explains Neandertal origins",
+    "author": "Reich, David",
     "timestamp": "2026-04-08 Wed 11:59",
     "has_note": "yes",
     "words": 0,
@@ -513,6 +641,8 @@
   },
   {
     "cite": "@orrDobzhanskyBatesonGenetics1996",
+    "title": "Dobzhansky, Bateson, and the Genetics of Speciation",
+    "author": "Orr, H Allen",
     "timestamp": "2026-04-08 Wed 13:47",
     "has_note": "yes",
     "words": 116,
@@ -521,6 +651,8 @@
   },
   {
     "cite": "@hanImprovingQuartetGraph2023",
+    "title": "Improving Quartet Graph Construction for Scalable and Accurate Species Tree Estimation from Gene Trees",
+    "author": "Han, Yunheng and Molloy, Erin K.",
     "timestamp": "2026-04-10 Fri 10:43",
     "has_note": "no",
     "words": 0,
@@ -529,6 +661,8 @@
   },
   {
     "cite": "@hanImprovedRobustnessGene2025",
+    "title": "Improved Robustness to Gene Tree Incompleteness, Estimation Errors, and Systematic Homology Errors with Weighted TREE-QMC",
+    "author": "Han, Yunheng and Molloy, Erin K",
     "timestamp": "2026-04-10 Fri 12:13",
     "has_note": "no",
     "words": 0,
@@ -537,6 +671,8 @@
   },
   {
     "cite": "@daiQuartetbasedSpeciesTree2026",
+    "title": "Quartet-Based Species Tree Methods Enable Fast and Consistent Tree of Blobs Reconstruction under the Network Multispecies Coalescent",
+    "author": "Dai, Junyan and Han, Yunheng and Molloy, Erin K.",
     "timestamp": "2026-04-10 Fri 13:42",
     "has_note": "no",
     "words": 0,
@@ -545,6 +681,8 @@
   },
   {
     "cite": "@grantDarwinsFinchesPopulation1976",
+    "title": "Darwin's Finches: Population Variation and Natural Selection.",
+    "author": "Grant, P R and Grant, B R and Smith, J N and Abbott, I J and Abbott, L K",
     "timestamp": "2026-04-13 Mon 09:41",
     "has_note": "yes",
     "words": 156,
@@ -553,6 +691,8 @@
   },
   {
     "cite": "@hendryDisruptiveSelectionBimodal2008",
+    "title": "Disruptive Selection in a Bimodal Population of Darwin's Finches",
+    "author": "Hendry, Andrew P and Huber, Sarah K and De Le\\'on, Luis F and Herrel, Anthony and Podos, Jeffrey",
     "timestamp": "2026-04-15 Wed 10:31",
     "has_note": "yes",
     "words": 41,
@@ -561,6 +701,8 @@
   },
   {
     "cite": "@wongGeneralEfficientRepresentation2024",
+    "title": "A General and Efficient Representation of Ancestral Recombination Graphs",
+    "author": "Wong, Yan and Ignatieva, Anastasia and Koskela, Jere and Gorjanc, Gregor and Wohns, Anthony W. and Kelleher, Jerome",
     "timestamp": "2026-04-15 Wed 12:48",
     "has_note": "no",
     "words": 0,
@@ -569,6 +711,8 @@
   },
   {
     "cite": "@goodalePersistenceSongTypes2010",
+    "title": "Persistence of Song Types in Darwin's Finches, Geospiza Fortis, over Four Decades",
+    "author": "Goodale, Eben and Podos, Jeffrey",
     "timestamp": "2026-04-16 Thu 09:06",
     "has_note": "no",
     "words": 0,
@@ -577,6 +721,8 @@
   },
   {
     "cite": "@holtgrefeSquirrelReconstructingSemidirected2025",
+    "title": "Squirrel: Reconstructing Semi-directed Phylogenetic Level-1 Networks from Four-Leaved Networks or Sequence Alignments",
+    "author": "Holtgrefe, Niels and Huber, Katharina T and van Iersel, Leo and Jones, Mark and Martin, Samuel and Moulton, Vincent",
     "timestamp": "2026-04-16 Thu 10:18",
     "has_note": "no",
     "words": 0,
@@ -585,6 +731,8 @@
   },
   {
     "cite": "@mckaySisypheanEvolutionDarwins2015",
+    "title": "Sisyphean Evolution in Darwin's Finches",
+    "author": "McKay, Bailey D. and Zink, Robert M.",
     "timestamp": "2026-04-17 Fri 10:40",
     "has_note": "no",
     "words": 0,
@@ -593,6 +741,8 @@
   },
   {
     "cite": "@cadenaIssuesPerspectivesSpecies2018",
+    "title": "Issues and Perspectives in Species Delimitation Using Phenotypic Data: Atlantean Evolution in Darwin's Finches",
+    "author": "Cadena, Carlos Daniel and Zapata, Felipe and Jim\\'enez, Iv\\'an",
     "timestamp": "2026-04-17 Fri 11:35",
     "has_note": "yes",
     "words": 168,
@@ -601,10 +751,452 @@
   },
   {
     "cite": "@farringtonEVOLUTIONARYHISTORYDARWINS2014",
+    "title": "THE EVOLUTIONARY HISTORY OF DARWIN'S FINCHES: SPECIATION, GENE FLOW, AND INTROGRESSION IN A FRAGMENTED LANDSCAPE",
+    "author": "Farrington, Heather L. and Lawson, Lucinda P. and Clark, Courtney M. and Petren, Kenneth",
     "timestamp": "2026-04-17 Fri 14:54",
     "has_note": "yes",
     "words": 59,
     "links": 3,
     "pages": 13
+  },
+  {
+    "cite": "@petakVariabilityEvolvabilityProperties2025",
+    "title": "The Variability of Evolvability: Properties of Dynamic Fitness Landscapes Determine How Phenotypic Variability Evolves",
+    "author": "Petak, Csenge and Frati, Lapo and Vroomans, Renske M. A. and Pespeni, Melissa H. and Cheney, Nick",
+    "timestamp": "2026-04-20 Mon 10:28",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 15
+  },
+  {
+    "cite": "@norazAncientDNAReveals2026",
+    "title": "Ancient DNA Reveals 4000 Years of Grapevine Diversity, Viticulture and Clonal Propagation in France",
+    "author": "Noraz, R\\'emi and Chauvey, Lorelei and Wagner, Stefanie and Estrada, Oscar and Wales, Nathan and Bonnaire, Emmanuelle and Cabanis, Manon and Derreumaux, Marie and Figueiral, Isabel and Hallavant, Charlotte and Marinval, Philippe and Matterne, V\\'eronique and Ros, J\\'er\\^ome and Rovira, Nuria and Tillier, Margaux and Bovagne, Marilyne and Chausserie-Lapr\\'ee, Jean and Nicolas, Cl\\'ement and Daveau, Isabelle and Delassus, David and Gailledrat, Eric and Ginouvez, Olivier and Houix, Bertrand and Jung, C\\'ecile and Kuchler, Philippe and Leroux, Laure and Macario, Rapha\\\"el and Marli\\`ere, Elise and Pasqualini, Michel and Piques, Ga\\\"el and Pomaredes, Herv\\'e and Robert, Justine and Roms, C\\'edric and Roth-Zehner, Muriel and Scrinzi, Maxime and Taras-Thomas, Maryanick and Torres Costa, Josep and Besnard, Guillaume and Terral, Jean-Fr\\'ed\\'eric and Bacilieri, Roberto and Bouby, Laurent and Orlando, Ludovic",
+    "timestamp": "2026-04-21 Tue 09:40",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 15
+  },
+  {
+    "cite": "@dengRobustAccurateBayesian2025",
+    "title": "Robust and Accurate Bayesian Inference of Genome-Wide Genealogies for Hundreds of Genomes",
+    "author": "Deng, Yun and Nielsen, Rasmus and Song, Yun S.",
+    "timestamp": "2026-04-21 Tue 17:15",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 12
+  },
+  {
+    "cite": "@petakVariabilityEvolvabilityProperties2025",
+    "title": "The Variability of Evolvability: Properties of Dynamic Fitness Landscapes Determine How Phenotypic Variability Evolves",
+    "author": "Petak, Csenge and Frati, Lapo and Vroomans, Renske M. A. and Pespeni, Melissa H. and Cheney, Nick",
+    "timestamp": "2026-04-22 Wed 09:44",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 15
+  },
+  {
+    "cite": "@grantCULTURALINHERITANCESONG1996",
+    "title": "CULTURAL INHERITANCE OF SONG AND ITS ROLE IN THE EVOLUTION OF DARWIN'S FINCHES",
+    "author": "Grant, B. Rosemary and Grant, Peter R.",
+    "timestamp": "2026-04-23 Thu 09:39",
+    "has_note": "yes",
+    "words": 139,
+    "links": 11,
+    "pages": 17
+  },
+  {
+    "cite": "@dengGeneralFrameworkBranch2025",
+    "title": "A General Framework for Branch Length Estimation in Ancestral Recombination Graphs",
+    "author": "Deng, Yun and DeWitt, William S. and Song, Yun S. and Nielsen, Rasmus",
+    "timestamp": "2026-04-24 Fri 08:33",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 8
+  },
+  {
+    "cite": "@hudsonPropertiesNeutralAllele1983",
+    "title": "Properties of a Neutral Allele Model with Intragenic Recombination",
+    "author": "Hudson, Richard R.",
+    "timestamp": "2026-04-24 Fri 09:56",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 19
+  },
+  {
+    "cite": "@waddingtonCanalizationDevelopmentInheritance1942",
+    "title": "Canalization of Development and the Inheritance of Acquired Characters",
+    "author": "Waddington, C. H.",
+    "timestamp": "2026-04-27 Mon 19:49",
+    "has_note": "yes",
+    "words": 201,
+    "links": 6,
+    "pages": 3
+  },
+  {
+    "cite": "@waddingtonEpigenotype2012",
+    "title": "The Epigenotype",
+    "author": "Waddington, C. H.",
+    "timestamp": "2026-04-28 Tue 09:20",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 4
+  },
+  {
+    "cite": "@waddingtonGeneticAssimilationAcquired1953",
+    "title": "Genetic Assimilation of an Acquired Character",
+    "author": "Waddington, C. H.",
+    "timestamp": "2026-04-28 Tue 17:14",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 9
+  },
+  {
+    "cite": "@grantConvergenceDarwinsFinches2025",
+    "title": "Convergence of Darwin's Finches through Hybridization on a Remote Gal\\'apagos Island",
+    "author": "Grant, Peter R and Grant, B Rosemary",
+    "timestamp": "2026-04-29 Wed 09:55",
+    "has_note": "yes",
+    "words": 172,
+    "links": 11,
+    "pages": 10
+  },
+  {
+    "cite": "@lamichhaneyEvolutionDarwinsFinches2015",
+    "title": "Evolution of Darwin's Finches and Their Beaks Revealed by Genome Sequencing",
+    "author": "Lamichhaney, Sangeet and Berglund, Jonas and Alm\\'en, Markus S\\\"allman and Maqbool, Khurram and Grabherr, Manfred and Martinez-Barrio, Alvaro and Promerov\\'a, Marta and Rubin, Carl-Johan and Wang, Chao and Zamani, Neda and Grant, B. Rosemary and Grant, Peter R. and Webster, Matthew T. and Andersson, Leif",
+    "timestamp": "2026-04-29 Wed 18:20",
+    "has_note": "yes",
+    "words": 0,
+    "links": 0,
+    "pages": 5
+  },
+  {
+    "cite": "@rubinRapidAdaptiveRadiation2022",
+    "title": "Rapid Adaptive Radiation of Darwin's Finches Depends on Ancestral Genetic Modules",
+    "author": "Rubin, Carl-Johan and Enbody, Erik D. and Dobreva, Mariya P. and Abzhanov, Arhat and Davis, Brian W. and Lamichhaney, Sangeet and Pettersson, Mats and Sendell-Price, Ashley T. and Sprehn, C. Grace and Valle, Carlos A. and Vasco, Karla and Wallerman, Ola and Grant, B. Rosemary and Grant, Peter R. and Andersson, Leif",
+    "timestamp": "2026-04-30 Thu 08:20",
+    "has_note": "yes",
+    "words": 77,
+    "links": 6,
+    "pages": 15
+  },
+  {
+    "cite": "@terhorstAcceleratedBayesianInference2025",
+    "title": "Accelerated Bayesian Inference of Population Size History from Recombining Sequence Data",
+    "author": "Terhorst, Jonathan",
+    "timestamp": "2026-04-30 Thu 10:07",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 8
+  },
+  {
+    "cite": "@wagnerRobustnessEvolvabilityParadox2007",
+    "title": "Robustness and Evolvability: A Paradox Resolved",
+    "author": "Wagner, Andreas",
+    "timestamp": "2026-05-01 Fri 09:43",
+    "has_note": "yes",
+    "words": 167,
+    "links": 9,
+    "pages": 10
+  },
+  {
+    "cite": "@shiPeptidesDNAAll2026",
+    "title": "From Peptides to DNA: All Required Steps Can Be Catalyzed",
+    "author": "Shi, Lei and Senissar, M\\'eriem and Leistner, Kirsten and Jers, Carsten and Mijakovic, Ivan",
+    "timestamp": "2026-05-01 Fri 21:18",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 15
+  },
+  {
+    "cite": "@lappalainenTranscriptomeGenomeSequencing2013",
+    "title": "Transcriptome and Genome Sequencing Uncovers Functional Variation in Humans",
+    "author": "Lappalainen, Tuuli and Sammeth, Michael and Friedl\\\"ander, Marc R. and `t Hoen, Peter A. C. and Monlong, Jean and Rivas, Manuel A. and Gonz\\`alez-Porta, Mar and Kurbatova, Natalja and Griebel, Thasso and Ferreira, Pedro G. and Barann, Matthias and Wieland, Thomas and Greger, Liliana and van Iterson, Maarten and Alml\\\"of, Jonas and Ribeca, Paolo and Pulyakhina, Irina and Esser, Daniela and Giger, Thomas and Tikhonov, Andrew and Sultan, Marc and Bertier, Gabrielle and MacArthur, Daniel G. and Lek, Monkol and Lizano, Esther and Buermans, Henk P. J. and Padioleau, Ismael and Schwarzmayr, Thomas and Karlberg, Olof and Ongen, Halit and Kilpinen, Helena and Beltran, Sergi and Gut, Marta and Kahlem, Katja and Amstislavskiy, Vyacheslav and Stegle, Oliver and Pirinen, Matti and Montgomery, Stephen B. and Donnelly, Peter and McCarthy, Mark I. and Flicek, Paul and Strom, Tim M. and Lehrach, Hans and Schreiber, Stefan and Sudbrak, Ralf and Carracedo, \\'Angel and Antonarakis, Stylianos E. and H\\\"asler, Robert and Syv\\\"anen, Ann-Christine and van Ommen, Gert-Jan and Brazma, Alvis and Meitinger, Thomas and Rosenstiel, Philip and Guig\\'o, Roderic and Gut, Ivo G. and Estivill, Xavier and Dermitzakis, Emmanouil T.",
+    "timestamp": "2026-05-02 Sat 11:12",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 6
+  },
+  {
+    "cite": "@wuGenicViewProcess2001",
+    "title": "The Genic View of the Process of Speciation",
+    "author": "Wu, Chung-I.",
+    "timestamp": "2026-05-02 Sat 15:25",
+    "has_note": "yes",
+    "words": 351,
+    "links": 13,
+    "pages": 15
+  },
+  {
+    "cite": "@wuGenicViewProcess2001",
+    "title": "The Genic View of the Process of Speciation",
+    "author": "Wu, Chung-I.",
+    "timestamp": "2026-05-04 Mon 12:01",
+    "has_note": "yes",
+    "words": 351,
+    "links": 13,
+    "pages": 15
+  },
+  {
+    "cite": "@lawsonDarwinsFinchesModel2019",
+    "title": "Darwin's Finches: A Model of Landscape Effects on Metacommunity Dynamics in the Gal\\'apagos Archipelago",
+    "author": "Lawson, Lucinda P. and Niedzwiecki, John and Petren, Kenneth",
+    "timestamp": "2026-05-04 Mon 14:41",
+    "has_note": "yes",
+    "words": 158,
+    "links": 11,
+    "pages": 12
+  },
+  {
+    "cite": "@taylorInsightsGenomesEvolutionary2019",
+    "title": "Insights from Genomes into the Evolutionary Importance and Prevalence of Hybridization in Nature",
+    "author": "Taylor, Scott A. and Larson, Erica L.",
+    "timestamp": "2026-05-05 Tue 19:39",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 8
+  },
+  {
+    "cite": "@schiffelsInferringHumanPopulation2014",
+    "title": "Inferring Human Population Size and Separation History from Multiple Genome Sequences",
+    "author": "Schiffels, Stephan and Durbin, Richard",
+    "timestamp": "2026-05-06 Wed 08:11",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 7
+  },
+  {
+    "cite": "@grabensteinHybridizationCloselyRelated2023",
+    "title": "Hybridization between Closely Related Songbirds Is Related to Human Habitat Disturbance",
+    "author": "Grabenstein, Kathryn C. and Otter, Ken A. and Burg, Theresa M. and Taylor, Scott A.",
+    "timestamp": "2026-05-06 Wed 11:31",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 14
+  },
+  {
+    "cite": "@funkBiogeographicOriginsDarwins",
+    "title": "Biogeographic Origins of Darwin's Finches (Thraupidae: Coerebinae)",
+    "author": "Funk, Erik R. and Burns, Kevin J.",
+    "timestamp": "2026-05-06 Wed 14:09",
+    "has_note": "yes",
+    "words": 46,
+    "links": 4,
+    "pages": 15
+  },
+  {
+    "cite": "@baileyBayesianHybridIndex2024",
+    "title": "Bayesian Hybrid Index and Genomic Cline Estimation with the R Package Gghybrid",
+    "author": "Bailey, Richard Ian",
+    "timestamp": "2026-05-07 Thu 08:57",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 15
+  },
+  {
+    "cite": "@freelandMITOCHONDRIALNUCLEARGENETIC1999",
+    "title": "THE MITOCHONDRIAL AND NUCLEAR GENETIC HOMOGENEITY OF THE PHENOTYPICALLY DIVERSE DARWIN'S GROUND FINCHES",
+    "author": "Freeland, Joanna R. and Boag, Peter T.",
+    "timestamp": "2026-05-07 Thu 09:32",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 11
+  },
+  {
+    "cite": "@vonholdtWholegenomeSequenceAnalysis2016",
+    "title": "Whole-Genome Sequence Analysis Shows That Two Endemic Species of North American Wolf Are Admixtures of the Coyote and Gray Wolf",
+    "author": "vonHoldt, Bridgett M. and Cahill, James A. and Fan, Zhenxin and Gronau, Ilan and Robinson, Jacqueline and Pollinger, John P. and Shapiro, Beth and Wall, Jeff and Wayne, Robert K.",
+    "timestamp": "2026-05-08 Fri 10:45",
+    "has_note": "yes",
+    "words": 0,
+    "links": 0,
+    "pages": 14
+  },
+  {
+    "cite": "@gronauBayesianInferenceAncient2011",
+    "title": "Bayesian Inference of Ancient Human Demography from Individual Genome Sequences",
+    "author": "Gronau, Ilan and Hubisz, Melissa J. and Gulko, Brad and Danko, Charles G. and Siepel, Adam",
+    "timestamp": "2026-05-08 Fri 12:29",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 4
+  },
+  {
+    "cite": "@dehaasInferenceComplexDemographic2025",
+    "title": "Inference of Complex Demographic History Using Composite Likelihood Based on Whole-Genome Genealogies",
+    "author": "DeHaas, Drew and Jia, Zhibai and Speidel, Leo and Wei, Xinzhu",
+    "timestamp": "2026-05-09 Sat 11:42",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 19
+  },
+  {
+    "cite": "@ottenburghsDigestEvidenceIncipient2026",
+    "title": "Digest: Evidence for Incipient Hybrid Speciation in the Black-cheeked Gnateater",
+    "author": "Ottenburghs, Jente",
+    "timestamp": "2026-05-11 Mon 09:10",
+    "has_note": "yes",
+    "words": 67,
+    "links": 1,
+    "pages": 5
+  },
+  {
+    "cite": "@limaGeographicIsolationAdmixture2026",
+    "title": "Geographic Isolation after Admixture Generates a Distinct Lineage in an Atlantic Forest Bird",
+    "author": "Lima, Rafael D and Bocalini, Fernanda and Gomes, Vitor and Ostrow, Emily N and Catanach, Therese A and Weckstein, Jason D and Silveira, Lu\\'is F\\'abio and Piacentini, V\\'itor Q",
+    "timestamp": "2026-05-11 Mon 10:08",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 15
+  },
+  {
+    "cite": "@harveyEvolutionTropicalBiodiversity2020",
+    "title": "The Evolution of a Tropical Biodiversity Hotspot",
+    "author": "Harvey, Michael G. and Bravo, Gustavo A. and Claramunt, Santiago and Cuervo, Andr\\'es M. and Derryberry, Graham E. and Battilana, Jaqueline and Seeholzer, Glenn F. and McKay, Jessica Shearer and O'Meara, Brian C. and Faircloth, Brant C. and Edwards, Scott V. and P\\'erez-Em\\'an, Jorge and Moyle, Robert G. and Sheldon, Frederick H. and Aleixo, Alexandre and Smith, Brian Tilston and Chesser, R. Terry and Silveira, Lu\\'is F\\'abio and Cracraft, Joel and Brumfield, Robb T. and Derryberry, Elizabeth P.",
+    "timestamp": "2026-05-11 Mon 10:34",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 6
+  },
+  {
+    "cite": "@settlecowskiLibraryPreparationMethod2023",
+    "title": "Library Preparation Method and DNA Source Influence Endogenous DNA Recovery from 100-Year-Old Avian Museum Specimens",
+    "author": "Settlecowski, Amie E. and Marks, Ben D. and Manthey, Joseph D.",
+    "timestamp": "2026-05-11 Mon 12:03",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 15
+  },
+  {
+    "cite": "@grantHybridizationIncreasesPopulation2019",
+    "title": "Hybridization Increases Population Variation during Adaptive Radiation",
+    "author": "Grant, Peter R. and Grant, B. Rosemary",
+    "timestamp": "2026-05-11 Mon 13:44",
+    "has_note": "yes",
+    "words": 113,
+    "links": 8,
+    "pages": 9
+  },
+  {
+    "cite": "@toewsPlumageGenesLittle2016",
+    "title": "Plumage Genes and Little Else Distinguish the Genomes of Hybridizing Warblers",
+    "author": "Toews, David P. L. and Taylor, Scott A. and Vallender, Rachel and Brelsford, Alan and Butcher, Bronwyn G. and Messer, Philipp W. and Lovette, Irby J.",
+    "timestamp": "2026-05-13 Wed 09:31",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 6
+  },
+  {
+    "cite": "@abbottHybridizationSpeciation2013",
+    "title": "Hybridization and Speciation",
+    "author": "Abbott, R. and Albach, D. and Ansell, S. and Arntzen, J. W. and Baird, S. J. E. and Bierne, N. and Boughman, J. and Brelsford, A. and Buerkle, C. A. and Buggs, R. and Butlin, R. K. and Dieckmann, U. and Eroukhmanoff, F. and Grill, A. and Cahan, S. H. and Hermansen, J. S. and Hewitt, G. and Hudson, A. G. and Jiggins, C. and Jones, J. and Keller, B. and Marczewski, T. and Mallet, J. and Martinez-rodriguez, P. and M\\\"ost, M. and Mullen, S. and Nichols, R. and Nolte, A. W. and Parisod, C. and Pfennig, K. and Rice, A. M. and Ritchie, M. G. and Seifert, B. and Smadja, C. M. and Stelkens, R. and Szymura, J. M. and V\\\"ain\\\"ol\\\"a, R. and Wolf, J. B. W. and Zinner, D.",
+    "timestamp": "2026-05-18 Mon 14:42",
+    "has_note": "yes",
+    "words": 140,
+    "links": 10,
+    "pages": 18
+  },
+  {
+    "cite": "@abbottHybridizationSpeciation2013",
+    "title": "Hybridization and Speciation",
+    "author": "Abbott, R. and Albach, D. and Ansell, S. and Arntzen, J. W. and Baird, S. J. E. and Bierne, N. and Boughman, J. and Brelsford, A. and Buerkle, C. A. and Buggs, R. and Butlin, R. K. and Dieckmann, U. and Eroukhmanoff, F. and Grill, A. and Cahan, S. H. and Hermansen, J. S. and Hewitt, G. and Hudson, A. G. and Jiggins, C. and Jones, J. and Keller, B. and Marczewski, T. and Mallet, J. and Martinez-rodriguez, P. and M\\\"ost, M. and Mullen, S. and Nichols, R. and Nolte, A. W. and Parisod, C. and Pfennig, K. and Rice, A. M. and Ritchie, M. G. and Seifert, B. and Smadja, C. M. and Stelkens, R. and Szymura, J. M. and V\\\"ain\\\"ol\\\"a, R. and Wolf, J. B. W. and Zinner, D.",
+    "timestamp": "2026-05-20 Wed 10:21",
+    "has_note": "yes",
+    "words": 140,
+    "links": 10,
+    "pages": 18
+  },
+  {
+    "cite": "@deleonDarwinsFinchesTheir2014",
+    "title": "Darwin's Finches and Their Diet Niches: The Sympatric Coexistence of Imperfect Generalists",
+    "author": "De Le\\'on, L. F. and Podos, J. and Gardezi, T. and Herrel, A. and Hendry, A. P.",
+    "timestamp": "2026-05-21 Thu 11:13",
+    "has_note": "yes",
+    "words": 151,
+    "links": 7,
+    "pages": 12
+  },
+  {
+    "cite": "@ottenburghsExploringHybridSpeciation2018",
+    "title": "Exploring the Hybrid Speciation Continuum in Birds",
+    "author": "Ottenburghs, Jente",
+    "timestamp": "2026-05-21 Thu 13:39",
+    "has_note": "yes",
+    "words": 49,
+    "links": 3,
+    "pages": 8
+  },
+  {
+    "cite": "@hillHybridSpeciationBirds2018",
+    "title": "Hybrid Speciation in Birds, with Special Reference to Darwin's Finches",
+    "author": "Hill, Geoffrey E. and Zink, Robert M.",
+    "timestamp": "2026-05-22 Fri 09:39",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 5
+  },
+  {
+    "cite": "@lawsonAdaptiveGenomicLandscape2017",
+    "title": "The Adaptive Genomic Landscape of Beak Morphology in Darwin's Finches",
+    "author": "Lawson, Lucinda P. and Petren, Kenneth",
+    "timestamp": "2026-05-22 Fri 14:47",
+    "has_note": "yes",
+    "words": 70,
+    "links": 6,
+    "pages": 12
+  },
+  {
+    "cite": "@lawsonAdaptiveGenomicLandscape2017",
+    "title": "The Adaptive Genomic Landscape of Beak Morphology in Darwin's Finches",
+    "author": "Lawson, Lucinda P. and Petren, Kenneth",
+    "timestamp": "2026-05-27 Wed 19:56",
+    "has_note": "yes",
+    "words": 70,
+    "links": 6,
+    "pages": 12
+  },
+  {
+    "cite": "@lamichhaneyRapidHybridSpeciation2018",
+    "title": "Rapid Hybrid Speciation in Darwin's Finches",
+    "author": "Lamichhaney, Sangeet and Han, Fan and Webster, Matthew T. and Andersson, Leif and Grant, B. Rosemary and Grant, Peter R.",
+    "timestamp": "2026-05-29 Fri 16:30",
+    "has_note": "yes",
+    "words": 84,
+    "links": 6,
+    "pages": 5
+  },
+  {
+    "cite": "@lamichhaneyBeakSizeLocus2016",
+    "title": "A Beak Size Locus in Darwin's Finches Facilitated Character Displacement during a Drought",
+    "author": "Lamichhaney, Sangeet and Han, Fan and Berglund, Jonas and Wang, Chao and Alm\\'en, Markus S\\\"allman and Webster, Matthew T. and Grant, B. Rosemary and Grant, Peter R. and Andersson, Leif",
+    "timestamp": "2026-05-29 Fri 19:24",
+    "has_note": "yes",
+    "words": 89,
+    "links": 7,
+    "pages": 5
   }
 ]
