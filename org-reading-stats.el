@@ -11,6 +11,10 @@
 (defvar org-reading-stats-extra-bib-files '("~/.emacs.d/org/bibliography/references.bib" "~/.emacs.d/org/bibliography/secondary_references.bib")
   "List of additional bibliography files to search for page counts.")
 
+;; Ruta al archivo de mapeo de autores (sinónimos)
+(defvar org-reading-stats-author-synonyms-file "~/.emacs.d/org/reading-stats/author_synonyms.txt"
+  "Path to the tab-separated file containing author\\tsynonym mappings.")
+
 (defun org-reading-stats-get-all-bibs ()
   "Get all bib files from the Org header plus the extra ones."
   (let ((bibs '()))
@@ -23,6 +27,63 @@
             (setq bibs (append bibs (list (expand-file-name path))))))))
     (append bibs (mapcar #'expand-file-name org-reading-stats-extra-bib-files))))
 
+;;; ================= LIMPIEZA DE ACENTOS LATEX =================
+
+(defun org-reading-stats-clean-latex-accents (str)
+  "Elimina secuencias de escape de LaTeX comunes para acentos (como \\'e, \\`a, \\^o, etc.)."
+  (if (or (null str) (string-empty-p str))
+      ""
+    (let ((clean str))
+      (setq clean (replace-regexp-in-string "\\\\[`'^\"~=]\\([a-zA-Z]\\)" "\\1" clean))
+      (setq clean (replace-regexp-in-string "{\\\\[`'^\"~=]\\([a-zA-Z]\\)}" "\\1" clean))
+      clean)))
+
+;;; ================= LÓGICA DE SINÓNIMOS CON PREVENCIÓN DE CASE-SENSITIVITY =================
+
+(defun org-reading-stats-load-synonyms ()
+  "Carga el archivo de sinónimos en minúsculas para una comparación case-insensitive limpia."
+  (let ((synonyms '()))
+    (when (file-exists-p org-reading-stats-author-synonyms-file)
+      (with-temp-buffer
+        (insert-file-contents org-reading-stats-author-synonyms-file)
+        (goto-char (point-min))
+        (while (not (eobp))
+          (let ((line (string-trim (buffer-substring-no-properties (line-beginning-position) (line-end-position)))))
+            (when (and (not (string-empty-p line)) (string-match "^\\([^\t]+\\)\t\\([^\t]+\\)$" line))
+              (let ((real-author (string-trim (match-string 1 line)))
+                    ;; Guardamos la llave del sinónimo completamente en minúsculas para emparejar sin importar el case
+                    (synonym-author (downcase (string-trim (match-string 2 line)))))
+                (push (cons synonym-author real-author) synonyms))))
+          (forward-line 1))))
+    synonyms))
+
+(defun org-reading-stats-normalize-author (author-str synonyms-alist)
+  "Normaliza la cadena de autores aislando componentes, aplanando mayúsculas y aplicando sinónimos."
+  (if (or (null author-str) (string-empty-p author-str))
+      ""
+    (let* ((author-clean (org-reading-stats-clean-latex-accents author-str))
+           ;; Regex potente para separar por 'and' sin importar espacios, saltos de línea ni mayúsculas/minúsculas
+           (individual-authors (split-string author-clean "[ \t\n\r]+[aA][nN][dD][ \t\n\r]+"))
+           (processed-authors '()))
+      (dolist (auth individual-authors)
+        (let* ((clean-auth (string-trim auth))
+               ;; Buscamos en el alist usando la versión downcase del autor actual
+               (match (assoc (downcase clean-auth) synonyms-alist)))
+          (if match
+              (push (cdr match) processed-authors)
+            ;; Si no hay sinónimo, forzamos un formato estándar Capitalize (evita que queden bloques en Full Capitalize)
+            (push (capitalize-word-at-string clean-auth) processed-authors))))
+      (string-join (reverse processed-authors) " and "))))
+
+(defun capitalize-word-at-string (str)
+  "Convierte un string a formato Capitalize estándar de forma segura (ej: GRANT, PETER -> Grant, Peter)."
+  (with-temp-buffer
+    (insert (downcase str))
+    (goto-char (point-min))
+    (while (re-search-forward "\\b\\([a-z]\\)" nil t)
+      (replace-match (upcase (match-string 1)) t t))
+    (buffer-string)))
+
 ;;; ================= PARSER NATIVO Y SEGURO DE ENTRADAS BIBTEX =================
 
 (defun org-reading-stats-get-raw-field-bounds (end-entry field)
@@ -30,13 +91,10 @@
   (save-excursion
     (let ((case-fold-search t)
           (found nil))
-      ;; Buscamos el campo seguido de un signo '=' (ej: title= o author  =)
       (while (and (not found) (re-search-forward (concat "\\b" field "[ \t]*=") end-entry t))
-        ;; Nos aseguramos de saltar espacios en blanco hasta el delimitador
         (skip-chars-forward " \t\n\r")
         (let ((delim (char-after)))
           (cond
-           ;; Caso 1: Delimitado por llaves `{...}`
            ((eq delim ?{)
             (forward-char 1)
             (let ((start (point)))
@@ -44,7 +102,6 @@
               (ignore-errors
                 (forward-sexp 1)
                 (setq found (cons start (1- (point)))))))
-           ;; Caso 2: Delimitado por comillas `\"...\"`
            ((eq delim ?\")
             (forward-char 1)
             (let ((start (point)))
@@ -59,7 +116,6 @@
         (insert-file-contents bib-file)
         (goto-char (point-min))
         (let ((clean-key (if (string-prefix-p "@" cite-key) (substring cite-key 1) cite-key)))
-          ;; Localizamos la entrada de la cita en el archivo .bib
           (if (re-search-forward (concat "@[a-zA-Z]+{[ \t]*" (regexp-quote clean-key) "[ \t]*,") nil t)
               (let* ((end-entry (save-excursion (if (re-search-forward "^}" nil t) (point) (point-max))))
                      (is-book (save-excursion (goto-char (line-beginning-position)) (looking-at-p "@book")))
@@ -67,17 +123,14 @@
                      (author "")
                      (pages (if is-book 250 15)))
                 
-                ;; 1. Extraer Title
                 (let ((title-bounds (org-reading-stats-get-raw-field-bounds end-entry "title")))
                   (when title-bounds
                     (setq title (buffer-substring-no-properties (car title-bounds) (cdr title-bounds)))))
                 
-                ;; 2. Extraer Author
                 (let ((author-bounds (org-reading-stats-get-raw-field-bounds end-entry "author")))
                   (when author-bounds
                     (setq author (buffer-substring-no-properties (car author-bounds) (cdr author-bounds)))))
                 
-                ;; 3. Extraer Páginas y calcular el conteo
                 (let ((pages-bounds (org-reading-stats-get-raw-field-bounds end-entry "pages")))
                   (when pages-bounds
                     (let ((pstr (buffer-substring-no-properties (car pages-bounds) (cdr pages-bounds))))
@@ -88,7 +141,6 @@
                        ((string-match "^[ \t]*\\([0-9]+\\)[ \t]*$" pstr)
                         (setq pages (string-to-number (match-string 1 pstr))))))))
                 
-                ;; Retornamos una lista con los valores limpios
                 (list title author pages))
             nil)))
     nil))
@@ -100,7 +152,6 @@
     (while (and bib-files (not found-meta))
       (setq found-meta (org-reading-stats-extract-metadata-from-file (car bib-files) cite-key))
       (setq bib-files (cdr bib-files)))
-    ;; Fallback seguro si no encuentra la entrada en tus .bib
     (or found-meta (list "" "" 10))))
 
 ;;; ============================================================================
@@ -131,10 +182,11 @@
       (list word-count link-count))))
       
 (defun org-reading-stats-generate-json ()
-  "Genera JSON con soporte para relecturas, detección de hora y metadatos reales de títulos y autores."
+  "Genera JSON resolviendo definitivamente duplicidades por mayúsculas y aplicando sinónimos case-insensitive."
   (interactive)
   (let* ((script-dir (file-name-directory (or load-file-name (buffer-file-name) default-directory)))
          (web-dir (expand-file-name "web/" script-dir))
+         (synonyms-alist (org-reading-stats-load-synonyms))
          (results nil))
     (unless (file-directory-p web-dir) (make-directory web-dir t))
     (with-temp-buffer
@@ -147,7 +199,6 @@
                (has-note-val "no")
                (word-count 0)
                (link-count 0)
-               ;; Obtenemos todos los metadatos juntos en una sola pasada nativa ultra rápida
                (metadata (org-reading-stats-get-metadata cite-key))
                (title-val (nth 0 metadata))
                (author-val (nth 1 metadata))
@@ -165,7 +216,11 @@
                 (setq word-count (car info))
                 (setq link-count (cadr info)))))
           
-          ;; Limpieza profunda de los strings para que el JSON quede impecable
+          ;; 1. Limpieza de acentos LaTeX e inyección de diccionario robusto
+          (setq title-val (org-reading-stats-clean-latex-accents title-val))
+          (setq author-val (org-reading-stats-normalize-author author-val synonyms-alist))
+          
+          ;; 2. Aplanamiento y limpieza sintáctica final para el JSON
           (setq title-val (replace-regexp-in-string "[{}]" "" title-val))
           (setq title-val (replace-regexp-in-string "[ \t\n\r]+" " " title-val))
           (setq title-val (string-trim title-val))
@@ -186,7 +241,7 @@
     (with-temp-file (expand-file-name "data.json" web-dir)
       (let ((json-encoding-pretty-print t))
         (insert (json-encode (reverse results)))))
-    (message "Dashboard actualizado: %d entradas con títulos y autores inyectados correctamente." (length results))))
+    (message "Dashboard actualizado con éxito. Mapeo y tipografía unificados." (length results))))
 
 (defun org-reading-stats-start ()
   "Start the local server and open the reading stats index."
