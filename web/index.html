@@ -74,7 +74,7 @@
       <div id="wordcloudTab" class="tab-content">
         <div class="cloud-controls">
           <button id="cloud-btn-titles" class="cloud-sub-btn active" onclick="changeCloudTarget('titles')">Títulos</button>
-          <button id="cloud-btn-authors" class="cloud-sub-btn" onclick="changeCloudTarget('authors')">Autores</button>
+          <button id="cloud-btn-authors" class="cloud-sub-btn" hoverMode class="cloud-sub-btn" onclick="changeCloudTarget('authors')">Autores</button>
           <button id="cloud-btn-network" class="cloud-sub-btn" onclick="changeCloudTarget('network')">Red de Coautores</button>
           
           <label id="reread-toggle-wrapper" class="toggle-switch-label">
@@ -383,120 +383,122 @@
           return { "from": parts[0], "to": parts[1], "weight": networkEdgesMap[key] };
           }).filter(edge => authorPaperCount[edge.from] >= MIN_PAPERS && authorPaperCount[edge.to] >= MIN_PAPERS);
 
-          // Grado real: número de coautores diferentes conectados en esta red
           const nodeDegreeMap = {};
           validEdges.forEach(edge => {
           nodeDegreeMap[edge.from] = (nodeDegreeMap[edge.from] || 0) + 1;
           nodeDegreeMap[edge.to] = (nodeDegreeMap[edge.to] || 0) + 1;
           });
 
-          // Top 5 de autores con grado más alto (más conexiones directas)
-          const top5Authors = Object.keys(nodeDegreeMap)
-          .sort((a, b) => nodeDegreeMap[b] - nodeDegreeMap[a])
-          .slice(0, 5);
-
-          // REGLA: Pasar las propiedades de tamaño nativas directamente en el objeto de datos
+          // Todos los nodos del mismo tamaño (18px)
           const nodesData = Object.keys(nodeDegreeMap).map(author => {
-          let degree = nodeDegreeMap[author] || 1;
-          let sizeValue = Math.min(14 + (degree * 5), 55); // <--- TAMAÑO REAL SÍ O SÍ PROPORCIONAL AL GRADO
-								   let isTop5 = top5Authors.includes(author);
+          return { 
+          "id": author, 
+          "height": 18, 
+          "width": 18,
+          "normal": {
+          "fill": "#3182ce",
+          "stroke": "1.5 #ffffff"
+          },
+          "hovered": {
+          "fill": "#e53e3e",
+          "stroke": "2 #ffffff"
+          }
+          };
+          });
 
-								   return { 
-								   "id": author, 
-								   "height": sizeValue, // Mapeo estructural plano inequívoco que AnyChart procesa nativamente
-								   "width": sizeValue,
-								   "label": isTop5 ? { "enabled": true, "fontColor": "#1e293b", "fontWeight": 700, "fontSize": 11 } : { "enabled": false },
-								   "normal": {
-								   "fill": "#3182ce",
-								   "stroke": "1.5 #ffffff"
-								   },
-								   "hovered": {
-								   "fill": "#e53e3e",
-								   "stroke": "2 #ffffff",
-								   "label": { "enabled": true, "fontColor": "#000000", "fontWeight": 600, "fontSize": 12 }
-								   }
-								   };
-								   });
+          const formattedEdges = validEdges.map(edge => {
+          let thicknessValue = Math.min(1 + (edge.weight * 1.5), 8);
+          return {
+          "from": edge.from,
+          "to": edge.to,
+          "weight": edge.weight,
+          "normal": {
+          "stroke": { "color": "rgba(148, 163, 184, 0.3)", "thickness": thicknessValue }
+          },
+          "hovered": {
+          "stroke": { "color": "#334155", "thickness": thicknessValue + 3 }
+          }
+          };
+          });
 
-								   // REGLA: Estructuración de aristas con ALPHA base suave y grosor proporcional por peso
-								   const formattedEdges = validEdges.map(edge => {
-            let thicknessValue = Math.min(1 + (edge.weight * 2), 12); // <--- GROSOR REAL PROPORCIONAL A COAUTORÍAS
-									      return {
-									      "from": edge.from,
-									      "to": edge.to,
-									      "weight": edge.weight,
-									      "normal": {
-									      "stroke": {
-									      "color": "rgba(148, 163, 184, 0.25)", // <--- ALPHA SUTIL EN EJES BASE CUANDO NO HAY HOVER
-															    "thickness": thicknessValue
-															    }
-															    },
-															    "hovered": {
-															    "stroke": {
-															    "color": "#4a5568", 
-															    "thickness": thicknessValue + 2
-															    }
-															    }
-															    };
-															    });
+          let chartConfig = {
+          "nodes": nodesData,
+          "edges": formattedEdges,
+          "layout": {
+          "type": "force",
+          "iterationCount": 800,  // Más iteraciones para que el algoritmo estabilice la dispersión
+          "nodeForce": -900,      // ¡REPULSIÓN AGRESIVA! Separa los nodos con fuerza hacia afuera
+          "edgeLength": 280       // Conexiones mucho más largas para dar espacio físico a los nombres
+          },
+          "interactivity": {
+          "hoverMode": "by-node", 
+          "selectionMode": "by-node"
+          }
+          };
 
-															    // Configuración declarativa pura empaquetada. Cero llamadas a métodos mutadores que fallen.
-															    let chartConfig = {
-															    "nodes": nodesData,
-															    "edges": formattedEdges,
-															    "layout": {
-															    "type": "force",
-															    "iterationCount": 700
-															    },
-															    "interactivity": {
-															    "hoverMode": "by-node", // <--- COMPORTAMIENTO NATIVO: Al pasar por un nodo o eje, aplica hover a toda la vecindad/conexión
-																			    "selectionMode": "by-node"
-																			    }
-																			    };
+          anycloudInstance = anychart.graph(chartConfig);
 
-																			    anycloudInstance = anychart.graph(chartConfig);
+          // Forzamos de manera global y directa a la colección de nodos a activar los nombres siempre
+          let nodesElement = anycloudInstance.nodes();
+          
+          nodesElement.labels()
+          .enabled(true)
+          .fontColor("#1e293b")
+          .fontWeight(600)
+          .fontSize(10)
+          .position("bottom-center")
+          .anchor("top-center");
 
-																			    // Tooltips flotantes interactivos de AnyChart
-																			    anycloudInstance.nodes().tooltip().format("Autor: {%id}");
-																			    anycloudInstance.edges().tooltip().format("Papers compartidos: {%weight}");
-																			    
-																			    anycloudInstance.container('wordcloudChartContainer');
-																			    anycloudInstance.draw();
+          // Estilo del texto en hover para feedback visual
+          nodesElement.hovered().labels()
+          .fontWeight(800)
+          .fontSize(11)
+          .fontColor("#000000");
 
-																			    } else {
-																			    // --- NUBES DE PALABRAS / AUTORES (EXCLUYENDO FRECUENCIA = 1) ---
-																			    const targetDataSource = (currentCloudTarget === 'titles') ? titleWordsMap : authorsMap;
-																			    
-																			    const filteredCloudData = Object.keys(targetDataSource)
-																			    .filter(key => targetDataSource[key] > 1)
-									      .map(key => {
-              return { "x": key, "value": targetDataSource[key] };
-              });
+          // Desactivamos los tooltips de los nodos para que no estorben la lectura de las letras
+          nodesElement.tooltip().enabled(false);
 
-              anycloudInstance = anychart.tagCloud(filteredCloudData);
-              anycloudInstance.angles([0, 15, -15, 30, -30]);
-              anycloudInstance.colorRange(false);
-              
-              const customPalette = anychart.palettes.distinctColors();
-              customPalette.items(
-              currentCloudTarget === 'titles' 
-              ? ['#3182ce', '#2b6cb0', '#4299e1', '#63b3ed', '#2c5282'] 
-              : ['#2c3e50', '#34495e', '#1a252f', '#4e6a85', '#7f8c8d']
-              );
-              anycloudInstance.palette(customPalette);
-              anycloudInstance.container('wordcloudChartContainer');
-              anycloudInstance.draw();
-              }
-	      }
+          // Dejamos el tooltip únicamente en las aristas para ver los papers compartidos
+          anycloudInstance.edges().tooltip().enabled(true);
+          anycloudInstance.edges().tooltip().format("Papers compartidos: {%weight}");
+          
+          anycloudInstance.container('wordcloudChartContainer');
+          anycloudInstance.draw();
 
-	      function refreshChart(id, type, labels, data, color, label, config = null) {
-              if (charts[id]) charts[id].destroy();
-              const canvasElement = document.getElementById(id);
-              if (!canvasElement) return;
-              const ctx = canvasElement.getContext('2d');
-              charts[id] = new Chart(ctx, config || { type, data: { labels, datasets: [{ label, data, backgroundColor: color, borderColor: color }] }, options: { maintainAspectRatio: false } });
-	      }
-	      init();
+          } else {
+          // --- NUBES DE PALABRAS / AUTORES (EXCLUYENDO FRECUENCIA = 1) ---
+          const targetDataSource = (currentCloudTarget === 'titles') ? titleWordsMap : authorsMap;
+          
+          const filteredCloudData = Object.keys(targetDataSource)
+          .filter(key => targetDataSource[key] > 1)
+          .map(key => {
+          return { "x": key, "value": targetDataSource[key] };
+          });
+
+          anycloudInstance = anychart.tagCloud(filteredCloudData);
+          anycloudInstance.angles([0, 15, -15, 30, -30]);
+          anycloudInstance.colorRange(false);
+          
+          const customPalette = anychart.palettes.distinctColors();
+          customPalette.items(
+          currentCloudTarget === 'titles' 
+          ? ['#3182ce', '#2b6cb0', '#4299e1', '#63b3ed', '#2c5282'] 
+          : ['#2c3e50', '#34495e', '#1a252f', '#4e6a85', '#7f8c8d']
+          );
+          anycloudInstance.palette(customPalette);
+          anycloudInstance.container('wordcloudChartContainer');
+          anycloudInstance.draw();
+          }
+	  }
+
+	  function refreshChart(id, type, labels, data, color, label, config = null) {
+          if (charts[id]) charts[id].destroy();
+          const canvasElement = document.getElementById(id);
+          if (!canvasElement) return;
+          const ctx = canvasElement.getContext('2d');
+          charts[id] = new Chart(ctx, config || { type, data: { labels, datasets: [{ label, data, backgroundColor: color, borderColor: color }] }, options: { maintainAspectRatio: false } });
+	  }
+	  init();
     </script>
   </body>
 </html>
