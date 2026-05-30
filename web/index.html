@@ -79,7 +79,7 @@
           
           <label id="reread-toggle-wrapper" class="toggle-switch-label">
             <input type="checkbox" id="includeRereadsCheck" onchange="updateDashboard()" checked>
-            Include Rereads
+            Incluir Relecturas
           </label>
         </div>
         <div id="wordcloudChartContainer"></div>
@@ -375,7 +375,7 @@
           document.getElementById('wordcloudChartContainer').innerHTML = "";
 
           if (currentCloudTarget === 'network') {
-          // --- REESTRUCTURACIÓN DE LA RED DE COAUTORÍA ---
+          // --- CONSTRUCCIÓN PURAMENTE DECLARATIVA DE LA RED ---
           const MIN_PAPERS = 2;
           
           const validEdges = Object.keys(networkEdgesMap).map(key => {
@@ -383,105 +383,120 @@
           return { "from": parts[0], "to": parts[1], "weight": networkEdgesMap[key] };
           }).filter(edge => authorPaperCount[edge.from] >= MIN_PAPERS && authorPaperCount[edge.to] >= MIN_PAPERS);
 
-          // Medimos el grado real en función del número de NODOS DISTINTOS conectados
+          // Grado real: número de coautores diferentes conectados en esta red
           const nodeDegreeMap = {};
           validEdges.forEach(edge => {
           nodeDegreeMap[edge.from] = (nodeDegreeMap[edge.from] || 0) + 1;
           nodeDegreeMap[edge.to] = (nodeDegreeMap[edge.to] || 0) + 1;
           });
 
-          // Determinamos los 5 autores que tienen mayor número de vecinos únicos en la red
+          // Top 5 de autores con grado más alto (más conexiones directas)
           const top5Authors = Object.keys(nodeDegreeMap)
           .sort((a, b) => nodeDegreeMap[b] - nodeDegreeMap[a])
           .slice(0, 5);
 
+          // REGLA: Pasar las propiedades de tamaño nativas directamente en el objeto de datos
           const nodesData = Object.keys(nodeDegreeMap).map(author => {
-          // REGLA: El tamaño del nodo es estrictamente proporcional al número de nodos diferentes con los que conecta (Grado)
           let degree = nodeDegreeMap[author] || 1;
-          let size = Math.min(10 + (degree * 3.5), 45); 
-          let isTop5 = top5Authors.includes(author);
+          let sizeValue = Math.min(14 + (degree * 5), 55); // <--- TAMAÑO REAL SÍ O SÍ PROPORCIONAL AL GRADO
+								   let isTop5 = top5Authors.includes(author);
 
-          return { 
-          "id": author, 
-          "size": size,
-          "label": { 
-          "enabled": isTop5, // Mostrar etiqueta fija única y exclusivamente al Top 5
-          "fontColor": "#1e293b",
-          "fontWeight": 700,
-          "fontSize": 11
-          } 
-          };
-          });
+								   return { 
+								   "id": author, 
+								   "height": sizeValue, // Mapeo estructural plano inequívoco que AnyChart procesa nativamente
+								   "width": sizeValue,
+								   "label": isTop5 ? { "enabled": true, "fontColor": "#1e293b", "fontWeight": 700, "fontSize": 11 } : { "enabled": false },
+								   "normal": {
+								   "fill": "#3182ce",
+								   "stroke": "1.5 #ffffff"
+								   },
+								   "hovered": {
+								   "fill": "#e53e3e",
+								   "stroke": "2 #ffffff",
+								   "label": { "enabled": true, "fontColor": "#000000", "fontWeight": 600, "fontSize": 12 }
+								   }
+								   };
+								   });
 
-          let graphData = { "nodes": nodesData, "edges": validEdges };
-          anycloudInstance = anychart.graph(graphData);
-          
-          anycloudInstance.nodes().fill('#3182ce');
-          anycloudInstance.nodes().stroke('#ffffff', 1.5);
-          
-          // REGLA RESOLVIENDO ERROR: Extraer peso de manera segura con los métodos nativos de AnyChart Graph
-          anycloudInstance.edges().stroke(function() {
-          let weight = this.parsedValue || 1; // AnyChart inyecta el peso numérico directo aquí
-          return {
-          color: '#cbd5e1',
-          thickness: Math.min(1 + (weight * 1.5), 8) // Grosor proporcional al número de papers compartidos
-          };
-          });
+								   // REGLA: Estructuración de aristas con ALPHA base suave y grosor proporcional por peso
+								   const formattedEdges = validEdges.map(edge => {
+            let thicknessValue = Math.min(1 + (edge.weight * 2), 12); // <--- GROSOR REAL PROPORCIONAL A COAUTORÍAS
+									      return {
+									      "from": edge.from,
+									      "to": edge.to,
+									      "weight": edge.weight,
+									      "normal": {
+									      "stroke": {
+									      "color": "rgba(148, 163, 184, 0.25)", // <--- ALPHA SUTIL EN EJES BASE CUANDO NO HAY HOVER
+															    "thickness": thicknessValue
+															    }
+															    },
+															    "hovered": {
+															    "stroke": {
+															    "color": "#4a5568", 
+															    "thickness": thicknessValue + 2
+															    }
+															    }
+															    };
+															    });
 
-          // Configuración interactiva nativa para Hover Highlight de proximidad por nodo
-          anycloudInstance.interactivity({
-          hoverMode: 'by-node',
-          selectionMode: 'by-node'
-          });
-          
-          // Configuración de los estados Hover de resaltado visual (se activan al pasar sobre el nodo)
-          anycloudInstance.nodes().hovered().fill('#e53e3e');
-          anycloudInstance.nodes().hovered().stroke('#ffffff', 2);
-          anycloudInstance.nodes().hovered().labels().enabled(true).fontSize(12).fontColor('#000000');
-          
-          anycloudInstance.edges().hovered().stroke('#4a5568', 3.5);
+															    // Configuración declarativa pura empaquetada. Cero llamadas a métodos mutadores que fallen.
+															    let chartConfig = {
+															    "nodes": nodesData,
+															    "edges": formattedEdges,
+															    "layout": {
+															    "type": "force",
+															    "iterationCount": 700
+															    },
+															    "interactivity": {
+															    "hoverMode": "by-node", // <--- COMPORTAMIENTO NATIVO: Al pasar por un nodo o eje, aplica hover a toda la vecindad/conexión
+																			    "selectionMode": "by-node"
+																			    }
+																			    };
 
-          // Fuerzas físicas y balanceo de dispersión espacial
-          anycloudInstance.layout().type('force');
-          anycloudInstance.layout().iterationCount(400); 
+																			    anycloudInstance = anychart.graph(chartConfig);
 
-          anycloudInstance.nodes().tooltip().format("Autor: {%id}");
-          anycloudInstance.edges().tooltip().format("Papers compartidos: {%weight}");
-          
-          anycloudInstance.container('wordcloudChartContainer');
-          anycloudInstance.draw();
+																			    // Tooltips flotantes interactivos de AnyChart
+																			    anycloudInstance.nodes().tooltip().format("Autor: {%id}");
+																			    anycloudInstance.edges().tooltip().format("Papers compartidos: {%weight}");
+																			    
+																			    anycloudInstance.container('wordcloudChartContainer');
+																			    anycloudInstance.draw();
 
-          } else {
-          // --- NUBES DE PALABRAS / AUTORES ---
-          const targetDataSource = (currentCloudTarget === 'titles') ? titleWordsMap : authorsMap;
-          const anychartFormattedData = Object.keys(targetDataSource).map(key => {
-          return { "x": key, "value": targetDataSource[key] };
-          });
+																			    } else {
+																			    // --- NUBES DE PALABRAS / AUTORES (EXCLUYENDO FRECUENCIA = 1) ---
+																			    const targetDataSource = (currentCloudTarget === 'titles') ? titleWordsMap : authorsMap;
+																			    
+																			    const filteredCloudData = Object.keys(targetDataSource)
+																			    .filter(key => targetDataSource[key] > 1)
+									      .map(key => {
+              return { "x": key, "value": targetDataSource[key] };
+              });
 
-          anycloudInstance = anychart.tagCloud(anychartFormattedData);
-          anycloudInstance.angles([0, 15, -15, 30, -30]);
-          anycloudInstance.colorRange(false);
-          
-          const customPalette = anychart.palettes.distinctColors();
-          customPalette.items(
-          (currentCloudTarget === 'titles') 
-          ? ['#3182ce', '#2b6cb0', '#4299e1', '#63b3ed', '#2c5282'] 
-          : ['#2c3e50', '#34495e', '#1a252f', '#4e6a85', '#7f8c8d']
-          );
-          anycloudInstance.palette(customPalette);
-          anycloudInstance.container('wordcloudChartContainer');
-          anycloudInstance.draw();
-          }
-	  }
+              anycloudInstance = anychart.tagCloud(filteredCloudData);
+              anycloudInstance.angles([0, 15, -15, 30, -30]);
+              anycloudInstance.colorRange(false);
+              
+              const customPalette = anychart.palettes.distinctColors();
+              customPalette.items(
+              currentCloudTarget === 'titles' 
+              ? ['#3182ce', '#2b6cb0', '#4299e1', '#63b3ed', '#2c5282'] 
+              : ['#2c3e50', '#34495e', '#1a252f', '#4e6a85', '#7f8c8d']
+              );
+              anycloudInstance.palette(customPalette);
+              anycloudInstance.container('wordcloudChartContainer');
+              anycloudInstance.draw();
+              }
+	      }
 
-	  function refreshChart(id, type, labels, data, color, label, config = null) {
-          if (charts[id]) charts[id].destroy();
-          const canvasElement = document.getElementById(id);
-          if (!canvasElement) return;
-          const ctx = canvasElement.getContext('2d');
-          charts[id] = new Chart(ctx, config || { type, data: { labels, datasets: [{ label, data, backgroundColor: color, borderColor: color }] }, options: { maintainAspectRatio: false } });
-	  }
-	  init();
+	      function refreshChart(id, type, labels, data, color, label, config = null) {
+              if (charts[id]) charts[id].destroy();
+              const canvasElement = document.getElementById(id);
+              if (!canvasElement) return;
+              const ctx = canvasElement.getContext('2d');
+              charts[id] = new Chart(ctx, config || { type, data: { labels, datasets: [{ label, data, backgroundColor: color, borderColor: color }] }, options: { maintainAspectRatio: false } });
+	      }
+	      init();
     </script>
   </body>
 </html>
