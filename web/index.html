@@ -375,95 +375,172 @@
           document.getElementById('wordcloudChartContainer').innerHTML = "";
 
           if (currentCloudTarget === 'network') {
-          // --- CONSTRUCCIÓN PURAMENTE DECLARATIVA DE LA RED ---
+          // --- CONSTRUCCIÓN DE DATOS DE LA RED ---
           const MIN_PAPERS = 2;
           
           const validEdges = Object.keys(networkEdgesMap).map(key => {
           const parts = key.split(' -- ');
-          return { "from": parts[0], "to": parts[1], "weight": networkEdgesMap[key] };
-          }).filter(edge => authorPaperCount[edge.from] >= MIN_PAPERS && authorPaperCount[edge.to] >= MIN_PAPERS);
+          return { "source": parts[0], "target": parts[1], "weight": networkEdgesMap[key] };
+          }).filter(edge => authorPaperCount[edge.source] >= MIN_PAPERS && authorPaperCount[edge.target] >= MIN_PAPERS);
 
           const nodeDegreeMap = {};
           validEdges.forEach(edge => {
-          nodeDegreeMap[edge.from] = (nodeDegreeMap[edge.from] || 0) + 1;
-          nodeDegreeMap[edge.to] = (nodeDegreeMap[edge.to] || 0) + 1;
+          nodeDegreeMap[edge.source] = (nodeDegreeMap[edge.source] || 0) + 1;
+          nodeDegreeMap[edge.target] = (nodeDegreeMap[edge.target] || 0) + 1;
           });
 
-          // Todos los nodos del mismo tamaño (18px)
-          const nodesData = Object.keys(nodeDegreeMap).map(author => {
-          return { 
-          "id": author, 
-          "height": 18, 
-          "width": 18,
-          "normal": {
-          "fill": "#3182ce",
-          "stroke": "1.5 #ffffff"
-          },
-          "hovered": {
-          "fill": "#e53e3e",
-          "stroke": "2 #ffffff"
+          const nodesData = Object.keys(nodeDegreeMap).map(author => ({ 
+          id: author,
+          degree: nodeDegreeMap[author] || 1
+          }));
+
+          // IDENTIFICAR EL TOP 5 DE AUTORES MÁS CONECTADOS
+          const top5Authors = new Set(
+          [...nodesData]
+          .sort((a, b) => b.degree - a.degree)
+          .slice(0, 5)
+          .map(d => d.id)
+          );
+
+          // --- CONTROL DE INYECCIÓN DE D3.JS ---
+          if (typeof d3 === 'undefined') {
+          const script = document.createElement('script');
+          script.src = "https://d3js.org/d3.v7.min.js";
+          script.async = false;
+          document.head.appendChild(script);
+          script.onload = () => renderD3Network(nodesData, validEdges);
+          } else {
+          renderD3Network(nodesData, validEdges);
           }
-          };
+
+          function renderD3Network(nodes, links) {
+          const container = document.getElementById('wordcloudChartContainer');
+          container.innerHTML = ""; // Limpieza total
+
+          const width = container.clientWidth;
+          const height = container.clientHeight;
+
+          const svg = d3.select("#wordcloudChartContainer")
+          .append("svg")
+          .attr("width", "100%")
+          .attr("height", "100%")
+          .call(d3.zoom().on("zoom", (e) => g.attr("transform", e.transform)));
+
+          const g = svg.append("g");
+
+          // SIMULACIÓN FÍSICA CON DISTANCIAS DINÁMICAS
+          const simulation = d3.forceSimulation(nodes)
+          .force("link", d3.forceLink(links).id(d => d.id).distance(150))
+          .force("charge", d3.forceManyBody().strength(-400))
+          .force("center", d3.forceCenter(width / 2, height / 2))
+          .force("collision", d3.forceCollide().radius(d => 10 + (Math.log(d.degree) * 6)));
+
+          // Render de aristas (Edges) con grosor estrictamente proporcional al peso (papers juntos)
+          const link = g.append("g")
+          .selectAll("line")
+          .data(links)
+          .join("line")
+          .style("stroke", "rgba(148, 163, 184, 0.35)")
+          .style("stroke-width", d => Math.min(1.5 + (d.weight * 1.5), 9)) // Ancho proporcional
+          .style("transition", "stroke 0.2s, stroke-width 0.2s");
+
+          // AGREGAR TOOLTIP AL HOVER DEL EDGE (Muestra cantidad de papers)
+          link.append("title")
+          .text(d => `Papers compartidos: ${d.weight}`);
+
+          // Contenedor para grupos de Nodos
+          const node = g.append("g")
+          .selectAll(".node-group")
+          .data(nodes)
+          .join("g")
+          .attr("class", "node-group")
+          .style("cursor", "pointer")
+          .call(d3.drag()
+          .on("start", (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+          .on("drag", (e, d) => { d.fx = e.x; d.fy = e.y; })
+          .on("end", (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
+
+          // Círculos con radio proporcional al número de conexiones (Degree)
+          const circles = node.append("circle")
+          .attr("r", d => Math.min(6 + (Math.log(d.degree) * 4), 16)) // Escalado suave y controlado
+          .style("fill", "#3182ce")
+          .style("stroke", "#ffffff")
+          .style("stroke-width", "1.5px")
+          .style("transition", "fill 0.2s, stroke-width 0.2s");
+
+          // Etiquetas de texto (Top 5 siempre visibles, los demás ocultos)
+          const labels = node.append("text")
+          .text(d => d.id)
+          .attr("dy", d => `${Math.min(6 + (Math.log(d.degree) * 4), 16) + 13}px`) // Ajusta dinámicamente según el radio del nodo
+          .attr("text-anchor", "middle")
+          .style("font-size", "10px")
+          .style("font-weight", d => top5Authors.has(d.id) ? "800" : "600")
+          .style("fill", d => top5Authors.has(d.id) ? "#0f172a" : "#475569")
+          .style("pointer-events", "none")
+          .style("display", d => top5Authors.has(d.id) ? "block" : "none"); // Regla del Top 5 siempre prendido
+
+          // --- LÓGICA INTERACTIVA DE HOVER ---
+          node.on("mouseover", function(event, d) {
+          const connectedNodes = new Set([d.id]);
+          const connectedPairs = new Set();
+
+          links.forEach(l => {
+          if (l.source.id === d.id) { connectedNodes.add(l.target.id); connectedPairs.add(`${l.source.id}-${l.target.id}`); }
+          else if (l.target.id === d.id) { connectedNodes.add(l.source.id); connectedPairs.add(`${l.source.id}-${l.target.id}`); }
           });
 
-          const formattedEdges = validEdges.map(edge => {
-          let thicknessValue = Math.min(1 + (edge.weight * 1.5), 8);
-          return {
-          "from": edge.from,
-          "to": edge.to,
-          "weight": edge.weight,
-          "normal": {
-          "stroke": { "color": "rgba(148, 163, 184, 0.3)", "thickness": thicknessValue }
-          },
-          "hovered": {
-          "stroke": { "color": "#334155", "thickness": thicknessValue + 3 }
-          }
-          };
+          // Prender etiquetas del Top 5 + vecinos del nodo enfocado
+          labels.style("display", n => (top5Authors.has(n.id) || connectedNodes.has(n.id)) ? "block" : "none")
+          .style("fill", n => n.id === d.id ? "#000000" : (top5Authors.has(n.id) ? "#0f172a" : "#475569"));
+
+          // Iluminar círculos (Seleccionado en Rojo, Vecinos en Naranja, el resto opaco)
+          circles.style("fill", n => {
+          if (n.id === d.id) return "#e53e3e";
+          return connectedNodes.has(n.id) ? "#ff9800" : "rgba(49, 130, 206, 0.12)";
+          }).style("stroke-width", n => connectedNodes.has(n.id) ? "2px" : "1px");
+
+          // Resaltar aristas involucradas
+          link.style("stroke", l => connectedPairs.has(`${l.source.id}-${l.target.id}`) ? "#334155" : "rgba(148, 163, 184, 0.03)")
+          .style("stroke-width", l => {
+          const baseWidth = Math.min(1.5 + (l.weight * 1.5), 8);
+          return connectedPairs.has(`${l.source.id}-${l.target.id}`) ? baseWidth + 3 : baseWidth;
+          });
           });
 
-          let chartConfig = {
-          "nodes": nodesData,
-          "edges": formattedEdges,
-          "layout": {
-          "type": "force",
-          "iterationCount": 800,  // Más iteraciones para que el algoritmo estabilice la dispersión
-          "nodeForce": -900,      // ¡REPULSIÓN AGRESIVA! Separa los nodos con fuerza hacia afuera
-          "edgeLength": 280       // Conexiones mucho más largas para dar espacio físico a los nombres
-          },
-          "interactivity": {
-          "hoverMode": "by-node", 
-          "selectionMode": "by-node"
-          }
-          };
-
-          anycloudInstance = anychart.graph(chartConfig);
-
-          // Forzamos de manera global y directa a la colección de nodos a activar los nombres siempre
-          let nodesElement = anycloudInstance.nodes();
+          // Interactividad para el hover de Aristas (Edges)
+          link.on("mouseover", function(event, d) {
+          labels.style("display", n => (top5Authors.has(n.id) || n.id === d.source.id || n.id === d.target.id) ? "block" : "none");
           
-          nodesElement.labels()
-          .enabled(true)
-          .fontColor("#1e293b")
-          .fontWeight(600)
-          .fontSize(10)
-          .position("bottom-center")
-          .anchor("top-center");
-
-          // Estilo del texto en hover para feedback visual
-          nodesElement.hovered().labels()
-          .fontWeight(800)
-          .fontSize(11)
-          .fontColor("#000000");
-
-          // Desactivamos los tooltips de los nodos para que no estorben la lectura de las letras
-          nodesElement.tooltip().enabled(false);
-
-          // Dejamos el tooltip únicamente en las aristas para ver los papers compartidos
-          anycloudInstance.edges().tooltip().enabled(true);
-          anycloudInstance.edges().tooltip().format("Papers compartidos: {%weight}");
+          circles.style("fill", n => (n.id === d.source.id || n.id === d.target.id) ? "#ff9800" : "rgba(49, 130, 206, 0.12)");
           
-          anycloudInstance.container('wordcloudChartContainer');
-          anycloudInstance.draw();
+          link.style("stroke", l => (l.index === d.index) ? "#334155" : "rgba(148, 163, 184, 0.03)")
+          .style("stroke-width", l => {
+          const baseWidth = Math.min(1.5 + (l.weight * 1.5), 8);
+          return (l.index === d.index) ? baseWidth + 3 : baseWidth;
+          });
+          });
+
+          // Restaurar la red completa al quitar el cursor
+          const resetStyles = () => {
+          labels.style("display", n => top5Authors.has(n.id) ? "block" : "none")
+          .style("fill", d => top5Authors.has(d.id) ? "#0f172a" : "#475569");
+          circles.style("fill", "#3182ce").style("stroke-width", "1.5px");
+          link.style("stroke", "rgba(148, 163, 184, 0.35)").style("stroke-width", l => Math.min(1.5 + (l.weight * 1.5), 8));
+          };
+
+          node.on("mouseout", resetStyles);
+          link.on("mouseout", resetStyles);
+
+          // Ajuste de posiciones por cada tick de la simulación
+          simulation.on("tick", () => {
+          link.attr("x1", d => d.source.x)
+          .attr("y1", d => d.source.y)
+          .attr("x2", d => d.target.x)
+          .attr("y2", d => d.target.y);
+
+          node.attr("transform", d => `translate(${d.x},${d.y})`);
+          });
+          }
 
           } else {
           // --- NUBES DE PALABRAS / AUTORES (EXCLUYENDO FRECUENCIA = 1) ---
