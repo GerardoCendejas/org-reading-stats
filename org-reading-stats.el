@@ -57,32 +57,43 @@
           (forward-line 1))))
     synonyms))
 
+(defun capitalize-word-at-string (str)
+  "Convierte un string a formato Capitalize respetando de forma segura guiones e iniciales."
+  (if (or (null str) (string-empty-p str))
+      ""
+    (with-temp-buffer
+      (insert (downcase str))
+      (goto-char (point-min))
+      ;; Capitaliza el inicio del texto y cualquier letra que siga a un espacio, guion o punto (ej: Solis-Lemus, P. R.)
+      (while (re-search-forward "\\(?:^\\|[- \t.\"]+\\)\\([a-zñáéíóúü]\\)" nil t)
+        (replace-match (upcase (match-string 1)) t t nil 1))
+      (buffer-string))))
+
 (defun org-reading-stats-normalize-author (author-str synonyms-alist)
-  "Normaliza la cadena de autores aislando componentes, aplanando mayúsculas y aplicando sinónimos."
+  "Normaliza la cadena de autores aislando componentes, aplicando sinónimos o capitalizando de forma limpia."
   (if (or (null author-str) (string-empty-p author-str))
       ""
-    (let* ((author-clean (org-reading-stats-clean-latex-accents author-str))
-           ;; Regex potente para separar por 'and' sin importar espacios, saltos de línea ni mayúsculas/minúsculas
+    (let* (;; 1. Primero limpiamos acentos LaTeX comunes
+           (author-clean (org-reading-stats-clean-latex-accents author-str))
+           ;; 2. Quitamos llaves de protección de BibTeX descabelladas como {Rosemary} o \Relax
+           (author-clean (replace-regexp-in-string "[{}]" "" author-clean))
+           (author-clean (replace-regexp-in-string "\\\\Relax" "" author-clean))
+           ;; 3. Separamos por 'and' ignorando mayúsculas/minúsculas y espacios/saltos de línea
            (individual-authors (split-string author-clean "[ \t\n\r]+[aA][nN][dD][ \t\n\r]+"))
            (processed-authors '()))
       (dolist (auth individual-authors)
-        (let* ((clean-auth (string-trim auth))
-               ;; Buscamos en el alist usando la versión downcase del autor actual
+        (let* (;; Limpiamos espacios internos dobles, saltos de línea y tabuladores del autor individual
+               (clean-auth (replace-regexp-in-string "[ \t\n\r]+" " " auth))
+               (clean-auth (string-trim clean-auth))
+               ;; Buscamos en el alist usando la versión downcase estricta
                (match (assoc (downcase clean-auth) synonyms-alist)))
           (if match
+              ;; Si hay sinónimo en tu txt, usamos el nombre real EXACTO que definiste ahí
               (push (cdr match) processed-authors)
-            ;; Si no hay sinónimo, forzamos un formato estándar Capitalize (evita que queden bloques en Full Capitalize)
+            ;; Si NO hay sinónimo, aplicamos la nueva capitalización inteligente para unificar GRANT -> Grant
             (push (capitalize-word-at-string clean-auth) processed-authors))))
+      ;; Volvemos a unir los autores con el estándar de BibTeX " and "
       (string-join (reverse processed-authors) " and "))))
-
-(defun capitalize-word-at-string (str)
-  "Convierte un string a formato Capitalize estándar de forma segura (ej: GRANT, PETER -> Grant, Peter)."
-  (with-temp-buffer
-    (insert (downcase str))
-    (goto-char (point-min))
-    (while (re-search-forward "\\b\\([a-z]\\)" nil t)
-      (replace-match (upcase (match-string 1)) t t))
-    (buffer-string)))
 
 ;;; ================= PARSER NATIVO Y SEGURO DE ENTRADAS BIBTEX =================
 
@@ -220,14 +231,10 @@
           (setq title-val (org-reading-stats-clean-latex-accents title-val))
           (setq author-val (org-reading-stats-normalize-author author-val synonyms-alist))
           
-          ;; 2. Aplanamiento y limpieza sintáctica final para el JSON
+          ;; 2. Aplanamiento y limpieza sintáctica final para el título en el JSON
           (setq title-val (replace-regexp-in-string "[{}]" "" title-val))
           (setq title-val (replace-regexp-in-string "[ \t\n\r]+" " " title-val))
           (setq title-val (string-trim title-val))
-          
-          (setq author-val (replace-regexp-in-string "[{}]" "" author-val))
-          (setq author-val (replace-regexp-in-string "[ \t\n\r]+" " " author-val))
-          (setq author-val (string-trim author-val))
 
           (push (list (cons 'cite cite-key)
                       (cons 'title title-val)

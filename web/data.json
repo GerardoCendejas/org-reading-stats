@@ -2,7 +2,7 @@
   {
     "cite": "@solis-lemusInferringPhylogeneticNetworks2016",
     "title": "Inferring Phylogenetic Networks with Maximum Pseudolikelihood under Incomplete Lineage Sorting",
-    "author": "SolIS-Lemus, Claudia and AnE, CECile",
+    "author": "Solis-Lemus, Claudia and Ane, Cecile",
     "timestamp": "2026-02-18 Wed 11:52",
     "has_note": "yes",
     "words": 64,
@@ -32,7 +32,7 @@
   {
     "cite": "@grantExploitationOpuntiaCactus1981",
     "title": "Exploitation of Opuntia Cactus by Birds on the Galapagos",
-    "author": "Grant, B. R. and Grant, Peter R.",
+    "author": "Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-02-16 Mon",
     "has_note": "yes",
     "words": 121,
@@ -42,7 +42,7 @@
   {
     "cite": "@grantNicheShiftsCompetition1982",
     "title": "Niche Shifts and Competition in Darwin's Finches: Geospiza Conirostris and Congeners",
-    "author": "Grant, B. R. and Grant, Peter R.",
+    "author": "Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-02-15 Sun",
     "has_note": "yes",
     "words": 198,
@@ -72,7 +72,7 @@
   {
     "cite": "@grantAllopatricPhaseSpeciation2000",
     "title": "The Allopatric Phase of Speciation: The Sharp-Beaked Ground Finch (Geospiza Difficilis) on the Galapagos Islands",
-    "author": "Grant, Peter R and Grant, B. Rosemary and Petren, \\Relax Kenneth",
+    "author": "Grant, Peter R and Grant, B. Rosemary and Petren, Kenneth",
     "timestamp": "2026-02-10 Tue",
     "has_note": "yes",
     "words": 0,
@@ -82,7 +82,7 @@
   {
     "cite": "@grantDarwinsFinchesPopulation1979",
     "title": "Darwin's Finches: Population Variation and Sympatric Speciation",
-    "author": "Grant, B. R. and Grant, Peter R.",
+    "author": "Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-02-09 Mon",
     "has_note": "yes",
     "words": 0,
@@ -122,7 +122,7 @@
   {
     "cite": "@grantSELECTIONBILLCHARACTERS1985",
     "title": "SELECTION ON BILL CHARACTERS IN A POPULATION OF DARWIN'S FINCHES: GEOSPIZA CONIROSTRIS ON ISLA GENOVESA, GALAPAGOS",
-    "author": "Grant, B. R.",
+    "author": "Grant, B. Rosemary",
     "timestamp": "2026-02-03 Tue",
     "has_note": "yes",
     "words": 308,
@@ -152,7 +152,7 @@
   {
     "cite": "@solis-lemusPhyloNetworksPackagePhylogenetic2017",
     "title": "PhyloNetworks: A Package for Phylogenetic Networks",
-    "author": "SolIS-Lemus, Claudia and Bastide, Paul and AnE, CECile",
+    "author": "Solis-Lemus, Claudia and Bastide, Paul and Ane, Cecile",
     "timestamp": "2026-02-18 Wed 13:53",
     "has_note": "no",
     "words": 0,
@@ -162,7 +162,7 @@
   {
     "cite": "@kolbowSNaQjlImprovedScalability2025",
     "title": "SNaQ.Jl: Improved Scalability for Phylogenetic Network Inference",
-    "author": "Kolbow, Nathan and Kong, Sungsik and Chafin, Tyler and Justison, Joshua and AnE, CECile and SolIS-Lemus, Claudia",
+    "author": "Kolbow, Nathan and Kong, Sungsik and Chafin, Tyler and Justison, Joshua and Ane, Cecile and Solis-Lemus, Claudia",
     "timestamp": "2026-02-18 Wed 19:35",
     "has_note": "no",
     "words": 0,
@@ -172,7 +172,7 @@
   {
     "cite": "@kolbowMethodMassivelyScalable2025",
     "title": "A Method for Massively Scalable Inference of Phylogenetic Networks",
-    "author": "Kolbow, Nathan and Kong, Sungsik and SolIS-Lemus, Claudia",
+    "author": "Kolbow, Nathan and Kong, Sungsik and Solis-Lemus, Claudia",
     "timestamp": "2026-02-19 Thu 09:30",
     "has_note": "yes",
     "words": 208,
@@ -222,7 +222,7 @@
   {
     "cite": "@canoMutationBiasShapes2022",
     "title": "Mutation Bias Shapes the Spectrum of Adaptive Substitutions",
-    "author": "Cano, Alejandro V. and Rozho\\V NOvA, Hana and Stoltzfus, Arlin and Mccandlish, David M. and Payne, Joshua L.",
+    "author": "Cano, Alejandro V. and Rozho\\v Nova, Hana and Stoltzfus, Arlin and Mccandlish, David M. and Payne, Joshua L.",
     "timestamp": "2026-03-03 Tue 13:23",
     "has_note": "no",
     "words": 0,
@@ -242,7 +242,7 @@
   {
     "cite": "@murray2017natural",
     "title": "Natural selection shaped the rise and fall of passenger pigeon genomic diversity",
-    "author": "Murray, Gemma Gr and Soares, AndrE Er and Novak, Ben J and Schaefer, Nathan K and Cahill, James A and Baker, Allan J and Demboski, John R and Doll, Andrew and Da Fonseca, Rute R and Fulton, Tara L and Others",
+    "author": "Murray, Gemma Gr and Soares, Andre Er and Novak, Ben J and Schaefer, Nathan K and Cahill, James A and Baker, Allan J and Demboski, John R and Doll, Andrew and Da Fonseca, Rute R and Fulton, Tara L and Others",
     "timestamp": "2026-03-04 Wed 08:52",
     "has_note": "yes",
     "words": 0,
@@ -292,7 +292,7 @@
   {
     "cite": "@knausVcfrPackageManipulate2017",
     "title": "Vcfr: A Package to Manipulate and Visualize Variant Call Format Data in R",
-    "author": "Knaus, Brian J. and GrUNwald, Niklaus J.",
+    "author": "Knaus, Brian J. and Grunwald, Niklaus J.",
     "timestamp": "2026-03-05 Thu 09:40",
     "has_note": "no",
     "words": 0,
@@ -312,7 +312,7 @@
   {
     "cite": "@mccolganUnderstandingDevelopmentalSystem2024",
     "title": "Understanding Developmental System Drift",
-    "author": "Mccolgan, AIne and Difrisco, James",
+    "author": "Mccolgan, Aine and Difrisco, James",
     "timestamp": "2026-03-06 Fri 09:56",
     "has_note": "no",
     "words": 0,
@@ -372,7 +372,7 @@
   {
     "cite": "@tengstedtEvaluatingInbreedingAssessing2026",
     "title": "Evaluating Inbreeding and Assessing the Risk of Outbreeding Depression in Genetic Rescue Using Whole-Genome Sequence Data",
-    "author": "Tengstedt, Aja Noersgaard Buur and H\\OYe, Toke Thomas and Kristensen, Torsten Nygaard and Hansen, Michael M.",
+    "author": "Tengstedt, Aja Noersgaard Buur and H\\oye, Toke Thomas and Kristensen, Torsten Nygaard and Hansen, Michael M.",
     "timestamp": "2026-03-11 Wed 11:47",
     "has_note": "no",
     "words": 0,
@@ -402,7 +402,7 @@
   {
     "cite": "@avsecAdvancingRegulatoryVariant2026",
     "title": "Advancing Regulatory Variant Effect Prediction with AlphaGenome",
-    "author": "Avsec, \\V ZIga and Latysheva, Natasha and Cheng, Jun and Novati, Guido and Taylor, Kyle R. and Ward, Tom and Bycroft, Clare and Nicolaisen, Lauren and Arvaniti, Eirini and Pan, Joshua and Thomas, Raina and Dutordoir, Vincent and Perino, Matteo and De, Soham and Karollus, Alexander and Gayoso, Adam and Sargeant, Toby and Mottram, Anne and Wong, Lai Hong and DrotAR, Pavol and Kosiorek, Adam and Senior, Andrew and Tanburn, Richard and Applebaum, Taylor and Basu, Souradeep and Hassabis, Demis and Kohli, Pushmeet",
+    "author": "Avsec, \\v Ziga and Latysheva, Natasha and Cheng, Jun and Novati, Guido and Taylor, Kyle R. and Ward, Tom and Bycroft, Clare and Nicolaisen, Lauren and Arvaniti, Eirini and Pan, Joshua and Thomas, Raina and Dutordoir, Vincent and Perino, Matteo and De, Soham and Karollus, Alexander and Gayoso, Adam and Sargeant, Toby and Mottram, Anne and Wong, Lai Hong and Drotar, Pavol and Kosiorek, Adam and Senior, Andrew and Tanburn, Richard and Applebaum, Taylor and Basu, Souradeep and Hassabis, Demis and Kohli, Pushmeet",
     "timestamp": "2026-03-13 Fri 09:53",
     "has_note": "no",
     "words": 0,
@@ -412,7 +412,7 @@
   {
     "cite": "@grantNicheShiftsCompetition1982",
     "title": "Niche Shifts and Competition in Darwin's Finches: Geospiza Conirostris and Congeners",
-    "author": "Grant, B. R. and Grant, Peter R.",
+    "author": "Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-03-18 Wed 10:33",
     "has_note": "yes",
     "words": 198,
@@ -512,7 +512,7 @@
   {
     "cite": "@campasScalingShearTransformations2010",
     "title": "Scaling and Shear Transformations Capture Beak Shape Variation in Darwin's Finches",
-    "author": "CampAS, O. and Mallarino, R. and Herrel, A. and Abzhanov, A. and Brenner, M. P.",
+    "author": "Campas, O. and Mallarino, R. and Herrel, A. and Abzhanov, A. and Brenner, M. P.",
     "timestamp": "2026-03-24 Tue 08:25",
     "has_note": "yes",
     "words": 72,
@@ -522,7 +522,7 @@
   {
     "cite": "@chavesGenomicVariationTips2016",
     "title": "Genomic Variation at the Tips of the Adaptive Radiation of Darwin's Finches",
-    "author": "Chaves, Jaime A. and Cooper, Elizabeth A. and Hendry, Andrew P. and Podos, Jeffrey and De LeON, Luis F. and Raeymaekers, Joost A. M. and Macmillan, W.Owen and Uy, J. Albert C.",
+    "author": "Chaves, Jaime A. and Cooper, Elizabeth A. and Hendry, Andrew P. and Podos, Jeffrey and De Leon, Luis F. and Raeymaekers, Joost A. M. and Macmillan, W.Owen and Uy, J. Albert C.",
     "timestamp": "2026-03-24 Tue 09:27",
     "has_note": "yes",
     "words": 109,
@@ -532,7 +532,7 @@
   {
     "cite": "@beausoleilTemporallyVaryingDisruptive2019",
     "title": "Temporally Varying Disruptive Selection in the Medium Ground Finch (Geospiza Fortis)",
-    "author": "Beausoleil, Marc-Olivier and Frishkoff, Luke O. and M'Gonigle, Leithen K. and Raeymaekers, Joost A. M. and Knutie, Sarah A. and De LeON, Luis F. and Huber, Sarah K. and Chaves, Jaime A. and Clayton, Dale H. and Koop, Jennifer A. H. and Podos, Jeffrey and Sharpe, Diana M. T. and Hendry, Andrew P. and Barrett, Rowan D. H.",
+    "author": "Beausoleil, Marc-Olivier and Frishkoff, Luke O. and M'gonigle, Leithen K. and Raeymaekers, Joost A. M. and Knutie, Sarah A. and De Leon, Luis F. and Huber, Sarah K. and Chaves, Jaime A. and Clayton, Dale H. and Koop, Jennifer A. H. and Podos, Jeffrey and Sharpe, Diana M. T. and Hendry, Andrew P. and Barrett, Rowan D. H.",
     "timestamp": "2026-03-24 Tue 10:18",
     "has_note": "yes",
     "words": 66,
@@ -552,7 +552,7 @@
   {
     "cite": "@huberReproductiveIsolationSympatric2007a",
     "title": "Reproductive Isolation of Sympatric Morphs in a Population of Darwin's Finches",
-    "author": "Huber, Sarah K and LeON, Luis Fernando De and Hendry, Andrew P and Bermingham, Eldredge and Podos, Jeffrey",
+    "author": "Huber, Sarah K and Leon, Luis Fernando De and Hendry, Andrew P and Bermingham, Eldredge and Podos, Jeffrey",
     "timestamp": "2026-03-25 Wed 09:05",
     "has_note": "yes",
     "words": 88,
@@ -562,7 +562,7 @@
   {
     "cite": "@zapataDarwinsOverlookedRadiation2024",
     "title": "Darwin's Overlooked Radiation: Genomic Evidence Points to the Early Stages of a Radiation in the Galapagos Prickly Pear Cactus (Opuntia: Cactaceae)",
-    "author": "Zapata, Felipe and Cerca, JosE and Mccarney, Dana and Henriquez, Claudia L and Tiamiyu, Bashir B and Mccormack, John E and Reckling, Kelsey R and Chaves, Jaime A and Rivas-Torres, Gonzalo",
+    "author": "Zapata, Felipe and Cerca, Jose and Mccarney, Dana and Henriquez, Claudia L and Tiamiyu, Bashir B and Mccormack, John E and Reckling, Kelsey R and Chaves, Jaime A and Rivas-Torres, Gonzalo",
     "timestamp": "2026-03-25 Wed 11:02",
     "has_note": "no",
     "words": 0,
@@ -582,7 +582,7 @@
   {
     "cite": "@rancilhacIntrogressionUnderliesPhylogenetic2024",
     "title": "Introgression Underlies Phylogenetic Uncertainty But Not Parallel Plumage Evolution in a Recent Songbird Radiation",
-    "author": "Rancilhac, LoIS and Enbody, Erik D and Harris, Rebecca and Saitoh, Takema and Irestedt, Martin and Liu, Yang and Lei, Fumin and Andersson, Leif and AlstrOM, Per",
+    "author": "Rancilhac, Lois and Enbody, Erik D and Harris, Rebecca and Saitoh, Takema and Irestedt, Martin and Liu, Yang and Lei, Fumin and Andersson, Leif and Alstrom, Per",
     "timestamp": "2026-03-26 Thu 11:23",
     "has_note": "no",
     "words": 0,
@@ -602,7 +602,7 @@
   {
     "cite": "@huberBeakMorphologySong2006",
     "title": "Beak Morphology and Song Features Covary in a Population of Darwin's Finches (Geospiza Fortis)",
-    "author": "Huber, Sarah K. and Podos, \\Relax Jeffrey",
+    "author": "Huber, Sarah K. and Podos, Jeffrey",
     "timestamp": "2026-03-27 Fri 14:49",
     "has_note": "no",
     "words": 0,
@@ -622,7 +622,7 @@
   {
     "cite": "@deleonDivergenceGeneFlow2010",
     "title": "Divergence with Gene Flow as Facilitated by Ecological Differences: Within-Island Variation in Darwin's Finches",
-    "author": "De LeON, Luis Fernando and Bermingham, Eldredge and Podos, Jeffrey and Hendry, Andrew P.",
+    "author": "De Leon, Luis Fernando and Bermingham, Eldredge and Podos, Jeffrey and Hendry, Andrew P.",
     "timestamp": "2026-04-08 Wed 09:15",
     "has_note": "yes",
     "words": 73,
@@ -692,7 +692,7 @@
   {
     "cite": "@hendryDisruptiveSelectionBimodal2008",
     "title": "Disruptive Selection in a Bimodal Population of Darwin's Finches",
-    "author": "Hendry, Andrew P and Huber, Sarah K and De LeON, Luis F and Herrel, Anthony and Podos, Jeffrey",
+    "author": "Hendry, Andrew P and Huber, Sarah K and De Leon, Luis F and Herrel, Anthony and Podos, Jeffrey",
     "timestamp": "2026-04-15 Wed 10:31",
     "has_note": "yes",
     "words": 41,
@@ -742,7 +742,7 @@
   {
     "cite": "@cadenaIssuesPerspectivesSpecies2018",
     "title": "Issues and Perspectives in Species Delimitation Using Phenotypic Data: Atlantean Evolution in Darwin's Finches",
-    "author": "Cadena, Carlos Daniel and Zapata, Felipe and JimENez, IvAN",
+    "author": "Cadena, Carlos Daniel and Zapata, Felipe and Jimenez, Ivan",
     "timestamp": "2026-04-17 Fri 11:35",
     "has_note": "yes",
     "words": 168,
@@ -772,7 +772,7 @@
   {
     "cite": "@norazAncientDNAReveals2026",
     "title": "Ancient DNA Reveals 4000 Years of Grapevine Diversity, Viticulture and Clonal Propagation in France",
-    "author": "Noraz, REMi and Chauvey, Lorelei and Wagner, Stefanie and Estrada, Oscar and Wales, Nathan and Bonnaire, Emmanuelle and Cabanis, Manon and Derreumaux, Marie and Figueiral, Isabel and Hallavant, Charlotte and Marinval, Philippe and Matterne, VERonique and Ros, JEROMe and Rovira, Nuria and Tillier, Margaux and Bovagne, Marilyne and Chausserie-LaprEE, Jean and Nicolas, ClEMent and Daveau, Isabelle and Delassus, David and Gailledrat, Eric and Ginouvez, Olivier and Houix, Bertrand and Jung, CECile and Kuchler, Philippe and Leroux, Laure and Macario, RaphaEL and MarliERe, Elise and Pasqualini, Michel and Piques, GaEL and Pomaredes, HervE and Robert, Justine and Roms, CEDric and Roth-Zehner, Muriel and Scrinzi, Maxime and Taras-Thomas, Maryanick and Torres Costa, Josep and Besnard, Guillaume and Terral, Jean-FrEDERic and Bacilieri, Roberto and Bouby, Laurent and Orlando, Ludovic",
+    "author": "Noraz, Remi and Chauvey, Lorelei and Wagner, Stefanie and Estrada, Oscar and Wales, Nathan and Bonnaire, Emmanuelle and Cabanis, Manon and Derreumaux, Marie and Figueiral, Isabel and Hallavant, Charlotte and Marinval, Philippe and Matterne, Veronique and Ros, Jerome and Rovira, Nuria and Tillier, Margaux and Bovagne, Marilyne and Chausserie-Lapree, Jean and Nicolas, Clement and Daveau, Isabelle and Delassus, David and Gailledrat, Eric and Ginouvez, Olivier and Houix, Bertrand and Jung, Cecile and Kuchler, Philippe and Leroux, Laure and Macario, Raphael and Marliere, Elise and Pasqualini, Michel and Piques, Gael and Pomaredes, Herve and Robert, Justine and Roms, Cedric and Roth-Zehner, Muriel and Scrinzi, Maxime and Taras-Thomas, Maryanick and Torres Costa, Josep and Besnard, Guillaume and Terral, Jean-Frederic and Bacilieri, Roberto and Bouby, Laurent and Orlando, Ludovic",
     "timestamp": "2026-04-21 Tue 09:40",
     "has_note": "no",
     "words": 0,
@@ -872,7 +872,7 @@
   {
     "cite": "@lamichhaneyEvolutionDarwinsFinches2015",
     "title": "Evolution of Darwin's Finches and Their Beaks Revealed by Genome Sequencing",
-    "author": "Lamichhaney, Sangeet and Berglund, Jonas and AlmEN, Markus SALlman and Maqbool, Khurram and Grabherr, Manfred and Martinez-Barrio, Alvaro and PromerovA, Marta and Rubin, Carl-Johan and Wang, Chao and Zamani, Neda and Grant, B. Rosemary and Grant, Peter R. and Webster, Matthew T. and Andersson, Leif",
+    "author": "Lamichhaney, Sangeet and Berglund, Jonas and Almen, Markus Sallman and Maqbool, Khurram and Grabherr, Manfred and Martinez-Barrio, Alvaro and Promerova, Marta and Rubin, Carl-Johan and Wang, Chao and Zamani, Neda and Grant, B. Rosemary and Grant, Peter R. and Webster, Matthew T. and Andersson, Leif",
     "timestamp": "2026-04-29 Wed 18:20",
     "has_note": "yes",
     "words": 0,
@@ -912,7 +912,7 @@
   {
     "cite": "@shiPeptidesDNAAll2026",
     "title": "From Peptides to DNA: All Required Steps Can Be Catalyzed",
-    "author": "Shi, Lei and Senissar, MERiem and Leistner, Kirsten and Jers, Carsten and Mijakovic, Ivan",
+    "author": "Shi, Lei and Senissar, Meriem and Leistner, Kirsten and Jers, Carsten and Mijakovic, Ivan",
     "timestamp": "2026-05-01 Fri 21:18",
     "has_note": "no",
     "words": 0,
@@ -922,7 +922,7 @@
   {
     "cite": "@lappalainenTranscriptomeGenomeSequencing2013",
     "title": "Transcriptome and Genome Sequencing Uncovers Functional Variation in Humans",
-    "author": "Lappalainen, Tuuli and Sammeth, Michael and FriedlANder, Marc R. and `T Hoen, Peter A. C. and Monlong, Jean and Rivas, Manuel A. and GonzALez-Porta, Mar and Kurbatova, Natalja and Griebel, Thasso and Ferreira, Pedro G. and Barann, Matthias and Wieland, Thomas and Greger, Liliana and Van Iterson, Maarten and AlmlOF, Jonas and Ribeca, Paolo and Pulyakhina, Irina and Esser, Daniela and Giger, Thomas and Tikhonov, Andrew and Sultan, Marc and Bertier, Gabrielle and Macarthur, Daniel G. and Lek, Monkol and Lizano, Esther and Buermans, Henk P. J. and Padioleau, Ismael and Schwarzmayr, Thomas and Karlberg, Olof and Ongen, Halit and Kilpinen, Helena and Beltran, Sergi and Gut, Marta and Kahlem, Katja and Amstislavskiy, Vyacheslav and Stegle, Oliver and Pirinen, Matti and Montgomery, Stephen B. and Donnelly, Peter and Mccarthy, Mark I. and Flicek, Paul and Strom, Tim M. and Lehrach, Hans and Schreiber, Stefan and Sudbrak, Ralf and Carracedo, ANgel and Antonarakis, Stylianos E. and HASler, Robert and SyvANen, Ann-Christine and Van Ommen, Gert-Jan and Brazma, Alvis and Meitinger, Thomas and Rosenstiel, Philip and GuigO, Roderic and Gut, Ivo G. and Estivill, Xavier and Dermitzakis, Emmanouil T.",
+    "author": "Lappalainen, Tuuli and Sammeth, Michael and Friedlander, Marc R. and `t Hoen, Peter A. C. and Monlong, Jean and Rivas, Manuel A. and Gonzalez-Porta, Mar and Kurbatova, Natalja and Griebel, Thasso and Ferreira, Pedro G. and Barann, Matthias and Wieland, Thomas and Greger, Liliana and Van Iterson, Maarten and Almlof, Jonas and Ribeca, Paolo and Pulyakhina, Irina and Esser, Daniela and Giger, Thomas and Tikhonov, Andrew and Sultan, Marc and Bertier, Gabrielle and Macarthur, Daniel G. and Lek, Monkol and Lizano, Esther and Buermans, Henk P. J. and Padioleau, Ismael and Schwarzmayr, Thomas and Karlberg, Olof and Ongen, Halit and Kilpinen, Helena and Beltran, Sergi and Gut, Marta and Kahlem, Katja and Amstislavskiy, Vyacheslav and Stegle, Oliver and Pirinen, Matti and Montgomery, Stephen B. and Donnelly, Peter and Mccarthy, Mark I. and Flicek, Paul and Strom, Tim M. and Lehrach, Hans and Schreiber, Stefan and Sudbrak, Ralf and Carracedo, Angel and Antonarakis, Stylianos E. and Hasler, Robert and Syvanen, Ann-Christine and Van Ommen, Gert-Jan and Brazma, Alvis and Meitinger, Thomas and Rosenstiel, Philip and Guigo, Roderic and Gut, Ivo G. and Estivill, Xavier and Dermitzakis, Emmanouil T.",
     "timestamp": "2026-05-02 Sat 11:12",
     "has_note": "no",
     "words": 0,
@@ -1062,7 +1062,7 @@
   {
     "cite": "@limaGeographicIsolationAdmixture2026",
     "title": "Geographic Isolation after Admixture Generates a Distinct Lineage in an Atlantic Forest Bird",
-    "author": "Lima, Rafael D and Bocalini, Fernanda and Gomes, Vitor and Ostrow, Emily N and Catanach, Therese A and Weckstein, Jason D and Silveira, LuIS FABio and Piacentini, VITor Q",
+    "author": "Lima, Rafael D and Bocalini, Fernanda and Gomes, Vitor and Ostrow, Emily N and Catanach, Therese A and Weckstein, Jason D and Silveira, Luis Fabio and Piacentini, Vitor Q",
     "timestamp": "2026-05-11 Mon 10:08",
     "has_note": "no",
     "words": 0,
@@ -1072,7 +1072,7 @@
   {
     "cite": "@harveyEvolutionTropicalBiodiversity2020",
     "title": "The Evolution of a Tropical Biodiversity Hotspot",
-    "author": "Harvey, Michael G. and Bravo, Gustavo A. and Claramunt, Santiago and Cuervo, AndrES M. and Derryberry, Graham E. and Battilana, Jaqueline and Seeholzer, Glenn F. and Mckay, Jessica Shearer and O'Meara, Brian C. and Faircloth, Brant C. and Edwards, Scott V. and PERez-EmAN, Jorge and Moyle, Robert G. and Sheldon, Frederick H. and Aleixo, Alexandre and Smith, Brian Tilston and Chesser, R. Terry and Silveira, LuIS FABio and Cracraft, Joel and Brumfield, Robb T. and Derryberry, Elizabeth P.",
+    "author": "Harvey, Michael G. and Bravo, Gustavo A. and Claramunt, Santiago and Cuervo, Andres M. and Derryberry, Graham E. and Battilana, Jaqueline and Seeholzer, Glenn F. and Mckay, Jessica Shearer and O'meara, Brian C. and Faircloth, Brant C. and Edwards, Scott V. and Perez-Eman, Jorge and Moyle, Robert G. and Sheldon, Frederick H. and Aleixo, Alexandre and Smith, Brian Tilston and Chesser, R. Terry and Silveira, Luis Fabio and Cracraft, Joel and Brumfield, Robb T. and Derryberry, Elizabeth P.",
     "timestamp": "2026-05-11 Mon 10:34",
     "has_note": "no",
     "words": 0,
@@ -1112,7 +1112,7 @@
   {
     "cite": "@abbottHybridizationSpeciation2013",
     "title": "Hybridization and Speciation",
-    "author": "Abbott, R. and Albach, D. and Ansell, S. and Arntzen, J. W. and Baird, S. J. E. and Bierne, N. and Boughman, J. and Brelsford, A. and Buerkle, C. A. and Buggs, R. and Butlin, R. K. and Dieckmann, U. and Eroukhmanoff, F. and Grill, A. and Cahan, S. H. and Hermansen, J. S. and Hewitt, G. and Hudson, A. G. and Jiggins, C. and Jones, J. and Keller, B. and Marczewski, T. and Mallet, J. and Martinez-Rodriguez, P. and MOSt, M. and Mullen, S. and Nichols, R. and Nolte, A. W. and Parisod, C. and Pfennig, K. and Rice, A. M. and Ritchie, M. G. and Seifert, B. and Smadja, C. M. and Stelkens, R. and Szymura, J. M. and VAInOLA, R. and Wolf, J. B. W. and Zinner, D.",
+    "author": "Abbott, R. and Albach, D. and Ansell, S. and Arntzen, J. W. and Baird, S. J. E. and Bierne, N. and Boughman, J. and Brelsford, A. and Buerkle, C. A. and Buggs, R. and Butlin, R. K. and Dieckmann, U. and Eroukhmanoff, F. and Grill, A. and Cahan, S. H. and Hermansen, J. S. and Hewitt, G. and Hudson, A. G. and Jiggins, C. and Jones, J. and Keller, B. and Marczewski, T. and Mallet, J. and Martinez-Rodriguez, P. and Most, M. and Mullen, S. and Nichols, R. and Nolte, A. W. and Parisod, C. and Pfennig, K. and Rice, A. M. and Ritchie, M. G. and Seifert, B. and Smadja, C. M. and Stelkens, R. and Szymura, J. M. and Vainola, R. and Wolf, J. B. W. and Zinner, D.",
     "timestamp": "2026-05-18 Mon 14:42",
     "has_note": "yes",
     "words": 140,
@@ -1122,7 +1122,7 @@
   {
     "cite": "@abbottHybridizationSpeciation2013",
     "title": "Hybridization and Speciation",
-    "author": "Abbott, R. and Albach, D. and Ansell, S. and Arntzen, J. W. and Baird, S. J. E. and Bierne, N. and Boughman, J. and Brelsford, A. and Buerkle, C. A. and Buggs, R. and Butlin, R. K. and Dieckmann, U. and Eroukhmanoff, F. and Grill, A. and Cahan, S. H. and Hermansen, J. S. and Hewitt, G. and Hudson, A. G. and Jiggins, C. and Jones, J. and Keller, B. and Marczewski, T. and Mallet, J. and Martinez-Rodriguez, P. and MOSt, M. and Mullen, S. and Nichols, R. and Nolte, A. W. and Parisod, C. and Pfennig, K. and Rice, A. M. and Ritchie, M. G. and Seifert, B. and Smadja, C. M. and Stelkens, R. and Szymura, J. M. and VAInOLA, R. and Wolf, J. B. W. and Zinner, D.",
+    "author": "Abbott, R. and Albach, D. and Ansell, S. and Arntzen, J. W. and Baird, S. J. E. and Bierne, N. and Boughman, J. and Brelsford, A. and Buerkle, C. A. and Buggs, R. and Butlin, R. K. and Dieckmann, U. and Eroukhmanoff, F. and Grill, A. and Cahan, S. H. and Hermansen, J. S. and Hewitt, G. and Hudson, A. G. and Jiggins, C. and Jones, J. and Keller, B. and Marczewski, T. and Mallet, J. and Martinez-Rodriguez, P. and Most, M. and Mullen, S. and Nichols, R. and Nolte, A. W. and Parisod, C. and Pfennig, K. and Rice, A. M. and Ritchie, M. G. and Seifert, B. and Smadja, C. M. and Stelkens, R. and Szymura, J. M. and Vainola, R. and Wolf, J. B. W. and Zinner, D.",
     "timestamp": "2026-05-20 Wed 10:21",
     "has_note": "yes",
     "words": 140,
@@ -1132,7 +1132,7 @@
   {
     "cite": "@deleonDarwinsFinchesTheir2014",
     "title": "Darwin's Finches and Their Diet Niches: The Sympatric Coexistence of Imperfect Generalists",
-    "author": "De LeON, L. F. and Podos, J. and Gardezi, T. and Herrel, A. and Hendry, A. P.",
+    "author": "De Leon, L. F. and Podos, J. and Gardezi, T. and Herrel, A. and Hendry, A. P.",
     "timestamp": "2026-05-21 Thu 11:13",
     "has_note": "yes",
     "words": 151,
@@ -1192,7 +1192,7 @@
   {
     "cite": "@lamichhaneyBeakSizeLocus2016",
     "title": "A Beak Size Locus in Darwin's Finches Facilitated Character Displacement during a Drought",
-    "author": "Lamichhaney, Sangeet and Han, Fan and Berglund, Jonas and Wang, Chao and AlmEN, Markus SALlman and Webster, Matthew T. and Grant, B. Rosemary and Grant, Peter R. and Andersson, Leif",
+    "author": "Lamichhaney, Sangeet and Han, Fan and Berglund, Jonas and Wang, Chao and Almen, Markus Sallman and Webster, Matthew T. and Grant, B. Rosemary and Grant, Peter R. and Andersson, Leif",
     "timestamp": "2026-05-29 Fri 19:24",
     "has_note": "yes",
     "words": 89,
