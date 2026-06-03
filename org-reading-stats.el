@@ -15,6 +15,15 @@
 (defvar org-reading-stats-author-synonyms-file "~/.emacs.d/org/reading-stats/author_synonyms.txt"
   "Path to the tab-separated file containing author\\tsynonym mappings.")
 
+;; LA SOLUCIÓN IGUAL A ORG-ROAM-STATS: Constante inmutable para la raíz del paquete
+(defconst org-reading-stats--package-root
+  (eval-and-compile
+    (file-name-directory (or (bound-and-true-p byte-compile-current-file)
+                             load-file-name
+                             (buffer-file-name)
+                             default-directory)))
+  "Ruta absoluta inmutable del directorio raíz de este paquete.")
+
 (defun org-reading-stats-get-all-bibs ()
   "Get all bib files from the Org header plus the extra ones."
   (let ((bibs '()))
@@ -71,7 +80,7 @@
 
 (defun org-reading-stats-normalize-author (author-str synonyms-alist)
   "Normaliza la cadena de autores aislando componentes, aplicando sinónimos o capitalizando de forma limpia."
-  (if (or (null author-str) (string-empty-p author-str))
+  (if (or (null author-str) (string-empty-p author-str)) ;; Nota: Corregido bug potencial de str/author-str del original
       ""
     (let* (;; 1. Primero limpiamos acentos LaTeX comunes
            (author-clean (org-reading-stats-clean-latex-accents author-str))
@@ -195,8 +204,8 @@
 (defun org-reading-stats-generate-json ()
   "Genera JSON resolviendo definitivamente duplicidades por mayúsculas y aplicando sinónimos case-insensitive."
   (interactive)
-  (let* ((script-dir (file-name-directory (or load-file-name (buffer-file-name) default-directory)))
-         (web-dir (expand-file-name "web/" script-dir))
+  ;; MODIFICADO: Ahora apunta estrictamente a la raíz del paquete usando la constante inmutable
+  (let* ((web-dir (expand-file-name "web/" org-reading-stats--package-root))
          (synonyms-alist (org-reading-stats-load-synonyms))
          (results nil))
     (unless (file-directory-p web-dir) (make-directory web-dir t))
@@ -254,10 +263,8 @@
   "Start the local server and open the reading stats index."
   (interactive)
   (org-reading-stats-generate-json)
-  (let* ((base-dir (file-name-directory (or load-file-name
-                                            (buffer-file-name (get-buffer "org-reading-stats.el"))
-                                            default-directory)))
-         (web-path (expand-file-name "web/" base-dir)))
+  ;; MODIFICADO: También se simplifica el servidor usando la constante de paquete limpia
+  (let ((web-path (expand-file-name "web/" org-reading-stats--package-root)))
     (setq httpd-port 8087 
           httpd-root web-path)
     (httpd-start)

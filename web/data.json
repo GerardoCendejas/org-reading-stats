@@ -1198,5 +1198,55 @@
     "words": 89,
     "links": 7,
     "pages": 5
+  },
+  {
+    "cite": "@petrenMultilocusGenotypesCharles2010",
+    "title": "Multilocus Genotypes from Charles Darwin's Finches: Biodiversity Lost since the Voyage of the Beagle",
+    "author": "Petren, Kenneth and Grant, Peter R. and Grant, B. Rosemary and Clack, Andrew A. and Lescano, Ninnia V.",
+    "timestamp": "2026-06-01 Mon 14:30",
+    "has_note": "yes",
+    "words": 119,
+    "links": 8,
+    "pages": 10
+  },
+  {
+    "cite": "@fontaineExtensiveIntrogressionMalaria2015",
+    "title": "Extensive Introgression in a Malaria Vector Species Complex Revealed by Phylogenomics",
+    "author": "Fontaine, Michael C. and Pease, James B. and Steele, Aaron and Waterhouse, Robert M. and Neafsey, Daniel E. and Sharakhov, Igor V. and Jiang, Xiaofang and Hall, Andrew B. and Catteruccia, Flaminia and Kakani, Evdoxia and Mitchell, Sara N. and Wu, Yi-Chieh and Smith, Hilary A. and Love, R. Rebecca and Lawniczak, Mara K. and Slotman, Michel A. and Emrich, Scott J. and Hahn, Matthew W. and Besansky, Nora J.",
+    "timestamp": "2026-06-02 Tue 10:43",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 8
+  },
+  {
+    "cite": "@molloyAdvancingAdmixtureGraph2021",
+    "title": "Advancing Admixture Graph Estimation via Maximum Likelihood Network Orientation",
+    "author": "Molloy, Erin K and Durvasula, Arun and Sankararaman, Sriram",
+    "timestamp": "2026-06-02 Tue 13:07",
+    "has_note": "no",
+    "words": 0,
+    "links": 0,
+    "pages": 9
+  },
+  {
+    "cite": "@grantSecondaryContactPhase2009",
+    "title": "The Secondary Contact Phase of Allopatric Speciation in Darwin's Finches",
+    "author": "Grant, Peter R. and Grant, B. Rosemary",
+    "timestamp": "2026-06-03 Wed 09:28",
+    "has_note": "yes",
+    "words": 49,
+    "links": 3,
+    "pages": 8
+  },
+  {
+    "cite": "@grantConspecificHeterospecificGene2010",
+    "title": "Conspecific versus Heterospecific Gene Exchange between Populations of Darwin's Finches",
+    "author": "Grant, Peter R. and Grant, B. Rosemary",
+    "timestamp": "2026-06-03 Wed 11:13",
+    "has_note": "yes",
+    "words": 138,
+    "links": 12,
+    "pages": 12
   }
 ]
