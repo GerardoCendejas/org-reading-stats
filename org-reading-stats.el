@@ -1,3 +1,11 @@
+;;; org-reading-stats.el --- Generador de estadísticas de lectura para Org-Roam -*- lexical-binding: t; -*-
+
+;;; Commentary:
+;; Este paquete analiza tu archivo de lecturas Org y calcula métricas de cobertura
+;; combinando escaneo del sistema de archivos y ripgrep asíncrono sobre IDs puros.
+
+;;; Code:
+
 (require 'simple-httpd)
 (require 'json)
 
@@ -13,9 +21,9 @@
 
 ;; Ruta al archivo de mapeo de autores (sinónimos)
 (defvar org-reading-stats-author-synonyms-file "~/.emacs.d/org/reading-stats/author_synonyms.txt"
-  "Path to the tab-separated file containing author\\tsynonym mappings.")
+  "Path to the tab-separated file containing author\tsynonym mappings.")
 
-;; LA SOLUCIÓN IGUAL A ORG-ROAM-STATS: Constante inmutable para la raíz del paquete
+;; Constante inmutable para la raíz del paquete
 (defconst org-reading-stats--package-root
   (eval-and-compile
     (file-name-directory (or (bound-and-true-p byte-compile-current-file)
@@ -80,7 +88,7 @@
 
 (defun org-reading-stats-normalize-author (author-str synonyms-alist)
   "Normaliza la cadena de autores aislando componentes, aplicando sinónimos o capitalizando de forma limpia."
-  (if (or (null author-str) (string-empty-p author-str)) ;; Nota: Corregido bug potencial de str/author-str del original
+  (if (or (null author-str) (string-empty-p author-str))
       ""
     (let* (;; 1. Primero limpiamos acentos LaTeX comunes
            (author-clean (org-reading-stats-clean-latex-accents author-str))
@@ -200,11 +208,29 @@
         (setq link-count (1+ link-count)))
 
       (list word-count link-count))))
+
+(defun org-reading-stats-fast-search-citation (cite-id)
+  "Busca el CITE-ID estructurado como cita (cite:ID o cite:@ID) en el disco, omitiendo la nota dedicada."
+  (let* ((roam-dir (expand-file-name org-roam-directory-path))
+         ;; Creamos un patrón de Regex para ripgrep que busque "cite:@ID" o "cite:ID"
+         ;; El operador \b asegura que encaje con el límite de la palabra exacta
+         (pattern (format "cite:(@)?%s\\b" (regexp-quote cite-id)))
+         (command (if (executable-find "rg")
+                      ;; Excluimos lock files (.#*) y la nota dedicada formal de este paper (*cite-id*)
+                      (format "rg -q --glob '!*%s*' --glob '!.*' %s %s" 
+                              (shell-quote-argument cite-id) 
+                              (shell-quote-argument pattern) 
+                              (shell-quote-argument roam-dir))
+                    (format "grep -rq --exclude='*%s*' --exclude='.*' %s %s" 
+                            (shell-quote-argument cite-id) 
+                            (shell-quote-argument pattern) 
+                            (shell-quote-argument roam-dir))))
+         (exit-status (call-process-shell-command command)))
+    (if (= exit-status 0) "yes" "no")))
       
 (defun org-reading-stats-generate-json ()
   "Genera JSON resolviendo definitivamente duplicidades por mayúsculas y aplicando sinónimos case-insensitive."
   (interactive)
-  ;; MODIFICADO: Ahora apunta estrictamente a la raíz del paquete usando la constante inmutable
   (let* ((web-dir (expand-file-name "web/" org-reading-stats--package-root))
          (synonyms-alist (org-reading-stats-load-synonyms))
          (results nil))
@@ -217,6 +243,8 @@
                (cite-key (concat "@" cite-id))
                (timestamp "")
                (has-note-val "no")
+               (is-cited-in-roam "no")
+               (dedicated-path nil)
                (word-count 0)
                (link-count 0)
                (metadata (org-reading-stats-get-metadata cite-key))
@@ -229,18 +257,24 @@
             (when (re-search-forward "\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}[^]>]*\\)" search-limit t)
               (setq timestamp (match-string 1))))
           
+          ;; 1. Verificar si tiene nota dedicada formal en el sistema de archivos
           (let ((matching-files (directory-files-recursively org-roam-directory-path (regexp-quote cite-id))))
-            (when matching-files
-              (let ((info (org-reading-stats-get-file-info (car matching-files))))
+            (when (and matching-files (not (string-prefix-p ".#" (file-name-nondirectory (car matching-files)))))
+              (setq dedicated-path (car matching-files))
+              (let ((info (org-reading-stats-get-file-info dedicated-path)))
                 (setq has-note-val "yes")
                 (setq word-count (car info))
                 (setq link-count (cadr info)))))
           
-          ;; 1. Limpieza de acentos LaTeX e inyección de diccionario robusto
+          ;; 2. NUEVO: Buscamos únicamente el ID limpio (cite-id) para evitar fallos de escape con el arroba
+          (setq is-cited-in-roam (org-reading-stats-fast-search-citation cite-id))
+
+          (when (string= has-note-val "yes")
+            (setq is-cited-in-roam "yes"))
+          
           (setq title-val (org-reading-stats-clean-latex-accents title-val))
           (setq author-val (org-reading-stats-normalize-author author-val synonyms-alist))
           
-          ;; 2. Aplanamiento y limpieza sintáctica final para el título en el JSON
           (setq title-val (replace-regexp-in-string "[{}]" "" title-val))
           (setq title-val (replace-regexp-in-string "[ \t\n\r]+" " " title-val))
           (setq title-val (string-trim title-val))
@@ -250,6 +284,7 @@
                       (cons 'author author-val)
                       (cons 'timestamp timestamp)
                       (cons 'has_note has-note-val)
+                      (cons 'is_cited is-cited-in-roam)
                       (cons 'words word-count)
                       (cons 'links link-count)
                       (cons 'pages page-count))
@@ -263,7 +298,6 @@
   "Start the local server and open the reading stats index."
   (interactive)
   (org-reading-stats-generate-json)
-  ;; MODIFICADO: También se simplifica el servidor usando la constante de paquete limpia
   (let ((web-path (expand-file-name "web/" org-reading-stats--package-root)))
     (setq httpd-port 8087 
           httpd-root web-path)
@@ -271,3 +305,5 @@
     (browse-url "http://localhost:8087/index.html")))
 
 (provide 'org-reading-stats)
+
+;;; org-reading-stats.el ends here

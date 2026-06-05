@@ -5,6 +5,7 @@
     "author": "Solis-Lemus, Claudia and Ane, Cecile",
     "timestamp": "2026-02-18 Wed 11:52",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 64,
     "links": 3,
     "pages": 21
@@ -15,6 +16,7 @@
     "author": "Mallarino, Ricardo and Abzhanov, Arhat",
     "timestamp": "2026-02-17 Tue",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 21
@@ -25,6 +27,7 @@
     "author": "Marques, David A. and Meier, Joana I. and Seehausen, Ole",
     "timestamp": "2026-02-17 Tue",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 216,
     "links": 9,
     "pages": 14
@@ -35,6 +38,7 @@
     "author": "Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-02-16 Mon",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 121,
     "links": 5,
     "pages": 9
@@ -45,6 +49,7 @@
     "author": "Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-02-15 Sun",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 198,
     "links": 13,
     "pages": 21
@@ -55,6 +60,7 @@
     "author": "Millington, Stephen J. and Price, Trevor D.",
     "timestamp": "2026-02-14 Sat",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 66,
     "links": 3,
     "pages": 5
@@ -65,6 +71,7 @@
     "author": "Ratcliffe, Laurene M. and Grant, Peter R.",
     "timestamp": "2026-02-11 Wed",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 93,
     "links": 6,
     "pages": 12
@@ -75,6 +82,7 @@
     "author": "Grant, Peter R and Grant, B. Rosemary and Petren, Kenneth",
     "timestamp": "2026-02-10 Tue",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 31
@@ -85,6 +93,7 @@
     "author": "Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-02-09 Mon",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 5
@@ -95,6 +104,7 @@
     "author": "Grant, Peter R and Grant, B. Rosemary",
     "timestamp": "2026-02-05 Thu",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 172,
     "links": 11,
     "pages": 10
@@ -105,6 +115,7 @@
     "author": "Ratcliffe, Laurene M. and Grant, Peter R.",
     "timestamp": "2026-02-04 Wed",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 138,
     "links": 8,
     "pages": 18
@@ -115,6 +126,7 @@
     "author": "Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-02-03 Tue",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 228,
     "links": 15,
     "pages": 12
@@ -125,6 +137,7 @@
     "author": "Grant, B. Rosemary",
     "timestamp": "2026-02-03 Tue",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 308,
     "links": 14,
     "pages": 10
@@ -135,6 +148,7 @@
     "author": "Grant, Peter R. and Grant, B. Rosemary",
     "timestamp": "2026-02-03 Tue",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 175,
     "links": 5,
     "pages": 12
@@ -145,6 +159,7 @@
     "author": "Schluter, Dolph and Ratcliffe, Laurene M. and Grant, Peter R.",
     "timestamp": "2026-02-02 Mon",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 62,
     "links": 5,
     "pages": 4
@@ -155,6 +170,7 @@
     "author": "Solis-Lemus, Claudia and Bastide, Paul and Ane, Cecile",
     "timestamp": "2026-02-18 Wed 13:53",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 7
@@ -165,6 +181,7 @@
     "author": "Kolbow, Nathan and Kong, Sungsik and Chafin, Tyler and Justison, Joshua and Ane, Cecile and Solis-Lemus, Claudia",
     "timestamp": "2026-02-18 Wed 19:35",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 19
@@ -175,6 +192,7 @@
     "author": "Kolbow, Nathan and Kong, Sungsik and Solis-Lemus, Claudia",
     "timestamp": "2026-02-19 Thu 09:30",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 208,
     "links": 2,
     "pages": 29
@@ -185,6 +203,7 @@
     "author": "Cai, Haoran and Melo, Diogo and Marais, David L. Des",
     "timestamp": "2026-02-19 Thu 10:23",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 10
@@ -195,6 +214,7 @@
     "author": "Pickrell, Joseph K. and Pritchard, Jonathan K.",
     "timestamp": "2026-02-24 Tue 10:00",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 17
@@ -205,6 +225,7 @@
     "author": "Deng, Yun and Nielsen, Rasmus and Song, Yun S.",
     "timestamp": "2026-02-24 Tue 11:27",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 12
@@ -215,6 +236,7 @@
     "author": "Lifchitz, Hila and Vedula, Sanketh and Pal, Arka and Shipilina, Daria and Stankowski, Sean",
     "timestamp": "2026-02-26 Thu 09:27",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 11
@@ -225,6 +247,7 @@
     "author": "Cano, Alejandro V. and Rozho\\v Nova, Hana and Stoltzfus, Arlin and Mccandlish, David M. and Payne, Joshua L.",
     "timestamp": "2026-03-03 Tue 13:23",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 11
@@ -235,6 +258,7 @@
     "author": "Schluter, Dolph",
     "timestamp": "2026-03-03 Tue 14:09",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 10
@@ -245,6 +269,7 @@
     "author": "Murray, Gemma Gr and Soares, Andre Er and Novak, Ben J and Schaefer, Nathan K and Cahill, James A and Baker, Allan J and Demboski, John R and Doll, Andrew and Da Fonseca, Rute R and Fulton, Tara L and Others",
     "timestamp": "2026-03-04 Wed 08:52",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 4
@@ -255,6 +280,7 @@
     "author": "Corbett-Detig, Russell and Nielsen, Rasmus",
     "timestamp": "2026-03-04 Wed 10:57",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 40
@@ -265,6 +291,7 @@
     "author": "Yi, Xin and Liang, Yu and Huerta-Sanchez, Emilia and Jin, Xin and Cuo, Zha Xi Ping and Pool, John E. and Xu, Xun and Jiang, Hui and Vinckenbosch, Nicolas and Korneliussen, Thorfinn Sand and Zheng, Hancheng and Liu, Tao and He, Weiming and Li, Kui and Luo, Ruibang and Nie, Xifang and Wu, Honglong and Zhao, Meiru and Cao, Hongzhi and Zou, Jing and Shan, Ying and Li, Shuzheng and Yang, Qi and Asan and Ni, Peixiang and Tian, Geng and Xu, Junming and Liu, Xiao and Jiang, Tao and Wu, Renhua and Zhou, Guangyu and Tang, Meifang and Qin, Junjie and Wang, Tong and Feng, Shuijian and Li, Guohong and Huasang and Luosang, Jiangbai and Wang, Wei and Chen, Fang and Wang, Yading and Zheng, Xiaoguang and Li, Zhuo and Bianba, Zhuoma and Yang, Ge and Wang, Xinping and Tang, Shuhui and Gao, Guoyi and Chen, Yong and Luo, Zhen and Gusang, Lamu and Cao, Zheng and Zhang, Qinghui and Ouyang, Weihan and Ren, Xiaoli and Liang, Huiqing and Zheng, Huisong and Huang, Yebo and Li, Jingxiang and Bolund, Lars and Kristiansen, Karsten and Li, Yingrui and Zhang, Yong and Zhang, Xiuqing and Li, Ruiqiang and Li, Songgang and Yang, Huanming and Nielsen, Rasmus and Wang, Jun and Wang, Jian",
     "timestamp": "2026-03-04 Wed 11:45",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 4
@@ -275,6 +302,7 @@
     "author": "Malinsky, Milan and Matschiner, Michael and Svardal, Hannes",
     "timestamp": "2026-03-05 Thu 08:49",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 12
@@ -285,6 +313,7 @@
     "author": "Paradis, Emmanuel",
     "timestamp": "2026-03-05 Thu 09:06",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 2
@@ -295,6 +324,7 @@
     "author": "Knaus, Brian J. and Grunwald, Niklaus J.",
     "timestamp": "2026-03-05 Thu 09:40",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 10
@@ -305,6 +335,7 @@
     "author": "Gould, S. J. and Lewontin, R. C.",
     "timestamp": "2026-03-05 Thu 19:43",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 104,
     "links": 5,
     "pages": 18
@@ -315,6 +346,7 @@
     "author": "Mccolgan, Aine and Difrisco, James",
     "timestamp": "2026-03-06 Fri 09:56",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 15
@@ -325,6 +357,7 @@
     "author": "Mallarino, Ricardo and Grant, Peter R. and Grant, B. Rosemary and Herrel, Anthony and Kuo, Winston P. and Abzhanov, Arhat",
     "timestamp": "2026-03-09 Mon 11:50",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 99,
     "links": 8,
     "pages": 6
@@ -335,6 +368,7 @@
     "author": "Abzhanov, Arhat and Kuo, Winston P. and Hartmann, Christine and Grant, B. Rosemary and Grant, Peter R. and Tabin, Clifford J.",
     "timestamp": "2026-03-09 Mon 19:41",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 23,
     "links": 2,
     "pages": 5
@@ -345,6 +379,7 @@
     "author": "Gates, R. Ruggles",
     "timestamp": "2026-03-09 Mon 19:55",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 1
@@ -355,6 +390,7 @@
     "author": "Goldschmidt, Richard",
     "timestamp": "2026-03-09 Mon 20:44",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 122,
     "links": 7,
     "pages": 9
@@ -365,6 +401,7 @@
     "author": "Gibbs, H. Lisle and Grant, Peter R.",
     "timestamp": "2026-03-11 Wed 10:48",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 123,
     "links": 4,
     "pages": 17
@@ -375,6 +412,7 @@
     "author": "Tengstedt, Aja Noersgaard Buur and H\\oye, Toke Thomas and Kristensen, Torsten Nygaard and Hansen, Michael M.",
     "timestamp": "2026-03-11 Wed 11:47",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 12
@@ -385,6 +423,7 @@
     "author": "Price, T. D. and Grant, Peter R. and Boag, P. T.",
     "timestamp": "2026-03-12 Thu 10:20",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 100,
     "links": 5,
     "pages": 18
@@ -395,6 +434,7 @@
     "author": "Excoffier, Laurent and Marchi, Nina and Marques, David Alexander and Matthey-Doret, Remi and Gouy, Alexandre and Sousa, Vitor C",
     "timestamp": "2026-03-12 Thu 11:34",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 4
@@ -405,6 +445,7 @@
     "author": "Avsec, \\v Ziga and Latysheva, Natasha and Cheng, Jun and Novati, Guido and Taylor, Kyle R. and Ward, Tom and Bycroft, Clare and Nicolaisen, Lauren and Arvaniti, Eirini and Pan, Joshua and Thomas, Raina and Dutordoir, Vincent and Perino, Matteo and De, Soham and Karollus, Alexander and Gayoso, Adam and Sargeant, Toby and Mottram, Anne and Wong, Lai Hong and Drotar, Pavol and Kosiorek, Adam and Senior, Andrew and Tanburn, Richard and Applebaum, Taylor and Basu, Souradeep and Hassabis, Demis and Kohli, Pushmeet",
     "timestamp": "2026-03-13 Fri 09:53",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 13
@@ -415,6 +456,7 @@
     "author": "Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-03-18 Wed 10:33",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 198,
     "links": 13,
     "pages": 21
@@ -425,6 +467,7 @@
     "author": "Grant, Peter R and Grant, B. Rosemary",
     "timestamp": "2026-03-20 Fri 11:27",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 172,
     "links": 11,
     "pages": 10
@@ -435,6 +478,7 @@
     "author": "Rubin, Carl-Johan and Enbody, Erik D. and Dobreva, Mariya P. and Abzhanov, Arhat and Davis, Brian W. and Lamichhaney, Sangeet and Pettersson, Mats and Sendell-Price, Ashley T. and Sprehn, C. Grace and Valle, Carlos A. and Vasco, Karla and Wallerman, Ola and Grant, B. Rosemary and Grant, Peter R. and Andersson, Leif",
     "timestamp": "2026-03-20 Fri 12:03",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 77,
     "links": 6,
     "pages": 15
@@ -445,6 +489,7 @@
     "author": "Grant, Peter R and Grant, B. Rosemary",
     "timestamp": "2026-03-20 Fri 13:46",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 14
@@ -455,6 +500,7 @@
     "author": "Lamichhaney, Sangeet and Han, Fan and Webster, Matthew T. and Andersson, Leif and Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-03-20 Fri 14:07",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 84,
     "links": 6,
     "pages": 5
@@ -465,6 +511,7 @@
     "author": "Enbody, Erik D. and Sprehn, C. Grace and Abzhanov, Arhat and Bi, Huijuan and Dobreva, Mariya P. and Osborne, Owen G. and Rubin, Carl-Johan and Grant, Peter R. and Grant, B. Rosemary and Andersson, Leif",
     "timestamp": "2026-03-20 Fri 14:44",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 75,
     "links": 4,
     "pages": 8
@@ -475,6 +522,7 @@
     "author": "Gould, Stephen Jay",
     "timestamp": "2026-03-22 Sun 21:13",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 167,
     "links": 9,
     "pages": 12
@@ -482,9 +530,10 @@
   {
     "cite": "@fosterGeometricMorphometricAppraisal2008",
     "title": "A Geometric Morphometric Appraisal of Beak Shape in Darwin's Finches",
-    "author": "Foster, D. J. and Podos, J. and Hendry, A. P.",
+    "author": "Foster, D. J. and Podos, Jeffrey and Hendry, A. P.",
     "timestamp": "2026-03-23 Mon 10:43",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 119,
     "links": 8,
     "pages": 13
@@ -495,6 +544,7 @@
     "author": "Grant, Peter R. and Abbott, I. and Schluter, D. and Curry, R. L. and Abbott, L. K.",
     "timestamp": "2026-03-23 Mon 12:22",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 109,
     "links": 8,
     "pages": 39
@@ -505,6 +555,7 @@
     "author": "Podos, Jeffrey",
     "timestamp": "2026-03-23 Mon 13:26",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 4
@@ -515,6 +566,7 @@
     "author": "Campas, O. and Mallarino, R. and Herrel, A. and Abzhanov, A. and Brenner, M. P.",
     "timestamp": "2026-03-24 Tue 08:25",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 72,
     "links": 6,
     "pages": 5
@@ -525,6 +577,7 @@
     "author": "Chaves, Jaime A. and Cooper, Elizabeth A. and Hendry, Andrew P. and Podos, Jeffrey and De Leon, Luis F. and Raeymaekers, Joost A. M. and Macmillan, W.Owen and Uy, J. Albert C.",
     "timestamp": "2026-03-24 Tue 09:27",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 109,
     "links": 4,
     "pages": 14
@@ -535,6 +588,7 @@
     "author": "Beausoleil, Marc-Olivier and Frishkoff, Luke O. and M'gonigle, Leithen K. and Raeymaekers, Joost A. M. and Knutie, Sarah A. and De Leon, Luis F. and Huber, Sarah K. and Chaves, Jaime A. and Clayton, Dale H. and Koop, Jennifer A. H. and Podos, Jeffrey and Sharpe, Diana M. T. and Hendry, Andrew P. and Barrett, Rowan D. H.",
     "timestamp": "2026-03-24 Tue 10:18",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 66,
     "links": 3,
     "pages": 10
@@ -545,6 +599,7 @@
     "author": "Hendry, Andrew P and Grant, Peter R and Rosemary Grant, B and Ford, Hugh A and Brewer, Mark J and Podos, Jeffrey",
     "timestamp": "2026-03-25 Wed 08:27",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 8
@@ -555,6 +610,7 @@
     "author": "Huber, Sarah K and Leon, Luis Fernando De and Hendry, Andrew P and Bermingham, Eldredge and Podos, Jeffrey",
     "timestamp": "2026-03-25 Wed 09:05",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 88,
     "links": 5,
     "pages": 6
@@ -565,6 +621,7 @@
     "author": "Zapata, Felipe and Cerca, Jose and Mccarney, Dana and Henriquez, Claudia L and Tiamiyu, Bashir B and Mccormack, John E and Reckling, Kelsey R and Chaves, Jaime A and Rivas-Torres, Gonzalo",
     "timestamp": "2026-03-25 Wed 11:02",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 15
@@ -575,6 +632,7 @@
     "author": "Dewitt, William S and Vora, Ashni A and Araki, Tatsuya and Galloway, Jared G and Alkutkar, Tanwee and Bortolatto, Juliana and Castro, Tiago Br and Dumm, Will and Jennings-Shaffer, Chris and Jia, Tongqiu and Others",
     "timestamp": "2026-03-25 Wed 12:22",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 28
@@ -585,6 +643,7 @@
     "author": "Rancilhac, Lois and Enbody, Erik D and Harris, Rebecca and Saitoh, Takema and Irestedt, Martin and Liu, Yang and Lei, Fumin and Andersson, Leif and Alstrom, Per",
     "timestamp": "2026-03-26 Thu 11:23",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 14
@@ -595,6 +654,7 @@
     "author": "Grant, Peter R. and Grant, B. Rosemary",
     "timestamp": "2026-03-27 Fri 10:37",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 156,
     "links": 6,
     "pages": 7
@@ -605,6 +665,7 @@
     "author": "Huber, Sarah K. and Podos, Jeffrey",
     "timestamp": "2026-03-27 Fri 14:49",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 10
@@ -615,6 +676,7 @@
     "author": "Fontaine, Michael C. and Pease, James B. and Steele, Aaron and Waterhouse, Robert M. and Neafsey, Daniel E. and Sharakhov, Igor V. and Jiang, Xiaofang and Hall, Andrew B. and Catteruccia, Flaminia and Kakani, Evdoxia and Mitchell, Sara N. and Wu, Yi-Chieh and Smith, Hilary A. and Love, R. Rebecca and Lawniczak, Mara K. and Slotman, Michel A. and Emrich, Scott J. and Hahn, Matthew W. and Besansky, Nora J.",
     "timestamp": "2026-04-07 Tue 12:07",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 8
@@ -625,6 +687,7 @@
     "author": "De Leon, Luis Fernando and Bermingham, Eldredge and Podos, Jeffrey and Hendry, Andrew P.",
     "timestamp": "2026-04-08 Wed 09:15",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 73,
     "links": 2,
     "pages": 12
@@ -635,6 +698,7 @@
     "author": "Reich, David",
     "timestamp": "2026-04-08 Wed 11:59",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 16
@@ -645,6 +709,7 @@
     "author": "Orr, H Allen",
     "timestamp": "2026-04-08 Wed 13:47",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 116,
     "links": 3,
     "pages": 5
@@ -655,6 +720,7 @@
     "author": "Han, Yunheng and Molloy, Erin K.",
     "timestamp": "2026-04-10 Fri 10:43",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 11
@@ -665,6 +731,7 @@
     "author": "Han, Yunheng and Molloy, Erin K",
     "timestamp": "2026-04-10 Fri 12:13",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 20
@@ -675,6 +742,7 @@
     "author": "Dai, Junyan and Han, Yunheng and Molloy, Erin K.",
     "timestamp": "2026-04-10 Fri 13:42",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 15
@@ -685,6 +753,7 @@
     "author": "Grant, Peter R. and Grant, B. Rosemary and Smith, J N and Abbott, I J and Abbott, L K",
     "timestamp": "2026-04-13 Mon 09:41",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 156,
     "links": 8,
     "pages": 5
@@ -695,6 +764,7 @@
     "author": "Hendry, Andrew P and Huber, Sarah K and De Leon, Luis F and Herrel, Anthony and Podos, Jeffrey",
     "timestamp": "2026-04-15 Wed 10:31",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 41,
     "links": 3,
     "pages": 7
@@ -705,6 +775,7 @@
     "author": "Wong, Yan and Ignatieva, Anastasia and Koskela, Jere and Gorjanc, Gregor and Wohns, Anthony W. and Kelleher, Jerome",
     "timestamp": "2026-04-15 Wed 12:48",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 29
@@ -715,6 +786,7 @@
     "author": "Goodale, Eben and Podos, Jeffrey",
     "timestamp": "2026-04-16 Thu 09:06",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 4
@@ -725,6 +797,7 @@
     "author": "Holtgrefe, Niels and Huber, Katharina T and Van Iersel, Leo and Jones, Mark and Martin, Samuel and Moulton, Vincent",
     "timestamp": "2026-04-16 Thu 10:18",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 15
@@ -735,6 +808,7 @@
     "author": "Mckay, Bailey D. and Zink, Robert M.",
     "timestamp": "2026-04-17 Fri 10:40",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 10
@@ -745,6 +819,7 @@
     "author": "Cadena, Carlos Daniel and Zapata, Felipe and Jimenez, Ivan",
     "timestamp": "2026-04-17 Fri 11:35",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 168,
     "links": 7,
     "pages": 14
@@ -755,6 +830,7 @@
     "author": "Farrington, Heather L. and Lawson, Lucinda P. and Clark, Courtney M. and Petren, Kenneth",
     "timestamp": "2026-04-17 Fri 14:54",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 59,
     "links": 3,
     "pages": 13
@@ -765,6 +841,7 @@
     "author": "Petak, Csenge and Frati, Lapo and Vroomans, Renske M. A. and Pespeni, Melissa H. and Cheney, Nick",
     "timestamp": "2026-04-20 Mon 10:28",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 15
@@ -775,6 +852,7 @@
     "author": "Noraz, Remi and Chauvey, Lorelei and Wagner, Stefanie and Estrada, Oscar and Wales, Nathan and Bonnaire, Emmanuelle and Cabanis, Manon and Derreumaux, Marie and Figueiral, Isabel and Hallavant, Charlotte and Marinval, Philippe and Matterne, Veronique and Ros, Jerome and Rovira, Nuria and Tillier, Margaux and Bovagne, Marilyne and Chausserie-Lapree, Jean and Nicolas, Clement and Daveau, Isabelle and Delassus, David and Gailledrat, Eric and Ginouvez, Olivier and Houix, Bertrand and Jung, Cecile and Kuchler, Philippe and Leroux, Laure and Macario, Raphael and Marliere, Elise and Pasqualini, Michel and Piques, Gael and Pomaredes, Herve and Robert, Justine and Roms, Cedric and Roth-Zehner, Muriel and Scrinzi, Maxime and Taras-Thomas, Maryanick and Torres Costa, Josep and Besnard, Guillaume and Terral, Jean-Frederic and Bacilieri, Roberto and Bouby, Laurent and Orlando, Ludovic",
     "timestamp": "2026-04-21 Tue 09:40",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 15
@@ -785,6 +863,7 @@
     "author": "Deng, Yun and Nielsen, Rasmus and Song, Yun S.",
     "timestamp": "2026-04-21 Tue 17:15",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 12
@@ -795,6 +874,7 @@
     "author": "Petak, Csenge and Frati, Lapo and Vroomans, Renske M. A. and Pespeni, Melissa H. and Cheney, Nick",
     "timestamp": "2026-04-22 Wed 09:44",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 15
@@ -805,6 +885,7 @@
     "author": "Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-04-23 Thu 09:39",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 139,
     "links": 11,
     "pages": 17
@@ -815,6 +896,7 @@
     "author": "Deng, Yun and Dewitt, William S. and Song, Yun S. and Nielsen, Rasmus",
     "timestamp": "2026-04-24 Fri 08:33",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 8
@@ -825,6 +907,7 @@
     "author": "Hudson, Richard R.",
     "timestamp": "2026-04-24 Fri 09:56",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 19
@@ -835,6 +918,7 @@
     "author": "Waddington, C. H.",
     "timestamp": "2026-04-27 Mon 19:49",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 201,
     "links": 6,
     "pages": 3
@@ -845,6 +929,7 @@
     "author": "Waddington, C. H.",
     "timestamp": "2026-04-28 Tue 09:20",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 4
@@ -855,6 +940,7 @@
     "author": "Waddington, C. H.",
     "timestamp": "2026-04-28 Tue 17:14",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 9
@@ -865,6 +951,7 @@
     "author": "Grant, Peter R and Grant, B. Rosemary",
     "timestamp": "2026-04-29 Wed 09:55",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 172,
     "links": 11,
     "pages": 10
@@ -875,6 +962,7 @@
     "author": "Lamichhaney, Sangeet and Berglund, Jonas and Almen, Markus Sallman and Maqbool, Khurram and Grabherr, Manfred and Martinez-Barrio, Alvaro and Promerova, Marta and Rubin, Carl-Johan and Wang, Chao and Zamani, Neda and Grant, B. Rosemary and Grant, Peter R. and Webster, Matthew T. and Andersson, Leif",
     "timestamp": "2026-04-29 Wed 18:20",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 5
@@ -885,6 +973,7 @@
     "author": "Rubin, Carl-Johan and Enbody, Erik D. and Dobreva, Mariya P. and Abzhanov, Arhat and Davis, Brian W. and Lamichhaney, Sangeet and Pettersson, Mats and Sendell-Price, Ashley T. and Sprehn, C. Grace and Valle, Carlos A. and Vasco, Karla and Wallerman, Ola and Grant, B. Rosemary and Grant, Peter R. and Andersson, Leif",
     "timestamp": "2026-04-30 Thu 08:20",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 77,
     "links": 6,
     "pages": 15
@@ -895,6 +984,7 @@
     "author": "Terhorst, Jonathan",
     "timestamp": "2026-04-30 Thu 10:07",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 8
@@ -905,6 +995,7 @@
     "author": "Wagner, Andreas",
     "timestamp": "2026-05-01 Fri 09:43",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 167,
     "links": 9,
     "pages": 10
@@ -915,6 +1006,7 @@
     "author": "Shi, Lei and Senissar, Meriem and Leistner, Kirsten and Jers, Carsten and Mijakovic, Ivan",
     "timestamp": "2026-05-01 Fri 21:18",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 15
@@ -925,6 +1017,7 @@
     "author": "Lappalainen, Tuuli and Sammeth, Michael and Friedlander, Marc R. and `t Hoen, Peter A. C. and Monlong, Jean and Rivas, Manuel A. and Gonzalez-Porta, Mar and Kurbatova, Natalja and Griebel, Thasso and Ferreira, Pedro G. and Barann, Matthias and Wieland, Thomas and Greger, Liliana and Van Iterson, Maarten and Almlof, Jonas and Ribeca, Paolo and Pulyakhina, Irina and Esser, Daniela and Giger, Thomas and Tikhonov, Andrew and Sultan, Marc and Bertier, Gabrielle and Macarthur, Daniel G. and Lek, Monkol and Lizano, Esther and Buermans, Henk P. J. and Padioleau, Ismael and Schwarzmayr, Thomas and Karlberg, Olof and Ongen, Halit and Kilpinen, Helena and Beltran, Sergi and Gut, Marta and Kahlem, Katja and Amstislavskiy, Vyacheslav and Stegle, Oliver and Pirinen, Matti and Montgomery, Stephen B. and Donnelly, Peter and Mccarthy, Mark I. and Flicek, Paul and Strom, Tim M. and Lehrach, Hans and Schreiber, Stefan and Sudbrak, Ralf and Carracedo, Angel and Antonarakis, Stylianos E. and Hasler, Robert and Syvanen, Ann-Christine and Van Ommen, Gert-Jan and Brazma, Alvis and Meitinger, Thomas and Rosenstiel, Philip and Guigo, Roderic and Gut, Ivo G. and Estivill, Xavier and Dermitzakis, Emmanouil T.",
     "timestamp": "2026-05-02 Sat 11:12",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 6
@@ -935,7 +1028,8 @@
     "author": "Wu, Chung-I.",
     "timestamp": "2026-05-02 Sat 15:25",
     "has_note": "yes",
-    "words": 351,
+    "is_cited": "yes",
+    "words": 348,
     "links": 13,
     "pages": 15
   },
@@ -945,7 +1039,8 @@
     "author": "Wu, Chung-I.",
     "timestamp": "2026-05-04 Mon 12:01",
     "has_note": "yes",
-    "words": 351,
+    "is_cited": "yes",
+    "words": 348,
     "links": 13,
     "pages": 15
   },
@@ -955,6 +1050,7 @@
     "author": "Lawson, Lucinda P. and Niedzwiecki, John and Petren, Kenneth",
     "timestamp": "2026-05-04 Mon 14:41",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 158,
     "links": 11,
     "pages": 12
@@ -965,6 +1061,7 @@
     "author": "Taylor, Scott A. and Larson, Erica L.",
     "timestamp": "2026-05-05 Tue 19:39",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 8
@@ -975,6 +1072,7 @@
     "author": "Schiffels, Stephan and Durbin, Richard",
     "timestamp": "2026-05-06 Wed 08:11",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 7
@@ -985,6 +1083,7 @@
     "author": "Grabenstein, Kathryn C. and Otter, Ken A. and Burg, Theresa M. and Taylor, Scott A.",
     "timestamp": "2026-05-06 Wed 11:31",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 14
@@ -995,6 +1094,7 @@
     "author": "Funk, Erik R. and Burns, Kevin J.",
     "timestamp": "2026-05-06 Wed 14:09",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 46,
     "links": 4,
     "pages": 15
@@ -1005,6 +1105,7 @@
     "author": "Bailey, Richard Ian",
     "timestamp": "2026-05-07 Thu 08:57",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 15
@@ -1015,6 +1116,7 @@
     "author": "Freeland, Joanna R. and Boag, Peter T.",
     "timestamp": "2026-05-07 Thu 09:32",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 11
@@ -1025,6 +1127,7 @@
     "author": "Vonholdt, Bridgett M. and Cahill, James A. and Fan, Zhenxin and Gronau, Ilan and Robinson, Jacqueline and Pollinger, John P. and Shapiro, Beth and Wall, Jeff and Wayne, Robert K.",
     "timestamp": "2026-05-08 Fri 10:45",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 14
@@ -1035,6 +1138,7 @@
     "author": "Gronau, Ilan and Hubisz, Melissa J. and Gulko, Brad and Danko, Charles G. and Siepel, Adam",
     "timestamp": "2026-05-08 Fri 12:29",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 4
@@ -1045,6 +1149,7 @@
     "author": "Dehaas, Drew and Jia, Zhibai and Speidel, Leo and Wei, Xinzhu",
     "timestamp": "2026-05-09 Sat 11:42",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 19
@@ -1055,6 +1160,7 @@
     "author": "Ottenburghs, Jente",
     "timestamp": "2026-05-11 Mon 09:10",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 67,
     "links": 1,
     "pages": 5
@@ -1065,6 +1171,7 @@
     "author": "Lima, Rafael D and Bocalini, Fernanda and Gomes, Vitor and Ostrow, Emily N and Catanach, Therese A and Weckstein, Jason D and Silveira, Luis Fabio and Piacentini, Vitor Q",
     "timestamp": "2026-05-11 Mon 10:08",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 15
@@ -1075,6 +1182,7 @@
     "author": "Harvey, Michael G. and Bravo, Gustavo A. and Claramunt, Santiago and Cuervo, Andres M. and Derryberry, Graham E. and Battilana, Jaqueline and Seeholzer, Glenn F. and Mckay, Jessica Shearer and O'meara, Brian C. and Faircloth, Brant C. and Edwards, Scott V. and Perez-Eman, Jorge and Moyle, Robert G. and Sheldon, Frederick H. and Aleixo, Alexandre and Smith, Brian Tilston and Chesser, R. Terry and Silveira, Luis Fabio and Cracraft, Joel and Brumfield, Robb T. and Derryberry, Elizabeth P.",
     "timestamp": "2026-05-11 Mon 10:34",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 6
@@ -1085,6 +1193,7 @@
     "author": "Settlecowski, Amie E. and Marks, Ben D. and Manthey, Joseph D.",
     "timestamp": "2026-05-11 Mon 12:03",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 15
@@ -1095,6 +1204,7 @@
     "author": "Grant, Peter R. and Grant, B. Rosemary",
     "timestamp": "2026-05-11 Mon 13:44",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 113,
     "links": 8,
     "pages": 9
@@ -1105,6 +1215,7 @@
     "author": "Toews, David P. L. and Taylor, Scott A. and Vallender, Rachel and Brelsford, Alan and Butcher, Bronwyn G. and Messer, Philipp W. and Lovette, Irby J.",
     "timestamp": "2026-05-13 Wed 09:31",
     "has_note": "no",
+    "is_cited": "no",
     "words": 0,
     "links": 0,
     "pages": 6
@@ -1115,6 +1226,7 @@
     "author": "Abbott, R. and Albach, D. and Ansell, S. and Arntzen, J. W. and Baird, S. J. E. and Bierne, N. and Boughman, J. and Brelsford, A. and Buerkle, C. A. and Buggs, R. and Butlin, R. K. and Dieckmann, U. and Eroukhmanoff, F. and Grill, A. and Cahan, S. H. and Hermansen, J. S. and Hewitt, G. and Hudson, A. G. and Jiggins, C. and Jones, J. and Keller, B. and Marczewski, T. and Mallet, J. and Martinez-Rodriguez, P. and Most, M. and Mullen, S. and Nichols, R. and Nolte, A. W. and Parisod, C. and Pfennig, K. and Rice, A. M. and Ritchie, M. G. and Seifert, B. and Smadja, C. M. and Stelkens, R. and Szymura, J. M. and Vainola, R. and Wolf, J. B. W. and Zinner, D.",
     "timestamp": "2026-05-18 Mon 14:42",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 140,
     "links": 10,
     "pages": 18
@@ -1125,6 +1237,7 @@
     "author": "Abbott, R. and Albach, D. and Ansell, S. and Arntzen, J. W. and Baird, S. J. E. and Bierne, N. and Boughman, J. and Brelsford, A. and Buerkle, C. A. and Buggs, R. and Butlin, R. K. and Dieckmann, U. and Eroukhmanoff, F. and Grill, A. and Cahan, S. H. and Hermansen, J. S. and Hewitt, G. and Hudson, A. G. and Jiggins, C. and Jones, J. and Keller, B. and Marczewski, T. and Mallet, J. and Martinez-Rodriguez, P. and Most, M. and Mullen, S. and Nichols, R. and Nolte, A. W. and Parisod, C. and Pfennig, K. and Rice, A. M. and Ritchie, M. G. and Seifert, B. and Smadja, C. M. and Stelkens, R. and Szymura, J. M. and Vainola, R. and Wolf, J. B. W. and Zinner, D.",
     "timestamp": "2026-05-20 Wed 10:21",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 140,
     "links": 10,
     "pages": 18
@@ -1132,9 +1245,10 @@
   {
     "cite": "@deleonDarwinsFinchesTheir2014",
     "title": "Darwin's Finches and Their Diet Niches: The Sympatric Coexistence of Imperfect Generalists",
-    "author": "De Leon, L. F. and Podos, J. and Gardezi, T. and Herrel, A. and Hendry, A. P.",
+    "author": "De Leon, L. F. and Podos, Jeffrey and Gardezi, T. and Herrel, A. and Hendry, A. P.",
     "timestamp": "2026-05-21 Thu 11:13",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 151,
     "links": 7,
     "pages": 12
@@ -1145,6 +1259,7 @@
     "author": "Ottenburghs, Jente",
     "timestamp": "2026-05-21 Thu 13:39",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 49,
     "links": 3,
     "pages": 8
@@ -1155,6 +1270,7 @@
     "author": "Hill, Geoffrey E. and Zink, Robert M.",
     "timestamp": "2026-05-22 Fri 09:39",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 5
@@ -1165,6 +1281,7 @@
     "author": "Lawson, Lucinda P. and Petren, Kenneth",
     "timestamp": "2026-05-22 Fri 14:47",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 70,
     "links": 6,
     "pages": 12
@@ -1175,6 +1292,7 @@
     "author": "Lawson, Lucinda P. and Petren, Kenneth",
     "timestamp": "2026-05-27 Wed 19:56",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 70,
     "links": 6,
     "pages": 12
@@ -1185,6 +1303,7 @@
     "author": "Lamichhaney, Sangeet and Han, Fan and Webster, Matthew T. and Andersson, Leif and Grant, B. Rosemary and Grant, Peter R.",
     "timestamp": "2026-05-29 Fri 16:30",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 84,
     "links": 6,
     "pages": 5
@@ -1195,6 +1314,7 @@
     "author": "Lamichhaney, Sangeet and Han, Fan and Berglund, Jonas and Wang, Chao and Almen, Markus Sallman and Webster, Matthew T. and Grant, B. Rosemary and Grant, Peter R. and Andersson, Leif",
     "timestamp": "2026-05-29 Fri 19:24",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 89,
     "links": 7,
     "pages": 5
@@ -1205,6 +1325,7 @@
     "author": "Petren, Kenneth and Grant, Peter R. and Grant, B. Rosemary and Clack, Andrew A. and Lescano, Ninnia V.",
     "timestamp": "2026-06-01 Mon 14:30",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 119,
     "links": 8,
     "pages": 10
@@ -1215,6 +1336,7 @@
     "author": "Fontaine, Michael C. and Pease, James B. and Steele, Aaron and Waterhouse, Robert M. and Neafsey, Daniel E. and Sharakhov, Igor V. and Jiang, Xiaofang and Hall, Andrew B. and Catteruccia, Flaminia and Kakani, Evdoxia and Mitchell, Sara N. and Wu, Yi-Chieh and Smith, Hilary A. and Love, R. Rebecca and Lawniczak, Mara K. and Slotman, Michel A. and Emrich, Scott J. and Hahn, Matthew W. and Besansky, Nora J.",
     "timestamp": "2026-06-02 Tue 10:43",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 8
@@ -1225,6 +1347,7 @@
     "author": "Molloy, Erin K and Durvasula, Arun and Sankararaman, Sriram",
     "timestamp": "2026-06-02 Tue 13:07",
     "has_note": "no",
+    "is_cited": "yes",
     "words": 0,
     "links": 0,
     "pages": 9
@@ -1235,6 +1358,7 @@
     "author": "Grant, Peter R. and Grant, B. Rosemary",
     "timestamp": "2026-06-03 Wed 09:28",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 49,
     "links": 3,
     "pages": 8
@@ -1245,8 +1369,64 @@
     "author": "Grant, Peter R. and Grant, B. Rosemary",
     "timestamp": "2026-06-03 Wed 11:13",
     "has_note": "yes",
+    "is_cited": "yes",
     "words": 138,
     "links": 12,
     "pages": 12
+  },
+  {
+    "cite": "@waddingtonCanalizationDevelopmentInheritance1942",
+    "title": "Canalization of Development and the Inheritance of Acquired Characters",
+    "author": "Waddington, C. H.",
+    "timestamp": "2026-06-03 Wed 13:09",
+    "has_note": "yes",
+    "is_cited": "yes",
+    "words": 201,
+    "links": 6,
+    "pages": 3
+  },
+  {
+    "cite": "@kleindorferSpeciesCollapseHybridization2014",
+    "title": "Species Collapse via Hybridization in Darwin's Tree Finches",
+    "author": "Kleindorfer, Sonia and O, 'connor Jody A. and Dudaniec, Rachael Y. and Myers, Steven A. and Robertson, Jeremy and Sulloway, Frank J.",
+    "timestamp": "2026-06-04 Thu 09:10",
+    "has_note": "yes",
+    "is_cited": "yes",
+    "words": 117,
+    "links": 10,
+    "pages": 17
+  },
+  {
+    "cite": "@grantEvolutionCharacterDisplacement2006",
+    "title": "Evolution of Character Displacement in Darwin's Finches",
+    "author": "Grant, Peter R. and Grant, B. Rosemary",
+    "timestamp": "2026-06-04 Thu 10:25",
+    "has_note": "yes",
+    "is_cited": "yes",
+    "words": 50,
+    "links": 4,
+    "pages": 3
+  },
+  {
+    "cite": "@randlerBehaviouralEcologicalCorrelates2006",
+    "title": "Behavioural and Ecological Correlates of Natural Hybridization in Birds",
+    "author": "Randler, Christoph",
+    "timestamp": "2026-06-04 Thu 11:32",
+    "has_note": "no",
+    "is_cited": "yes",
+    "words": 0,
+    "links": 0,
+    "pages": 9
+  },
+  {
+    "cite": "@waddingtonGeneticAssimilationAcquired1953",
+    "title": "Genetic Assimilation of an Acquired Character",
+    "author": "Waddington, C. H.",
+    "timestamp": "2026-06-04 Thu 18:24",
+    "has_note": "no",
+    "is_cited": "yes",
+    "words": 0,
+    "links": 0,
+    "pages": 9
   }
 ]

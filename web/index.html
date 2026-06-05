@@ -16,16 +16,18 @@
       .toggle-container { background: #edf2f7; padding: 4px; border-radius: 10px; display: flex; gap: 4px; }
       .toggle-btn { border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; color: #4a5568; transition: all 0.2s; }
       .toggle-btn.active { background: white; color: #3182ce; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-      .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 0.8rem; }
+      
+      /* MODIFICADO: Ajustado estrictamente de 5 columnas a 6 columnas */
+      .stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 0.8rem; }
       .stat-card { background: #f8fafc; padding: 0.6rem; border-radius: 10px; text-align: center; border: 1px solid #e2e8f0; }
       .stat-value { font-size: 1.3rem; font-weight: bold; color: #3182ce; }
+      
       .tabs { display: flex; justify-content: center; margin-bottom: 10px; border-bottom: 2px solid #edf2f7; gap: 4px; flex-wrap: wrap; }
       .tab-btn { padding: 8px 16px; cursor: pointer; border: none; background: none; font-weight: 600; color: #718096; border-radius: 8px 8px 0 0; }
       .tab-btn.active { color: #3182ce; border-bottom: 3px solid #3182ce; background: rgba(49, 130, 206, 0.05); }
       .tab-content { flex-grow: 1; display: none; height: 55vh; }
       .tab-content.active { display: block; }
       canvas { width: 100% !important; height: 100% !important; }
-      /* Estilos para controles del Word Cloud y Redes */
       .cloud-controls { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
       .cloud-sub-btn { border: 1px solid #cbd5e1; background: white; padding: 4px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600; color: #64748b; transition: all 0.2s; }
       .cloud-sub-btn.active { background: #3182ce; color: white; border-color: #3182ce; }
@@ -48,7 +50,8 @@
         <div class="stat-card"><div class="stat-value" id="totalCount">0</div><div style="font-size: 0.75rem; color: #64748b;">Totales</div></div>
         <div class="stat-card"><div class="stat-value" id="uniqueCount">0</div><div style="font-size: 0.75rem; color: #64748b;">Únicos</div></div>
         <div class="stat-card"><div class="stat-value" id="rereadCount">0</div><div style="font-size: 0.75rem; color: #64748b;">Relecturas</div></div>
-        <div class="stat-card"><div class="stat-value" id="notePercent">0%</div><div style="font-size: 0.75rem; color: #64748b;">% Org Note</div></div>
+        <div class="stat-card"><div class="stat-value" id="notePercent">0%</div><div style="font-size: 0.75rem; color: #64748b;">% Nota Dedicada</div></div>
+        <div class="stat-card"><div class="stat-value" id="roamPercent">0%</div><div style="font-size: 0.75rem; color: #64748b;">% Citado en Roam</div></div>
         <div class="stat-card"><div class="stat-value" id="wordCount">0</div><div style="font-size: 0.75rem; color: #64748b;">Palabras</div></div>
       </div>
 
@@ -74,7 +77,7 @@
       <div id="wordcloudTab" class="tab-content">
         <div class="cloud-controls">
           <button id="cloud-btn-titles" class="cloud-sub-btn active" onclick="changeCloudTarget('titles')">Títulos</button>
-          <button id="cloud-btn-authors" class="cloud-sub-btn" hoverMode class="cloud-sub-btn" onclick="changeCloudTarget('authors')">Autores</button>
+          <button id="cloud-btn-authors" class="cloud-sub-btn" onclick="changeCloudTarget('authors')">Autores</button>
           <button id="cloud-btn-network" class="cloud-sub-btn" onclick="changeCloudTarget('network')">Red de Coautores</button>
           
           <label id="reread-toggle-wrapper" class="toggle-switch-label">
@@ -178,404 +181,388 @@
       
       let uniqueCount = 0, rereadCount = 0, totalPages = 0, totalWords = 0;
       let uniqueWithNotes = 0, actualUniquePapers = 0;
+      let uniqueCitedInRoam = 0; // <-- NUEVA VARIABLE ACUMULADORA
 
-      const titleWordsMap = {};
-      const authorsMap = {};
-      
-      // Estructuras de grafos
-      const authorPaperCount = {}; 
-      const networkEdgesMap = {};
+					const titleWordsMap = {};
+					const authorsMap = {};
+					
+					const authorPaperCount = {}; 
+					const networkEdgesMap = {};
 
-      const stopwords = new Set(['the', 'a', 'an', 'and', 'of', 'in', 'on', 'at', 'to', 'for', 'with', 'by', 'from', 'using', 'based', 'through', 'de', 'la', 'el', 'en', 'y', 'los', 'las', 'un', 'una', 'para', 'por', 'con', 'sobre', 'is', 'are', 'it', 'their', 'model', 'data', 'analysis', 'method', 'approach', 'with', 'within', 'between', 'into', 'during']);
+					const stopwords = new Set(['the', 'a', 'an', 'and', 'of', 'in', 'on', 'at', 'to', 'for', 'with', 'by', 'from', 'using', 'based', 'through', 'de', 'la', 'el', 'en', 'y', 'los', 'las', 'un', 'una', 'para', 'por', 'con', 'sobre', 'is', 'are', 'it', 'their', 'model', 'data', 'analysis', 'method', 'approach', 'with', 'within', 'between', 'into', 'during']);
 
-      const processed = rawData.map(d => {
-      const cleanStr = d.timestamp.replace(/\[|\]|Mon|Tue|Wed|Thu|Fri|Sat|Sun|Lun|Mar|Mié|Jue|Vie|Sáb|Dom/g, '').trim();
-      return { ...d, _date: new Date(cleanStr), _hasTime: d.timestamp.includes(":") };
-      }).filter(d => !isNaN(d._date.getTime())).sort((a,b) => a._date - b._date);
+					const processed = rawData.map(d => {
+	const cleanStr = d.timestamp.replace(/\[|\]|Mon|Tue|Wed|Thu|Fri|Sat|Sun|Lun|Mar|Mié|Jue|Vie|Sáb|Dom/g, '').trim();
+	return { ...d, _date: new Date(cleanStr), _hasTime: d.timestamp.includes(":") };
+	}).filter(d => !isNaN(d._date.getTime())).sort((a,b) => a._date - b._date);
 
-      const includeRereads = document.getElementById('includeRereadsCheck').checked;
+	const includeRereads = document.getElementById('includeRereadsCheck').checked;
 
-      processed.forEach(entry => {
-      const dateKey = entry._date.toLocaleDateString('en-CA');
-      const monthKey = entry._date.toLocaleString('default', { month: 'short', year: 'numeric' });
-      const isReread = seen.has(entry.cite);
-      const val = (currentMetric === 'papers') ? 1 : (entry.pages || 1);
-      const wDay = entry._date.getDay();
+	processed.forEach(entry => {
+	const dateKey = entry._date.toLocaleDateString('en-CA');
+	const monthKey = entry._date.toLocaleString('default', { month: 'short', year: 'numeric' });
+	const isReread = seen.has(entry.cite);
+	const val = (currentMetric === 'papers') ? 1 : (entry.pages || 1);
+	const wDay = entry._date.getDay();
 
-      if (entry._hasTime) {
-      const hr = entry._date.getHours();
-      hourCounts[hr] += val;
-      intensityMap[wDay][hr] += val;
-      }
+	if (entry._hasTime) {
+	const hr = entry._date.getHours();
+	hourCounts[hr] += val;
+	intensityMap[wDay][hr] += val;
+	}
 
-      if (!historyMap[dateKey]) historyMap[dateKey] = { new: 0, reread: 0 };
-      if (!monthMap[monthKey]) monthMap[monthKey] = { new: 0, reread: 0 };
+	if (!historyMap[dateKey]) historyMap[dateKey] = { new: 0, reread: 0 };
+	if (!monthMap[monthKey]) monthMap[monthKey] = { new: 0, reread: 0 };
 
-      if (isReread) {
-      historyMap[dateKey].reread += val;
-      monthMap[monthKey].reread += val;
-      weekdayMap[wDay].reread += val;
-      rereadCount += val;
-      } else {
-      historyMap[dateKey].new += val;
-      monthMap[monthKey].new += val;
-      weekdayMap[wDay].new += val;
-      uniqueCount += val;
-      
-      actualUniquePapers++;
-      if (entry.has_note === "yes") uniqueWithNotes++;
-      seen.add(entry.cite);
-      }
-      totalPages += (entry.pages || 1);
-      if (entry.has_note === "yes" && !isReread) totalWords += (entry.words || 0);
+	if (isReread) {
+	historyMap[dateKey].reread += val;
+	monthMap[monthKey].reread += val;
+	weekdayMap[wDay].reread += val;
+	rereadCount += val;
+	} else {
+	historyMap[dateKey].new += val;
+	monthMap[monthKey].new += val;
+	weekdayMap[wDay].new += val;
+	uniqueCount += val;
+	
+	actualUniquePapers++;
+	if (entry.has_note === "yes") uniqueWithNotes++;
+	if (entry.is_cited === "yes") uniqueCitedInRoam++; // <-- Evalúa bandera del JSON nuevo
+								  seen.add(entry.cite);
+								  }
+								  totalPages += (entry.pages || 1);
+								  if (entry.has_note === "yes" && !isReread) totalWords += (entry.words || 0);
 
-      if (!isReread || includeRereads) {
-      if (entry.title) {
-      const words = entry.title.toLowerCase()
-      .replace(/[^a-záéíóúüñ\s-]/g, '')
-      .split(/\s+/);
-      words.forEach(w => {
-      if (w.length > 3 && !stopwords.has(w) && isNaN(w)) {
-      titleWordsMap[w] = (titleWordsMap[w] || 0) + 1;
-      }
-      });
-      }
-
-      if (entry.author) {
-      const paperAuthors = parseAuthorsString(entry.author);
-      paperAuthors.forEach(auth => {
-      authorsMap[auth] = (authorsMap[auth] || 0) + 1;
-      });
-      }
-      }
-
-      if (!isReread && entry.author) {
-      const paperAuthors = parseAuthorsString(entry.author);
-      
-      paperAuthors.forEach(a => {
-      authorPaperCount[a] = (authorPaperCount[a] || 0) + 1;
-      });
-
-      for (let i = 0; i < paperAuthors.length; i++) {
-			  for (let j = i + 1; j < paperAuthors.length; j++) {
-						  const a1 = paperAuthors[i];
-						  const a2 = paperAuthors[j];
-						  const edgeKey = (a1 < a2) ? `${a1} -- ${a2}` : `${a2} -- ${a1}`;
-									networkEdgesMap[edgeKey] = (networkEdgesMap[edgeKey] || 0) + 1;
-									}
-									}
-									}
-									});
-
-									const notePercentage = actualUniquePapers > 0 ? ((uniqueWithNotes / actualUniquePapers) * 100).toFixed(1) : 0;
-
-						  document.getElementById('totalCount').innerText = (currentMetric === 'papers' ? processed.length : totalPages).toLocaleString();
-						  document.getElementById('uniqueCount').innerText = uniqueCount.toLocaleString();
-						  document.getElementById('rereadCount').innerText = rereadCount.toLocaleString();
-						  document.getElementById('wordCount').innerText = totalWords.toLocaleString();
-						  document.getElementById('notePercent').innerText = notePercentage + "%";
-
-						  const labels = [], cumTotal = [], cumUnique = [], cumReread = [], dailyNew = [], dailyReread = [];
-						  let runU = 0, runR = 0;
-						  let curr = new Date(processed[0]._date); curr.setHours(0,0,0,0);
-						  const today = new Date();
-
-						  while (curr <= today) {
-								 const k = curr.toLocaleDateString('en-CA');
-								 const d = historyMap[k] || { new: 0, reread: 0 };
-								 runU += d.new; runR += d.reread;
-								 labels.push(k);
-								 cumUnique.push(runU); cumReread.push(runR); cumTotal.push(runU + runR);
-								 dailyNew.push(d.new); dailyReread.push(d.reread);
-								 curr.setDate(curr.getDate() + 1);
-								 }
-
-								 // 1. ACUMULADO
-								 refreshChart('cumulativeChart', 'line', labels, null, null, null, {
-								 type: 'line',
-								 data: { labels, datasets: [
-								 { label: 'Total', data: cumTotal, borderColor: '#2c3e50', backgroundColor: 'rgba(44, 62, 80, 0.15)', fill: true, tension: 0.3 },
-								 { label: 'Únicos', data: cumUnique, borderColor: '#3182ce', backgroundColor: 'rgba(49, 130, 206, 0.4)', fill: true, tension: 0.3 },
-								 { label: 'Relecturas', data: cumReread, borderColor: '#9b59b6', backgroundColor: 'rgba(155, 89, 182, 0.4)', fill: true, tension: 0.3 }
-								 ]},
-								 options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'month' } } } }
-								 });
-
-								 // 2. POR DÍA
-								 refreshChart('historyChart', 'line', labels, null, null, null, {
-								 type: 'line',
-								 data: { labels, datasets: [
-								 { label: 'Total Día', data: labels.map((_,i) => dailyNew[i] + dailyReread[i]), borderColor: '#2c3e50', backgroundColor: 'rgba(44, 62, 80, 0.1)', fill: true, tension: 0.3 },
-						  { label: 'Nuevos', data: dailyNew, borderColor: '#3182ce', backgroundColor: 'rgba(49, 130, 206, 0.3)', fill: true },
-						  { label: 'Relecturas', data: dailyReread, borderColor: '#9b59b6', backgroundColor: 'rgba(155, 89, 182, 0.3)', fill: true }
-						  ]},
-						  options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'day' } } } }
-						  });
-
-						  // 3. MES
-						  const mLabels = Object.keys(monthMap);
-						  refreshChart('monthChart', 'bar', mLabels, null, null, null, {
-						  type: 'bar',
-						  data: { labels: mLabels, datasets: [{ label: 'Nuevos', data: mLabels.map(m => monthMap[m].new), backgroundColor: '#3182ce' }, { label: 'Relecturas', data: mLabels.map(m => monthMap[m].reread), backgroundColor: '#9b59b6' }] },
-        options: { maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
-        });
-
-        // 4. DÍA SEMANA
-        refreshChart('weekdayChart', 'bar', days, null, null, null, {
-        type: 'bar',
-        data: { labels: days, datasets: [{ label: 'Nuevos', data: weekdayMap.map(d => d.new), backgroundColor: '#3182ce' }, { label: 'Relecturas', data: weekdayMap.map(d => d.reread), backgroundColor: '#9b59b6' }] },
-        options: { maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
-        });
-
-        // 5. HORARIOS RADAR
-        refreshChart('hourChart', 'radar', Array.from({length: 24}, (_, i) => i+":00"), null, null, null, {
-        type: 'radar',
-        data: { labels: Array.from({length: 24}, (_, i) => i+":00"), datasets: [{ label: 'Intensidad', data: hourCounts, backgroundColor: 'rgba(231, 76, 60, 0.3)', borderColor: '#e74c3c', fill: true }] },
-        options: { maintainAspectRatio: false }
-        });
-
-        // 6. INTENSIDAD GRID
-        const allIntensityValues = intensityMap.flat();
-        const maxIntensity = Math.max(...allIntensityValues, 1);
-        const intensityData = [];
-        for(let d=0; d<7; d++) for(let h=0; h<24; h++) intensityData.push({ x: h, y: days[d], v: intensityMap[d][h] });
-						  
-						  refreshChart('intensityChart', 'matrix', null, null, null, null, {
-						  type: 'matrix',
-						  data: { datasets: [{
-						  data: intensityData,
-						  backgroundColor: c => {
-			  const val = c.dataset.data[c.dataIndex].v;
-			  if (val === 0) return 'transparent';
-			  const alpha = Math.max(0.1, (val / maxIntensity) * 0.9);
-			  return `rgba(229, 62, 62, ${alpha})`;
-			  },
-			  width: ({chart}) => chart.chartArea ? chart.chartArea.width / 24 - 1 : 10,
-          height: ({chart}) => chart.chartArea ? chart.chartArea.height / 7 - 1 : 10
-          }]},
-          options: {
-          maintainAspectRatio: false,
-          scales: {
-          x: { type: 'linear', min: -0.5, max: 23.5, ticks: { stepSize: 1, callback: v => v+":00" } },
-          y: { type: 'category', labels: days, offset: true }
-          },
-          plugins: { tooltip: { callbacks: { label: (it) => `${it.raw.y} a las ${it.raw.x}:00 -> ${it.raw.v} lecturas` } } }
-          }
-          });
-
-          // 8. PROFUNDIDAD
-          const depthData = processed.filter(d => d.has_note === "yes").map(d => ({ x: d._date, y: d.words, r: Math.min(d.links * 3 + 5, 25), label: d.cite }));
-          refreshChart('depthChart', 'bubble', null, null, null, null, {
-          type: 'bubble',
-          data: { datasets: [{ label: 'Notas', data: depthData, backgroundColor: 'rgba(52, 152, 219, 0.6)', borderColor: '#2980b9' }] },
-          options: { maintainAspectRatio: false, plugins: { tooltip: { callbacks: { label: (ctx) => `Paper: ${ctx.raw.label} | Palabras: ${ctx.raw.y}` } } }, scales: { x: { type: 'time', time: { unit: 'month' } } } }
-          });
-
-          // 9. LOGICA DE RENDERIZADO UNIFICADA DE ANYCHART
-          document.getElementById('wordcloudChartContainer').innerHTML = "";
-
-          if (currentCloudTarget === 'network') {
-          // --- CONSTRUCCIÓN DE DATOS DE LA RED ---
-          const MIN_PAPERS = 2;
-          
-          const validEdges = Object.keys(networkEdgesMap).map(key => {
-          const parts = key.split(' -- ');
-          return { "source": parts[0], "target": parts[1], "weight": networkEdgesMap[key] };
-          }).filter(edge => authorPaperCount[edge.source] >= MIN_PAPERS && authorPaperCount[edge.target] >= MIN_PAPERS);
-
-          const nodeDegreeMap = {};
-          validEdges.forEach(edge => {
-          nodeDegreeMap[edge.source] = (nodeDegreeMap[edge.source] || 0) + 1;
-          nodeDegreeMap[edge.target] = (nodeDegreeMap[edge.target] || 0) + 1;
-          });
-
-          const nodesData = Object.keys(nodeDegreeMap).map(author => ({ 
-          id: author,
-          degree: nodeDegreeMap[author] || 1
-          }));
-
-          // IDENTIFICAR EL TOP 5 DE AUTORES MÁS CONECTADOS
-          const top5Authors = new Set(
-          [...nodesData]
-          .sort((a, b) => b.degree - a.degree)
-          .slice(0, 5)
-          .map(d => d.id)
-          );
-
-          // --- CONTROL DE INYECCIÓN DE D3.JS ---
-          if (typeof d3 === 'undefined') {
-          const script = document.createElement('script');
-          script.src = "https://d3js.org/d3.v7.min.js";
-          script.async = false;
-          document.head.appendChild(script);
-          script.onload = () => renderD3Network(nodesData, validEdges);
-          } else {
-          renderD3Network(nodesData, validEdges);
-          }
-
-          function renderD3Network(nodes, links) {
-          const container = document.getElementById('wordcloudChartContainer');
-          container.innerHTML = ""; // Limpieza total
-
-          const width = container.clientWidth;
-          const height = container.clientHeight;
-
-          const svg = d3.select("#wordcloudChartContainer")
-          .append("svg")
-          .attr("width", "100%")
-          .attr("height", "100%")
-          .call(d3.zoom().on("zoom", (e) => g.attr("transform", e.transform)));
-
-          const g = svg.append("g");
-
-          // SIMULACIÓN FÍSICA CON DISTANCIAS DINÁMICAS
-          const simulation = d3.forceSimulation(nodes)
-          .force("link", d3.forceLink(links).id(d => d.id).distance(150))
-          .force("charge", d3.forceManyBody().strength(-400))
-          .force("center", d3.forceCenter(width / 2, height / 2))
-          .force("collision", d3.forceCollide().radius(d => 10 + (Math.log(d.degree) * 6)));
-
-          // Render de aristas (Edges) con grosor estrictamente proporcional al peso (papers juntos)
-          const link = g.append("g")
-          .selectAll("line")
-          .data(links)
-          .join("line")
-          .style("stroke", "rgba(148, 163, 184, 0.35)")
-          .style("stroke-width", d => Math.min(1.5 + (d.weight * 1.5), 9)) // Ancho proporcional
-          .style("transition", "stroke 0.2s, stroke-width 0.2s");
-
-          // AGREGAR TOOLTIP AL HOVER DEL EDGE (Muestra cantidad de papers)
-          link.append("title")
-          .text(d => `Papers compartidos: ${d.weight}`);
-
-          // Contenedor para grupos de Nodos
-          const node = g.append("g")
-          .selectAll(".node-group")
-          .data(nodes)
-          .join("g")
-          .attr("class", "node-group")
-          .style("cursor", "pointer")
-          .call(d3.drag()
-          .on("start", (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-          .on("drag", (e, d) => { d.fx = e.x; d.fy = e.y; })
-          .on("end", (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
-
-          // Círculos con radio proporcional al número de conexiones (Degree)
-          const circles = node.append("circle")
-          .attr("r", d => Math.min(6 + (Math.log(d.degree) * 4), 16)) // Escalado suave y controlado
-          .style("fill", "#3182ce")
-          .style("stroke", "#ffffff")
-          .style("stroke-width", "1.5px")
-          .style("transition", "fill 0.2s, stroke-width 0.2s");
-
-          // Etiquetas de texto (Top 5 siempre visibles, los demás ocultos)
-          const labels = node.append("text")
-          .text(d => d.id)
-          .attr("dy", d => `${Math.min(6 + (Math.log(d.degree) * 4), 16) + 13}px`) // Ajusta dinámicamente según el radio del nodo
-          .attr("text-anchor", "middle")
-          .style("font-size", "10px")
-          .style("font-weight", d => top5Authors.has(d.id) ? "800" : "600")
-          .style("fill", d => top5Authors.has(d.id) ? "#0f172a" : "#475569")
-          .style("pointer-events", "none")
-          .style("display", d => top5Authors.has(d.id) ? "block" : "none"); // Regla del Top 5 siempre prendido
-
-          // --- LÓGICA INTERACTIVA DE HOVER ---
-          node.on("mouseover", function(event, d) {
-          const connectedNodes = new Set([d.id]);
-          const connectedPairs = new Set();
-
-          links.forEach(l => {
-          if (l.source.id === d.id) { connectedNodes.add(l.target.id); connectedPairs.add(`${l.source.id}-${l.target.id}`); }
-          else if (l.target.id === d.id) { connectedNodes.add(l.source.id); connectedPairs.add(`${l.source.id}-${l.target.id}`); }
-          });
-
-          // Prender etiquetas del Top 5 + vecinos del nodo enfocado
-          labels.style("display", n => (top5Authors.has(n.id) || connectedNodes.has(n.id)) ? "block" : "none")
-          .style("fill", n => n.id === d.id ? "#000000" : (top5Authors.has(n.id) ? "#0f172a" : "#475569"));
-
-          // Iluminar círculos (Seleccionado en Rojo, Vecinos en Naranja, el resto opaco)
-          circles.style("fill", n => {
-          if (n.id === d.id) return "#e53e3e";
-          return connectedNodes.has(n.id) ? "#ff9800" : "rgba(49, 130, 206, 0.12)";
-          }).style("stroke-width", n => connectedNodes.has(n.id) ? "2px" : "1px");
-
-          // Resaltar aristas involucradas
-          link.style("stroke", l => connectedPairs.has(`${l.source.id}-${l.target.id}`) ? "#334155" : "rgba(148, 163, 184, 0.03)")
-          .style("stroke-width", l => {
-          const baseWidth = Math.min(1.5 + (l.weight * 1.5), 8);
-          return connectedPairs.has(`${l.source.id}-${l.target.id}`) ? baseWidth + 3 : baseWidth;
-          });
-          });
-
-          // Interactividad para el hover de Aristas (Edges)
-          link.on("mouseover", function(event, d) {
-          labels.style("display", n => (top5Authors.has(n.id) || n.id === d.source.id || n.id === d.target.id) ? "block" : "none");
-          
-          circles.style("fill", n => (n.id === d.source.id || n.id === d.target.id) ? "#ff9800" : "rgba(49, 130, 206, 0.12)");
-          
-          link.style("stroke", l => (l.index === d.index) ? "#334155" : "rgba(148, 163, 184, 0.03)")
-          .style("stroke-width", l => {
-          const baseWidth = Math.min(1.5 + (l.weight * 1.5), 8);
-          return (l.index === d.index) ? baseWidth + 3 : baseWidth;
-          });
-          });
-
-          // Restaurar la red completa al quitar el cursor
-          const resetStyles = () => {
-          labels.style("display", n => top5Authors.has(n.id) ? "block" : "none")
-          .style("fill", d => top5Authors.has(d.id) ? "#0f172a" : "#475569");
-          circles.style("fill", "#3182ce").style("stroke-width", "1.5px");
-          link.style("stroke", "rgba(148, 163, 184, 0.35)").style("stroke-width", l => Math.min(1.5 + (l.weight * 1.5), 8));
-          };
-
-          node.on("mouseout", resetStyles);
-          link.on("mouseout", resetStyles);
-
-          // Ajuste de posiciones por cada tick de la simulación
-          simulation.on("tick", () => {
-          link.attr("x1", d => d.source.x)
-          .attr("y1", d => d.source.y)
-          .attr("x2", d => d.target.x)
-          .attr("y2", d => d.target.y);
-
-          node.attr("transform", d => `translate(${d.x},${d.y})`);
-          });
-          }
-
-          } else {
-          // --- NUBES DE PALABRAS / AUTORES (EXCLUYENDO FRECUENCIA = 1) ---
-          const targetDataSource = (currentCloudTarget === 'titles') ? titleWordsMap : authorsMap;
-          
-          const filteredCloudData = Object.keys(targetDataSource)
-          .filter(key => targetDataSource[key] > 1)
-          .map(key => {
-          return { "x": key, "value": targetDataSource[key] };
-          });
-
-          anycloudInstance = anychart.tagCloud(filteredCloudData);
-          anycloudInstance.angles([0, 15, -15, 30, -30]);
-          anycloudInstance.colorRange(false);
-          
-          const customPalette = anychart.palettes.distinctColors();
-          customPalette.items(
-          currentCloudTarget === 'titles' 
-          ? ['#3182ce', '#2b6cb0', '#4299e1', '#63b3ed', '#2c5282'] 
-          : ['#2c3e50', '#34495e', '#1a252f', '#4e6a85', '#7f8c8d']
-          );
-          anycloudInstance.palette(customPalette);
-          anycloudInstance.container('wordcloudChartContainer');
-          anycloudInstance.draw();
-          }
+								  if (!isReread || includeRereads) {
+								  if (entry.title) {
+								  const words = entry.title.toLowerCase()
+								  .replace(/[^a-záéíóúüñ\s-]/g, '')
+								  .split(/\s+/);
+								  words.forEach(w => {
+	  if (w.length > 3 && !stopwords.has(w) && isNaN(w)) {
+	  titleWordsMap[w] = (titleWordsMap[w] || 0) + 1;
+	  }
+	  });
 	  }
 
-	  function refreshChart(id, type, labels, data, color, label, config = null) {
-          if (charts[id]) charts[id].destroy();
-          const canvasElement = document.getElementById(id);
-          if (!canvasElement) return;
-          const ctx = canvasElement.getContext('2d');
-          charts[id] = new Chart(ctx, config || { type, data: { labels, datasets: [{ label, data, backgroundColor: color, borderColor: color }] }, options: { maintainAspectRatio: false } });
+	  if (entry.author) {
+	  const paperAuthors = parseAuthorsString(entry.author);
+	  paperAuthors.forEach(auth => {
+	  authorsMap[auth] = (authorsMap[auth] || 0) + 1;
+	  });
 	  }
-	  init();
+	  }
+
+	  if (!isReread && entry.author) {
+	  const paperAuthors = parseAuthorsString(entry.author);
+	  
+	  paperAuthors.forEach(a => {
+	  authorPaperCount[a] = (authorPaperCount[a] || 0) + 1;
+	  });
+
+	  for (let i = 0; i < paperAuthors.length; i++) {
+			      for (let j = i + 1; j < paperAuthors.length; j++) {
+						      const a1 = paperAuthors[i];
+						      const a2 = paperAuthors[j];
+						      const edgeKey = (a1 < a2) ? `${a1} -- ${a2}` : `${a2} -- ${a1}`;
+									    networkEdgesMap[edgeKey] = (networkEdgesMap[edgeKey] || 0) + 1;
+									    }
+									    }
+									    }
+									    });
+
+									    const notePercentage = actualUniquePapers > 0 ? ((uniqueWithNotes / actualUniquePapers) * 100).toFixed(1) : 0;
+						      const roamPercentage = actualUniquePapers > 0 ? ((uniqueCitedInRoam / actualUniquePapers) * 100).toFixed(1) : 0; // <-- NUEVO CALCULO
+
+																					      document.getElementById('totalCount').innerText = (currentMetric === 'papers' ? processed.length : totalPages).toLocaleString();
+																					      document.getElementById('uniqueCount').innerText = uniqueCount.toLocaleString();
+																					      document.getElementById('rereadCount').innerText = rereadCount.toLocaleString();
+																					      document.getElementById('wordCount').innerText = totalWords.toLocaleString();
+																					      document.getElementById('notePercent').innerText = notePercentage + "%";
+																					      document.getElementById('roamPercent').innerText = roamPercentage + "%"; // <-- ASIGNACIÓN AL ELEMENTO HTML
+
+																															      const labels = [], cumTotal = [], cumUnique = [], cumReread = [], dailyNew = [], dailyReread = [];
+																															      let runU = 0, runR = 0;
+																															      let curr = new Date(processed[0]._date); curr.setHours(0,0,0,0);
+																															      const today = new Date();
+
+																															      while (curr <= today) {
+																																	     const k = curr.toLocaleDateString('en-CA');
+																																	     const d = historyMap[k] || { new: 0, reread: 0 };
+																																	     runU += d.new; runR += d.reread;
+																																	     labels.push(k);
+																																	     cumUnique.push(runU); cumReread.push(runR); cumTotal.push(runU + runR);
+																																	     dailyNew.push(d.new); dailyReread.push(d.reread);
+																																	     curr.setDate(curr.getDate() + 1);
+																																	     }
+
+																																	     // 1. ACUMULADO
+																																	     refreshChart('cumulativeChart', 'line', labels, null, null, null, {
+																																	     type: 'line',
+																																	     data: { labels, datasets: [
+																																	     { label: 'Total', data: cumTotal, borderColor: '#2c3e50', backgroundColor: 'rgba(44, 62, 80, 0.15)', fill: true, tension: 0.3 },
+																																	     { label: 'Únicos', data: cumUnique, borderColor: '#3182ce', backgroundColor: 'rgba(49, 130, 206, 0.4)', fill: true, tension: 0.3 },
+																																	     { label: 'Relecturas', data: cumReread, borderColor: '#9b59b6', backgroundColor: 'rgba(155, 89, 182, 0.4)', fill: true, tension: 0.3 }
+																																	     ]},
+																																	     options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'month' } } } }
+																																	     });
+
+																																	     // 2. POR DÍA
+																																	     refreshChart('historyChart', 'line', labels, null, null, null, {
+																																	     type: 'line',
+																																	     data: { labels, datasets: [
+																																	     { label: 'Total Día', data: labels.map((_,i) => dailyNew[i] + dailyReread[i]), borderColor: '#2c3e50', backgroundColor: 'rgba(44, 62, 80, 0.1)', fill: true, tension: 0.3 },
+																															      { label: 'Nuevos', data: dailyNew, borderColor: '#3182ce', backgroundColor: 'rgba(49, 130, 206, 0.3)', fill: true },
+																															      { label: 'Relecturas', data: dailyReread, borderColor: '#9b59b6', backgroundColor: 'rgba(155, 89, 182, 0.3)', fill: true }
+																															      ]},
+																															      options: { maintainAspectRatio: false, scales: { x: { type: 'time', time: { unit: 'day' } } } }
+																															      });
+
+																															      // 3. MES
+																															      const mLabels = Object.keys(monthMap);
+																															      refreshChart('monthChart', 'bar', mLabels, null, null, null, {
+																															      type: 'bar',
+																															      data: { labels: mLabels, datasets: [{ label: 'Nuevos', data: mLabels.map(m => monthMap[m].new), backgroundColor: '#3182ce' }, { label: 'Relecturas', data: mLabels.map(m => monthMap[m].reread), backgroundColor: '#9b59b6' }] },
+			      options: { maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
+			      });
+
+			      // 4. DÍA SEMANA
+			      refreshChart('weekdayChart', 'bar', days, null, null, null, {
+			      type: 'bar',
+			      data: { labels: days, datasets: [{ label: 'Nuevos', data: weekdayMap.map(d => d.new), backgroundColor: '#3182ce' }, { label: 'Relecturas', data: weekdayMap.map(d => d.reread), backgroundColor: '#9b59b6' }] },
+            options: { maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
+            });
+
+            // 5. HORARIOS RADAR
+            refreshChart('hourChart', 'radar', Array.from({length: 24}, (_, i) => i+":00"), null, null, null, {
+            type: 'radar',
+            data: { labels: Array.from({length: 24}, (_, i) => i+":00"), datasets: [{ label: 'Intensidad', data: hourCounts, backgroundColor: 'rgba(231, 76, 60, 0.3)', borderColor: '#e74c3c', fill: true }] },
+            options: { maintainAspectRatio: false }
+            });
+
+            // 6. INTENSIDAD GRID
+            const allIntensityValues = intensityMap.flat();
+            const maxIntensity = Math.max(...allIntensityValues, 1);
+            const intensityData = [];
+            for(let d=0; d<7; d++) for(let h=0; h<24; h++) intensityData.push({ x: h, y: days[d], v: intensityMap[d][h] });
+						      
+						      refreshChart('intensityChart', 'matrix', null, null, null, null, {
+						      type: 'matrix',
+						      data: { datasets: [{
+						      data: intensityData,
+						      backgroundColor: c => {
+			      const val = c.dataset.data[c.dataIndex].v;
+			      if (val === 0) return 'transparent';
+			      const alpha = Math.max(0.1, (val / maxIntensity) * 0.9);
+			      return `rgba(229, 62, 62, ${alpha})`;
+			      },
+			      width: ({chart}) => chart.chartArea ? chart.chartArea.width / 24 - 1 : 10,
+              height: ({chart}) => chart.chartArea ? chart.chartArea.height / 7 - 1 : 10
+              }]},
+              options: {
+              maintainAspectRatio: false,
+              scales: {
+              x: { type: 'linear', min: -0.5, max: 23.5, ticks: { stepSize: 1, callback: v => v+":00" } },
+              y: { type: 'category', labels: days, offset: true }
+              },
+              plugins: { tooltip: { callbacks: { label: (it) => `${it.raw.y} a las ${it.raw.x}:00 -> ${it.raw.v} lecturas` } } }
+              }
+              });
+
+              // 8. PROFUNDIDAD
+              const depthData = processed.filter(d => d.has_note === "yes").map(d => ({ x: d._date, y: d.words, r: Math.min(d.links * 3 + 5, 25), label: d.cite }));
+              refreshChart('depthChart', 'bubble', null, null, null, null, {
+              type: 'bubble',
+              data: { datasets: [{ label: 'Notas', data: depthData, backgroundColor: 'rgba(52, 152, 219, 0.6)', borderColor: '#2980b9' }] },
+              options: { maintainAspectRatio: false, plugins: { tooltip: { callbacks: { label: (ctx) => `Paper: ${ctx.raw.label} | Palabras: ${ctx.raw.y}` } } }, scales: { x: { type: 'time', time: { unit: 'month' } } } }
+              });
+
+              // 9. LOGICA DE RENDERIZADO UNIFICADA DE ANYCHART
+              document.getElementById('wordcloudChartContainer').innerHTML = "";
+
+              if (currentCloudTarget === 'network') {
+              const MIN_PAPERS = 2;
+              
+              const validEdges = Object.keys(networkEdgesMap).map(key => {
+              const parts = key.split(' -- ');
+              return { "source": parts[0], "target": parts[1], "weight": networkEdgesMap[key] };
+              }).filter(edge => authorPaperCount[edge.source] >= MIN_PAPERS && authorPaperCount[edge.target] >= MIN_PAPERS);
+
+              const nodeDegreeMap = {};
+              validEdges.forEach(edge => {
+              nodeDegreeMap[edge.source] = (nodeDegreeMap[edge.source] || 0) + 1;
+              nodeDegreeMap[edge.target] = (nodeDegreeMap[edge.target] || 0) + 1;
+              });
+
+              const nodesData = Object.keys(nodeDegreeMap).map(author => ({ 
+              id: author,
+              degree: nodeDegreeMap[author] || 1
+              }));
+
+              const top5Authors = new Set(
+              [...nodesData]
+              .sort((a, b) => b.degree - a.degree)
+              .slice(0, 5)
+              .map(d => d.id)
+              );
+
+              if (typeof d3 === 'undefined') {
+              const script = document.createElement('script');
+              script.src = "https://d3js.org/d3.v7.min.js";
+              script.async = false;
+              document.head.appendChild(script);
+              script.onload = () => renderD3Network(nodesData, validEdges);
+              } else {
+              renderD3Network(nodesData, validEdges);
+              }
+
+              function renderD3Network(nodes, links) {
+              const container = document.getElementById('wordcloudChartContainer');
+              container.innerHTML = ""; 
+
+              const width = container.clientWidth;
+              const height = container.clientHeight;
+
+              const svg = d3.select("#wordcloudChartContainer")
+              .append("svg")
+              .attr("width", "100%")
+              .attr("height", "100%")
+              .call(d3.zoom().on("zoom", (e) => g.attr("transform", e.transform)));
+
+              const g = svg.append("g");
+
+              const simulation = d3.forceSimulation(nodes)
+              .force("link", d3.forceLink(links).id(d => d.id).distance(150))
+              .force("charge", d3.forceManyBody().strength(-400))
+              .force("center", d3.forceCenter(width / 2, height / 2))
+              .force("collision", d3.forceCollide().radius(d => 10 + (Math.log(d.degree) * 6)));
+
+              const link = g.append("g")
+              .selectAll("line")
+              .data(links)
+              .join("line")
+              .style("stroke", "rgba(148, 163, 184, 0.35)")
+              .style("stroke-width", d => Math.min(1.5 + (d.weight * 1.5), 9)) 
+              .style("transition", "stroke 0.2s, stroke-width 0.2s");
+
+              link.append("title")
+              .text(d => `Papers compartidos: ${d.weight}`);
+
+              const node = g.append("g")
+              .selectAll(".node-group")
+              .data(nodes)
+              .join("g")
+              .attr("class", "node-group")
+              .style("cursor", "pointer")
+              .call(d3.drag()
+              .on("start", (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+              .on("drag", (e, d) => { d.fx = e.x; d.fy = e.y; })
+              .on("end", (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
+
+              const circles = node.append("circle")
+              .attr("r", d => Math.min(6 + (Math.log(d.degree) * 4), 16)) 
+              .style("fill", "#3182ce")
+              .style("stroke", "#ffffff")
+              .style("stroke-width", "1.5px")
+              .style("transition", "fill 0.2s, stroke-width 0.2s");
+
+              const labels = node.append("text")
+              .text(d => d.id)
+              .attr("dy", d => `${Math.min(6 + (Math.log(d.degree) * 4), 16) + 13}px`) 
+              .attr("text-anchor", "middle")
+              .style("font-size", "10px")
+              .style("font-weight", d => top5Authors.has(d.id) ? "800" : "600")
+              .style("fill", d => top5Authors.has(d.id) ? "#0f172a" : "#475569")
+              .style("pointer-events", "none")
+              .style("display", d => top5Authors.has(d.id) ? "block" : "none"); 
+
+              node.on("mouseover", function(event, d) {
+              const connectedNodes = new Set([d.id]);
+              const connectedPairs = new Set();
+
+              links.forEach(l => {
+              if (l.source.id === d.id) { connectedNodes.add(l.target.id); connectedPairs.add(`${l.source.id}-${l.target.id}`); }
+              else if (l.target.id === d.id) { connectedNodes.add(l.source.id); connectedPairs.add(`${l.source.id}-${l.target.id}`); }
+              });
+
+              labels.style("display", n => (top5Authors.has(n.id) || connectedNodes.has(n.id)) ? "block" : "none")
+              .style("fill", n => n.id === d.id ? "#000000" : (top5Authors.has(n.id) ? "#0f172a" : "#475569"));
+
+              circles.style("fill", n => {
+              if (n.id === d.id) return "#e53e3e";
+              return connectedNodes.has(n.id) ? "#ff9800" : "rgba(49, 130, 206, 0.12)";
+              }).style("stroke-width", n => connectedNodes.has(n.id) ? "2px" : "1px");
+
+              link.style("stroke", l => connectedPairs.has(`${l.source.id}-${l.target.id}`) ? "#334155" : "rgba(148, 163, 184, 0.03)")
+              .style("stroke-width", l => {
+              const baseWidth = Math.min(1.5 + (l.weight * 1.5), 8);
+              return connectedPairs.has(`${l.source.id}-${l.target.id}`) ? baseWidth + 3 : baseWidth;
+              });
+              });
+
+              link.on("mouseover", function(event, d) {
+              labels.style("display", n => (top5Authors.has(n.id) || n.id === d.source.id || n.id === d.target.id) ? "block" : "none");
+              circles.style("fill", n => (n.id === d.source.id || n.id === d.target.id) ? "#ff9800" : "rgba(49, 130, 206, 0.12)");
+              link.style("stroke", l => (l.index === d.index) ? "#334155" : "rgba(148, 163, 184, 0.03)")
+              .style("stroke-width", l => {
+              const baseWidth = Math.min(1.5 + (l.weight * 1.5), 8);
+              return (l.index === d.index) ? baseWidth + 3 : baseWidth;
+              });
+              });
+
+              const resetStyles = () => {
+              labels.style("display", n => top5Authors.has(n.id) ? "block" : "none")
+              .style("fill", d => top5Authors.has(d.id) ? "#0f172a" : "#475569");
+              circles.style("fill", "#3182ce").style("stroke-width", "1.5px");
+              link.style("stroke", "rgba(148, 163, 184, 0.35)").style("stroke-width", l => Math.min(1.5 + (l.weight * 1.5), 8));
+              };
+
+              node.on("mouseout", resetStyles);
+              link.on("mouseout", resetStyles);
+
+              simulation.on("tick", () => {
+              link.attr("x1", d => d.source.x)
+              .attr("y1", d => d.source.y)
+              .attr("x2", d => d.target.x)
+              .attr("y2", d => d.target.y);
+
+              node.attr("transform", d => `translate(${d.x},${d.y})`);
+              });
+              }
+
+              } else {
+              const targetDataSource = (currentCloudTarget === 'titles') ? titleWordsMap : authorsMap;
+              
+              const filteredCloudData = Object.keys(targetDataSource)
+              .filter(key => targetDataSource[key] > 1)
+              .map(key => {
+              return { "x": key, "value": targetDataSource[key] };
+              });
+
+              anycloudInstance = anychart.tagCloud(filteredCloudData);
+              anycloudInstance.angles([0, 15, -15, 30, -30]);
+              anycloudInstance.colorRange(false);
+              
+              const customPalette = anychart.palettes.distinctColors();
+              customPalette.items(
+              currentCloudTarget === 'titles' 
+              ? ['#3182ce', '#2b6cb0', '#4299e1', '#63b3ed', '#2c5282'] 
+              : ['#2c3e50', '#34495e', '#1a252f', '#4e6a85', '#7f8c8d']
+              );
+              anycloudInstance.palette(customPalette);
+              anycloudInstance.container('wordcloudChartContainer');
+              anycloudInstance.draw();
+              }
+	      }
+
+	      function refreshChart(id, type, labels, data, color, label, config = null) {
+              if (charts[id]) charts[id].destroy();
+              const canvasElement = document.getElementById(id);
+              if (!canvasElement) return;
+              const ctx = canvasElement.getContext('2d');
+              charts[id] = new Chart(ctx, config || { type, data: { labels, datasets: [{ label, data, backgroundColor: color, borderColor: color }] }, options: { maintainAspectRatio: false } });
+	      }
+	      init();
     </script>
   </body>
 </html>
